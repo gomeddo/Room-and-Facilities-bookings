@@ -1,6 +1,7 @@
 import React from "react";
 import room from "../assets/apart.jpeg";
 import star from "../assets/star.jpg";
+import DashboardFilters from "./DashboardFilters";
 
 function Dashboard() {
   const cardsData = [
@@ -68,50 +69,8 @@ function Dashboard() {
   ];
   return (
     <div className="flex p-6 bg-gray-200 max-h-screen pt-10 pb-10">
-      {/* Left portion taking 1/4 of the page */}
-      <div className="w-1/4 bg-white shadow-lg rounded rounded-8  p-3 backdrop-blur-75 h-1/4">
-        {/* Date Picker */}
-        <input
-          type="date"
-          className="w-full mb-4 px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500 relative"
-        />
-
-        <svg
-          class="absolute top-1/2 right-3 transform -translate-y-1/2"
-          width="20"
-          height="20"
-        ></svg>
-
-        {/* Select Inputs */}
-        <select className="w-full mb-4 px-3 py-2 border rounded-sm bg-gray-200  focus:outline-none focus:border-blue-500">
-          <option value="">Option 1</option>
-        </select>
-        <select className="w-full mb-4 px-3 py-2 border rounded-sm bg-gray-200 focus:outline-none focus:border-blue-500">
-          <option value="">Option 2</option>
-        </select>
-        <select className="w-full mb-4 px-3 py-2 border rounded-sm bg-gray-200 focus:outline-none focus:border-blue-500">
-          <option value="">Option 3</option>
-        </select>
-        <select className="w-full mb-4 px-3 py-2 border rounded-sm bg-gray-200 focus:outline-none focus:border-blue-500">
-          <option value="">Option 4</option>
-        </select>
-        <select className="w-full mb-4 px-3 py-2 border rounded-sm bg-gray-200 focus:outline-none focus:border-blue-500">
-          <option value="">Option 5</option>
-        </select>
-        <select className="w-full mb-4 px-3 py-2 border rounded-sm bg-gray-200 focus:outline-none focus:border-blue-500">
-          <option value="">Option 6</option>
-        </select>
-
-        {/* Apply and Cancel Buttons */}
-        <div className="flex justify-end mx-1">
-          <button className="bg-blue-500 text-white p-2 rounded-md mb-2 mr-2">
-            Apply
-          </button>
-          <button className="bg-gray-500 text-white p-2 rounded-md mb-2 mr-2">
-            Cancel
-          </button>
-        </div>
-      </div>
+      {/* <!-- Left portion taking 1/4 of the page --> */}
+      <DashboardFilters />
 
       {/* Right portion taking 3/4 of the page */}
       <div className="w-3/4  p-6">
