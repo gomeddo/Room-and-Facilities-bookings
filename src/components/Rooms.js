@@ -117,6 +117,9 @@ function Rooms() {
                                 </h5>
                                 <div className="flex items-center py-2">
                                     <img src={star} className="w-6 h-6" alt="" />
+                                    <span className="text-sm text-gray-500 ml-2 font-bold">
+                                        4.5
+                                    </span>
                                     <span className="text-solid-neutral-700 text-xs font-semibold px-2.5 py-0.5 rounded dark:text-solid-neutral-700 ms-3">
                                         Mercedes Vito
                                     </span>
