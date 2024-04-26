@@ -4,7 +4,7 @@ function DashboardFilters() {
     return (
         <>
             {/* <!-- Left portion taking 1/4 of the page --> */}
-            <div className="w-1/4 bg-white shadow-lg rounded rounded-8 p-3 backdrop-blur-75 h-1/4 sticky top-0">
+            <div className="w-1/4 bg-white shadow-lg rounded rounded-8 p-3 backdrop-blur-75 h-1/4 sticky top-20">
                 {/* <!-- Date Picker --> */}
                 <input
                     type="date"
