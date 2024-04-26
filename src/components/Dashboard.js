@@ -9,52 +9,98 @@ function Dashboard() {
       image: room,
       alt: "product image",
       features: ["2 guests", "Bicycle storage", "Free Wi-Fi"],
+      type: "villa",
+      from: "2021-10-01",
+      to: "2021-10-05",
+      location: "location 1",
+      size: 10,
+      price: 1000,
     },
     {
       title: "Full Furnished Smart Studio Apartments",
       image: room,
       alt: "product image",
       features: ["1 guests", "Heating and/or air conditioning", "Free Wi-Fi"],
+      type: "flat",
+      from: "2021-05-01",
+      to: "2021-10-05",
+      location: "location 2",
+      size: 20,
+      price: 2000,
     },
     {
       title: "Full Furnished Smart Studio Apartments",
       image: room,
       alt: "product image",
       features: ["2 guests", "Laundry facilities", "Free Wi-Fi"],
+      type: "house",
+      from: "2021-05-01",
+      to: "2021-11-05",
+      location: "location 3",
+      size: 30,
+      price: 3000,
     },
     {
       title: "Full Furnished Smart Studio Apartments",
       image: room,
       alt: "product image",
       features: ["2 guests", "Free Parking", "Free Wi-Fi"],
+      type: "apartment",
+      from: "2021-02-01",
+      to: "2021-12-05",
+      location: "location 4",
+      size: 40,
+      price: 4000,
     },
     {
       title: "Full Furnished Smart Studio Apartments",
       image: room,
       alt: "product image",
       features: ["4 guests", "Pool", "Free Wi-Fi", "Gym"],
+      type: "villa",
+      from: "2021-05-01",
+      to: "2021-10-05",
+      location: "location 1",
+      size: 10,
+      price: 1000,
     },
     // Add more card data objects as needed
   ];
   return (
     <div className="flex p-6 bg-gray-200 max-h-screen pt-10 pb-10">
       {/* Left portion taking 1/4 of the page */}
-      <div className="w-1/4 bg-white shadow-lg rounded p-3">
+      <div className="w-1/4 bg-white shadow-lg rounded rounded-8  p-3 backdrop-blur-75 h-1/4">
         {/* Date Picker */}
         <input
           type="date"
-          className="w-full mb-4 px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+          className="w-full mb-4 px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500 relative"
         />
 
+        <svg
+          class="absolute top-1/2 right-3 transform -translate-y-1/2"
+          width="20"
+          height="20"
+        ></svg>
+
         {/* Select Inputs */}
-        {[...Array(6)].map((_, index) => (
-          <select
-            key={index}
-            className="w-full mb-4 px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
-          >
-            <option value="">Option {index + 1}</option>
-          </select>
-        ))}
+        <select className="w-full mb-4 px-3 py-2 border rounded-sm bg-gray-200  focus:outline-none focus:border-blue-500">
+          <option value="">Option 1</option>
+        </select>
+        <select className="w-full mb-4 px-3 py-2 border rounded-sm bg-gray-200 focus:outline-none focus:border-blue-500">
+          <option value="">Option 2</option>
+        </select>
+        <select className="w-full mb-4 px-3 py-2 border rounded-sm bg-gray-200 focus:outline-none focus:border-blue-500">
+          <option value="">Option 3</option>
+        </select>
+        <select className="w-full mb-4 px-3 py-2 border rounded-sm bg-gray-200 focus:outline-none focus:border-blue-500">
+          <option value="">Option 4</option>
+        </select>
+        <select className="w-full mb-4 px-3 py-2 border rounded-sm bg-gray-200 focus:outline-none focus:border-blue-500">
+          <option value="">Option 5</option>
+        </select>
+        <select className="w-full mb-4 px-3 py-2 border rounded-sm bg-gray-200 focus:outline-none focus:border-blue-500">
+          <option value="">Option 6</option>
+        </select>
 
         {/* Apply and Cancel Buttons */}
         <div className="flex justify-end mx-1">
