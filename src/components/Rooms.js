@@ -84,10 +84,13 @@ function Rooms() {
     };
     return (
         <>
-            {/* <!-- Left portion taking 1/4 of the page --> */}
+            {/* <DashboardFilters /> */}
 
             {/* Right portion taking 3/4 of the page */}
             <div className="w-3/4 p-6">
+                <div className="text-xl font-semibold mb-8">
+                    {cardsData.length} homes for rent in Amsterdam
+                </div>
                 <InfiniteScroll
                     dataLength={displayedCards}
                     next={loadMoreCards}
