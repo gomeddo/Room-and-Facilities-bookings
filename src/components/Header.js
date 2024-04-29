@@ -7,7 +7,7 @@ function Header() {
       <div className="flex flex-col md:flex-row md:justify-between items-center max-w-7xl mx-auto">
         {/* Text on the left */}
         <div className="text-black font-bold mb-4 md:mb-0 md:mr-4">
-          Berlin Metropolitan University
+          Amsterdam Metropolitan University
         </div>
         {/* Nav Links on the right */}
         <div className="flex flex-wrap">
