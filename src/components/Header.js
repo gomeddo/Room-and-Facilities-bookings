@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 function Header() {
   return (
@@ -11,24 +10,21 @@ function Header() {
         </div>
         {/* Nav Links on the right */}
         <div className="flex flex-wrap">
-          <Link
-            to="/"
-            className="text-black mr-4 mb-2 md:mb-0 font-medium text-sm"
+          <div
+            className="text-black mr-4 mb-2 md:mb-0 font-medium text-sm hover:text-lg cursor-not-allowed"
           >
             Home
-          </Link>
-          <Link
-            to="/about"
-            className="text-black mr-4 mb-2 md:mb-0 font-medium text-sm"
+          </div>
+          <div
+            className="text-black mr-4 mb-2 md:mb-0 font-medium text-sm hover:text-lg cursor-not-allowed"
           >
             Room
-          </Link>
-          <Link
-            to="/contact"
-            className="text-black mb-2 md:mb-0 font-medium text-sm"
+          </div>
+          <div
+            className="text-black mb-2 md:mb-0 font-medium text-sm hover:text-lg cursor-not-allowed"
           >
-            Contact us{" "}
-          </Link>
+            Contact us
+          </div>
         </div>
       </div>
     </nav>
