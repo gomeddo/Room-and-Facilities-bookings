@@ -15,22 +15,22 @@ function DashboardFilters() {
           <DatePicker />
           {/* Select Inputs */}
           <Select>
-            <option value="">Option 1</option>
+            <option value="">From - To</option>
           </Select>
           <Select>
-            <option value="">Option 2</option>
+            <option value="">Group Size</option>
           </Select>
           <Select>
-            <option value="">Option 3</option>
+            <option value="">Location</option>
           </Select>
           <Select>
-            <option value="">Option 4</option>
+            <option value="">Accommodation Type</option>
           </Select>
           <Select>
-            <option value="">Option 5</option>
+            <option value="">Price</option>
           </Select>
           <Select>
-            <option value="">Option 6</option>
+            <option value="">Distance</option>
           </Select>
           {/* Apply and Cancel Buttons */}
           <div className="flex justify-end gap-2 mx-1">
