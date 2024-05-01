@@ -1,8 +1,8 @@
 import { Link, useSearchParams } from "react-router-dom";
-import star from "../../components/icons/star.svg";
 import Button from "../../components/button";
 import Card from "../../components/card";
 import Chip from "../../components/chip";
+import { Star } from "react-feather";
 
 export default function RoomCard(props) {
   const [, setSearchParams] = useSearchParams();
@@ -20,7 +20,7 @@ export default function RoomCard(props) {
             {props.title}
           </h5>
           <div className="flex items-center gap-2 text-[#444444]">
-            <img src={star} className="w-4 h-4" alt="" />
+            <Star className="w-4 h-4 fill-current text-[#4200FF]" />
             <span className="text-sm font-bold">4.5</span>
             <span className="text-sm rounded">Tony Vito</span>
           </div>

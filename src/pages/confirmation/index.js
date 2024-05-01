@@ -2,9 +2,9 @@ import clsx from "clsx";
 import { useSearchParams } from "react-router-dom";
 import Button from "../../components/button";
 import Card from "../../components/card";
-import star from "../../components/icons/star.svg";
-import { cardsData } from "../../constants";
 import Chip from "../../components/chip";
+import { cardsData } from "../../constants";
+import { Star } from "react-feather";
 
 function Confirmation(props) {
   const [, setSearchParams] = useSearchParams();
@@ -28,7 +28,7 @@ function Confirmation(props) {
             {new Date(room.to).toLocaleDateString()}
           </div>
           <div className="justify-center flex items-center gap-2 text-[#444444]">
-            <img src={star} className="w-4 h-4" alt="" />
+            <Star className="w-4 h-4 fill-current text-[#4200FF]" />
             <span className="font-bold">4.5</span>
             <span className="rounded">Tony Vito</span>
           </div>
