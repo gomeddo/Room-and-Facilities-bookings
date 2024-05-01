@@ -10,19 +10,13 @@ function Header() {
         </div>
         {/* Nav Links on the right */}
         <div className="flex flex-wrap">
-          <div
-            className="text-black mr-4 mb-2 md:mb-0 font-medium text-sm hover:text-lg cursor-not-allowed"
-          >
+          <div className="text-black mr-4 mb-2 md:mb-0 font-medium text-sm hover:text-lg cursor-not-allowed">
             Home
           </div>
-          <div
-            className="text-black mr-4 mb-2 md:mb-0 font-medium text-sm hover:text-lg cursor-not-allowed"
-          >
+          <div className="text-black mr-4 mb-2 md:mb-0 font-medium text-sm hover:text-lg cursor-not-allowed">
             Room
           </div>
-          <div
-            className="text-black mb-2 md:mb-0 font-medium text-sm hover:text-lg cursor-not-allowed"
-          >
+          <div className="text-black mb-2 md:mb-0 font-medium text-sm hover:text-lg cursor-not-allowed">
             Contact us
           </div>
         </div>
