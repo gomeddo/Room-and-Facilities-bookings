@@ -68,7 +68,7 @@ export default function ConfirmationPage() {
     return (
         <div
             className={clsx(
-                "z-20 h-screen w-screen fixed top-0 left-0 bg-black bg-opacity-1",
+                "z-20 h-screen w-screen fixed top-0 left-0 bg-black bg-opacity-65",
                 {
                     hidden: confirmationId == null,
                 }
