@@ -1,11 +1,17 @@
-import { useParams } from "react-router-dom";
-import star from "../../components/icons/star.svg"
+import { useParams, useNavigate } from "react-router-dom";
+import star from "../../components/icons/star.svg";
 import Chip from "../../components/chip";
 import { cardsData } from "../../constants";
+import X from "../../components/icons/x.svg";
 
 export default function RoomPage() {
   const { roomId } = useParams();
   const room = cardsData[roomId];
+  const navigate = useNavigate();
+
+  const handleClose = () => {
+    navigate("/"); // Navigate back to the home page or any other desired route
+  };
 
   return (
     <div className="h-screen w-screen flex flex-row">
@@ -28,6 +34,9 @@ export default function RoomPage() {
         </div>
       </div>
       <div className="w-2/3 my-auto">
+        <div className="absolute top-0 right-0 p-4" onClick={handleClose}>
+          <img src={X} className="w-18 h-18" />
+        </div>
         <div className="max-w-7xl p-20 h-full">
           <div className="w-full pb-8">
             <img
