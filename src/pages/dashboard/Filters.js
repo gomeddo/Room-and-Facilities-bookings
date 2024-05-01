@@ -15,9 +15,6 @@ function DashboardFilters() {
           <DatePicker />
           {/* Select Inputs */}
           <Select>
-            <option value="">From - To</option>
-          </Select>
-          <Select>
             <option value="">Group Size</option>
           </Select>
           <Select>
