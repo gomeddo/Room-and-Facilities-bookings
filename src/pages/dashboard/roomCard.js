@@ -19,7 +19,7 @@ export default function RoomCard(props) {
                     <h5 className="font-bold text-base tracking-tight text-gray-900 font-ubuntu">
                         {props.title}
                     </h5>
-                    <div className="flex items-center text-[#444444]">
+                    <div className="flex items-center gap-2 text-[#444444]">
                         <img src={star} className="w-4 h-4" alt="" />
                         <span className="text-sm font-bold">4.5</span>
                         <span className="text-sm rounded">Tony Vito</span>
