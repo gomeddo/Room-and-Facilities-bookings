@@ -29,7 +29,7 @@ export default function Rooms() {
           dataLength={displayedCards}
           next={loadMoreCards}
           hasMore={hasMore}
-          loader={<h4>Loading...</h4>}
+          loader={<h4>Loading.....</h4>}
           className="flex flex-col gap-6"
         >
           {cardsData.slice(0, displayedCards).map((card, index) => (
