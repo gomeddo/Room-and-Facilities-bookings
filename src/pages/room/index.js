@@ -39,7 +39,7 @@ export default function RoomPage() {
             <span className="font-bold">4.5</span>
             <span className="rounded">Tony Vito</span>
           </div>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2 justify-center">
             {room.features.map((feature, index) => (
               <Chip key={index}>{feature}</Chip>
             ))}
