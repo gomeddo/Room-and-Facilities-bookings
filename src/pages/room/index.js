@@ -11,14 +11,22 @@ const photos = [apart1, apart2, apart3];
 
 export default function RoomPage() {
   const { roomId } = useParams();
-
   const [selectedPhoto, setSelectedPhoto] = useState(0);
-
+  const [isImageModalOpen, setIsImageModalOpen] = useState(false);
   const room = cardsData[roomId];
   const navigate = useNavigate();
 
   const handleClose = () => {
-    navigate("/"); // Navigate back to the home page or any other desired route
+    navigate("/");
+  };
+
+  const handleImageClick = (index) => {
+    setSelectedPhoto(index);
+    setIsImageModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setIsImageModalOpen(false);
   };
 
   return (
@@ -39,7 +47,7 @@ export default function RoomPage() {
           <div className="text-[#595959] whitespace-pre-line">
             {room.description}
           </div>
-          <div className="text-1xl font-bold">Price per night :  {room.pricePerNight ? "Price: $" + room.pricePerNight : "$120"}</div>
+          <div className="text-1xl font-bold">Price per night :  {room.pricePerNight ? "Price: €" + room.pricePerNight : "€120"}</div>
         </div>
       </div>
       <div className="w-2/3 my-auto">
@@ -70,23 +78,46 @@ export default function RoomPage() {
             <img
               src={photos[selectedPhoto]}
               alt={room.alt}
-              className="rounded-lg object-cover w-full h-auto aspect-video select-none"
+              className="rounded-lg object-cover w-full h-auto aspect-video select-none cursor-pointer"
+              onClick={() => setIsImageModalOpen(true)}
             />
           </div>
           <div className="flex flex-row gap-8 w-full">
             {photos.map((photo, index) => (
-              <div className="flex-1 cursor-pointer hover:scale-105 transition-all">
+              <div
+                key={index}
+                className="flex-1 cursor-pointer hover:scale-105 transition-all"
+                onClick={() => handleImageClick(index)}
+              >
                 <img
                   src={photo}
                   alt={room.alt}
                   className="rounded-lg object-cover aspect-video"
-                  onClick={() => setSelectedPhoto(index)}
                 />
               </div>
             ))}
           </div>
         </div>
       </div>
+      {/* Image Modal */}
+      {isImageModalOpen && (
+        <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-80 flex justify-center items-center">
+          <div className="max-w-screen-lg w-full">
+            <img
+              src={photos[selectedPhoto]}
+              alt={room.alt}
+              className="rounded-lg object-contain w-full h-full cursor-pointer"
+              onClick={handleModalClose}
+            />
+            <div
+              className="absolute top-4 right-4 cursor-pointer"
+              onClick={handleModalClose}
+            >
+              <X className="w-8 h-8 text-white" />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
