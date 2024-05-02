@@ -5,7 +5,6 @@ import { Calendar as CalendarIcon } from "react-feather";
 
 export default function DatePicker(props) {
   const [date, setDate] = useState(undefined);
-  console.log(date);
 
   return (
     <Popover>
