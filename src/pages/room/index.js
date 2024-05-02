@@ -7,7 +7,7 @@ import { cardsData } from "../../constants";
 export default function RoomPage() {
   const { roomId } = useParams();
   const room = cardsData[roomId];
-  const navigate = useNavigate();
+const navigate = useNavigate();
 
   const handleClose = () => {
     navigate("/"); // Navigate back to the home page or any other desired route
@@ -17,7 +17,7 @@ export default function RoomPage() {
     <div className="h-screen w-screen flex flex-row overflow-hidden">
       <div className="bg-white w-1/3">
         <div className="h-full justify-center ml-auto flex flex-col p-20 gap-8 items-center text-center max-w-2xl">
-          <div className="text-black text-6xl font-bold">{room.title}</div>
+          <div className="text-black text-5xl font-bold">{room.title}</div>
           <div className="flex flex-row gap-2 items-center text-[#444] text-2xl">
             <Star className="w-7 h-7 fill-current text-[#4200FF]" />
             <span className="font-bold">4.5</span>
@@ -31,6 +31,7 @@ export default function RoomPage() {
           <div className="text-[#595959] whitespace-pre-line">
             {room.description}
           </div>
+          <div className="text-1xl font-bold">Price per night :  {room.pricePerNight ? "Price: $" + room.pricePerNight : "$120"}</div>
         </div>
       </div>
       <div className="w-2/3 my-auto">
