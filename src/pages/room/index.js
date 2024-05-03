@@ -47,10 +47,12 @@ export default function RoomPage() {
           <div className="text-[#595959] whitespace-pre-line">
             {room.description}
           </div>
-          <div className="text-1xl font-bold">Price per night :  {room.pricePerNight ? "Price: €" + room.pricePerNight : "€120"}</div>
+          <div className="text-1xl font-bold">
+            Price per night : {room.pricePerNight ? "Price: €" + room.pricePerNight : "€120"}
+          </div>
         </div>
       </div>
-      <div className="w-2/3 my-auto">
+      <div className="w-2/3 my-auto relative">
         <div
           className="absolute top-0 right-0 p-2 cursor-pointer hover:bg-gray-200 hover:scale-110 rounded-full m-2 transition-all"
           onClick={handleClose}
@@ -102,13 +104,33 @@ export default function RoomPage() {
       {/* Image Modal */}
       {isImageModalOpen && (
         <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-80 flex justify-center items-center">
-          <div className="max-w-screen-lg w-full">
+          <div className="max-w-screen-lg w-full relative">
             <img
               src={photos[selectedPhoto]}
               alt={room.alt}
               className="rounded-lg object-contain w-full h-full cursor-pointer"
               onClick={handleModalClose}
             />
+            <div
+              className="absolute top-1/2 -translate-y-1/2 left-4 cursor-pointer bg-white rounded-full opacity-75 hover:opacity-100 hover:scale-105"
+              onClick={() => {
+                setSelectedPhoto((state) =>
+                  state === 0 ? photos.length - 1 : state - 1
+                );
+              }}
+            >
+              <ChevronLeft className="w-12 h-12 text-grey " />
+            </div>
+            <div
+              className="absolute top-1/2 -translate-y-1/2 right-4 cursor-pointer bg-white rounded-full opacity-75 hover:opacity-100 hover:scale-105"
+              onClick={() =>
+                setSelectedPhoto((state) =>
+                  state === photos.length - 1 ? 0 : state + 1
+                )
+              }
+            >
+              <ChevronRight className="w-12 h-12 text-grey" />
+            </div>
             <div
               className="absolute top-4 right-4 cursor-pointer"
               onClick={handleModalClose}
