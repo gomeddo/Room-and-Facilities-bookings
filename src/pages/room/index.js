@@ -48,7 +48,8 @@ export default function RoomPage() {
             {room.description}
           </div>
           <div className="text-1xl font-bold">
-            Price per night : {room.pricePerNight ? "Price: €" + room.pricePerNight : "€120"}
+            Price per night :{" "}
+            {room.pricePerNight ? "Price: €" + room.pricePerNight : "€120"}
           </div>
         </div>
       </div>
@@ -119,7 +120,7 @@ export default function RoomPage() {
                 );
               }}
             >
-              <ChevronLeft className="w-12 h-12 text-grey " />
+              <ChevronLeft className="w-8 h-8 text-grey " />
             </div>
             <div
               className="absolute top-1/2 -translate-y-1/2 right-4 cursor-pointer bg-white rounded-full opacity-75 hover:opacity-100 hover:scale-105"
@@ -129,7 +130,7 @@ export default function RoomPage() {
                 )
               }
             >
-              <ChevronRight className="w-12 h-12 text-grey" />
+              <ChevronRight className="w-8 h-8 text-grey" />
             </div>
             <div
               className="absolute top-4 right-4 cursor-pointer"
