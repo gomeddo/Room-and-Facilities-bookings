@@ -48,8 +48,7 @@ export default function RoomPage() {
             {room.description}
           </div>
           <div className="text-1xl font-bold">
-            Price per night :{" "}
-            {room.pricePerNight ? "Price: €" + room.pricePerNight : "€120"}
+            Price per night: € {room.price}
           </div>
         </div>
       </div>
