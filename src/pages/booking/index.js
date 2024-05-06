@@ -1,29 +1,37 @@
-import { useSearchParams } from "react-router-dom";
-import Card from "../../components/card";
-import { cardsData } from "../../constants";
-import Label from "../../components/label";
-import Input from "../../components/input";
-import Button from "../../components/button";
-import clsx from "clsx";
+import { useSearchParams } from "react-router-dom"; // Importing hook for accessing URL search parameters
+import Card from "../../components/card"; // Importing Card component
+import { cardsData } from "../../constants"; // Importing data for cards
+import Label from "../../components/label"; // Importing Label component
+import Input from "../../components/input"; // Importing Input component
+import Button from "../../components/button"; // Importing Button component
+import clsx from "clsx"; // Importing clsx library for conditional classes
 
+// Functional component for booking details
 function Booking(props) {
-  const [, setSearchParams] = useSearchParams();
-  const room = cardsData[props.id];
+  const [, setSearchParams] = useSearchParams(); // Getting and setting URL search parameters
+  const room = cardsData[props.id]; // Getting room details from cardsData based on ID passed as props
 
   return (
     <Card className="m-20 rounded-lg w-auto max-w-4xl">
+      {" "}
+      {/* Styling for Card */}
       <Card.Image
         src={room.image}
         alt={room.alt}
-        className="rounded-none rounded-l-lg h-full w-2/5"
+        className="rounded-none rounded-l-lg h-full w-2/5" // Styling for Card Image
       />
       <Card.Body className="px-6 py-10 w-3/5">
-        <div className="font-bold text-2xl text-center">{room.title}</div>
+        {" "}
+        {/* Styling for Card Body */}
+        <div className="font-bold text-2xl text-center">{room.title}</div>{" "}
+        {/* Displaying room title */}
         <div className="bg-[#DBDBFE] rounded-full font-bold text-center p-1">
+          {/* Displaying booking dates */}
           {new Date(room.from).toLocaleDateString()} -{" "}
           {new Date(room.to).toLocaleDateString()}
         </div>
-        <Label className="flex flex-col pt-1">
+        {/* Labels and Inputs for user information */}
+        <Label className="flex flex-col">
           First Name
           <Input />
         </Label>
@@ -39,6 +47,7 @@ function Booking(props) {
           Phone Number
           <Input />
         </Label>
+        {/* Checkbox for data permission */}
         <div className="flex gap-4 text-xs pt-2">
           <input type="checkbox" />
           <div>
@@ -46,12 +55,13 @@ function Booking(props) {
             data to contact me. More information in our privacy statement.
           </div>
         </div>
+        {/* Buttons for cancelling or confirming booking */}
         <div className="flex gap-2 justify-end">
           <Button
             variant="secondary"
             onClick={() =>
               setSearchParams((params) => {
-                params.delete("bookingId");
+                params.delete("bookingId"); // Deleting bookingId parameter from URL
                 return params;
               })
             }
@@ -61,8 +71,8 @@ function Booking(props) {
           <Button
             onClick={() => {
               setSearchParams((params) => {
-                params.delete("bookingId");
-                params.set("confirmationId", props.id);
+                params.delete("bookingId"); // Deleting bookingId parameter from URL
+                params.set("confirmationId", props.id); // Setting confirmationId parameter in URL
                 return params;
               });
             }}
@@ -75,21 +85,23 @@ function Booking(props) {
   );
 }
 
+// Functional component for Booking page
 export default function BookingPage() {
-  const [searchParams] = useSearchParams();
-  const bookingId = searchParams.get("bookingId");
+  const [searchParams] = useSearchParams(); // Getting URL search parameters
+  const bookingId = searchParams.get("bookingId"); // Getting bookingId from URL
 
   return (
     <div
       className={clsx(
-        "z-20 h-screen w-screen fixed top-0 left-0 bg-black bg-opacity-65",
+        "z-20 h-screen w-screen fixed top-0 left-0 bg-black bg-opacity-65", // Styling for overlay background
         {
-          hidden: bookingId == null,
+          hidden: bookingId == null, // Hiding if bookingId is null
         }
       )}
     >
       <div className="flex justify-center">
-        {bookingId != null && <Booking id={bookingId} />}
+        {bookingId != null && <Booking id={bookingId} />}{" "}
+        {/* Displaying Booking component if bookingId exists */}
       </div>
     </div>
   );

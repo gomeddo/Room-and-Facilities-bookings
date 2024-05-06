@@ -1,14 +1,16 @@
 import * as React from "react";
-import { DayPicker } from "react-day-picker";
-import { ChevronLeft, ChevronRight } from "react-feather";
-import { twMerge } from "tailwind-merge";
+import { DayPicker } from "react-day-picker"; // Importing DayPicker component from react-day-picker
+import { ChevronLeft, ChevronRight } from "react-feather"; // Importing ChevronLeft and ChevronRight components from react-feather
+import { twMerge } from "tailwind-merge"; // Importing twMerge function from tailwind-merge library
 
 function Calendar({ className, classNames, showOutsideDays = true, ...props }) {
+  // Functional component named Calendar receiving props like className, classNames, showOutsideDays with a default value of true, and other props
   return (
     <DayPicker
-      showOutsideDays={showOutsideDays}
-      className={twMerge("p-3", className)}
+      showOutsideDays={showOutsideDays} // Prop to control whether to show days outside of the current month
+      className={twMerge("p-3", className)} // Applying Tailwind CSS classes to the DayPicker component, merging the existing className with "p-3"
       classNames={{
+        // Object defining custom class names for different parts of the DayPicker component
         months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
         month: "space-y-4",
         caption: "flex justify-center pt-1 relative items-center",
@@ -37,10 +39,10 @@ function Calendar({ className, classNames, showOutsideDays = true, ...props }) {
         IconLeft: ({ ...props }) => <ChevronLeft className="h-4 w-4" />,
         IconRight: ({ ...props }) => <ChevronRight className="h-4 w-4" />,
       }}
-      {...props}
+      {...props} // Spread operator to pass any additional props to the DayPicker component
     />
   );
 }
-Calendar.displayName = "Calendar";
+Calendar.displayName = "Calendar"; // Setting the display name of the Calendar component
 
 export { Calendar };

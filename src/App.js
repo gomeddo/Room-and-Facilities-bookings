@@ -7,16 +7,23 @@ import ConfirmationPage from "./pages/confirmation";
 function App() {
   return (
     <div>
+      {/* BrowserRouter component to enable routing */}
       <BrowserRouter>
+        {/* Routes component to define routes */}
         <Routes>
+          {/* Route for the dashboard page */}
           <Route index element={<DashboardPage />} />
+          {/* Route for individual room pages */}
           <Route path="/rooms/:roomId" element={<RoomPage />} />
         </Routes>
+        {/* BookingPage component rendered outside of the router */}
         <BookingPage />
+        {/* ConfirmationPage component rendered outside of the router */}
         <ConfirmationPage />
       </BrowserRouter>
     </div>
   );
 }
 
+// Exporting the App component
 export default App;
