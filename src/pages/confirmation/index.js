@@ -9,7 +9,10 @@ import { Star } from "react-feather";
 function Confirmation(props) {
   const [, setSearchParams] = useSearchParams();
   const room = cardsData[props.id];
-  const days = Math.round((room.to - room.from) / (1000 * 60 * 60 * 24));
+  const days = Math.round(
+    (new Date(room.to).getTime() - new Date(room.from).getTime()) /
+      (1000 * 60 * 60 * 24)
+  );
 
   return (
     <Card className="m-20 rounded-lg w-auto max-w-4xl">
@@ -48,7 +51,7 @@ function Confirmation(props) {
             Calculation: € {room.price} x {days} days
           </div>
           <div className="text-m font-bold">
-          Total Cost (incl. Taxes):  € {room.price * days}
+            Total Cost (incl. Taxes): € {room.price * days}
           </div>
         </div>
         <div className="justify-end ml-auto">
