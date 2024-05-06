@@ -18,8 +18,12 @@ function Booking(props) {
         className="rounded-none rounded-l-lg h-full w-2/5"
       />
       <Card.Body className="px-6 py-10 w-3/5">
-        <div className="font-bold text-2xl text-center pb-3">{room.title}</div>
-        <Label className="flex flex-col">
+        <div className="font-bold text-2xl text-center">{room.title}</div>
+        <div className="bg-[#DBDBFE] rounded-full font-bold text-center p-1">
+          {new Date(room.from).toLocaleDateString()} -{" "}
+          {new Date(room.to).toLocaleDateString()}
+        </div>
+        <Label className="flex flex-col pt-1">
           First Name
           <Input />
         </Label>
