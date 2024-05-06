@@ -9,6 +9,7 @@ import { Star } from "react-feather";
 function Confirmation(props) {
   const [, setSearchParams] = useSearchParams();
   const room = cardsData[props.id];
+  const days = Math.round((room.to - room.from) / (1000 * 60 * 60 * 24));
 
   return (
     <Card className="m-20 rounded-lg w-auto max-w-4xl">
@@ -31,7 +32,7 @@ function Confirmation(props) {
             <span className="font-bold">4.5</span>
             <span className="rounded">Tony Vito</span>
           </div>
-          <div className="justify-center flex flex-wrap gap-2">
+          <div className="justify-center flex flex-wrap gap-2 pb-2">
             {/* Buttons */}
             {room.features.map((feature, index) => (
               <Chip
@@ -41,6 +42,13 @@ function Confirmation(props) {
                 {feature}
               </Chip>
             ))}
+          </div>
+          <hr class="h-0.5 border-t-0 bg-neutral-200" />
+          <div className="text-m">
+            Calculation: € {room.price} x {days} days
+          </div>
+          <div className="text-m font-bold">
+          Total Cost (incl. Taxes):  € {room.price * days}
           </div>
         </div>
         <div className="justify-end ml-auto">
