@@ -1,6 +1,8 @@
 import Rooms from "./rooms"; // Importing the Rooms component from the "rooms" file
 import DashboardFilters from "./filters"; // Importing the DashboardFilters component from the "filters" file
 import Header from "../../components/header"; // Importing the Header component from the "header" directory
+import { Resource } from "@gomeddo/sdk";
+import { resourceId } from "../../hooks";
 
 export default function DashboardPage() {
   return (
@@ -13,4 +15,5 @@ export default function DashboardPage() {
       </div>
     </>
   );
+  console.log(Resource.resourceId);
 }
