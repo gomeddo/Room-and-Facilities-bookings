@@ -25,8 +25,10 @@ export default function RoomCard(props) {
           <div className="flex items-center gap-2 text-[#444444]">
             <Star className="w-4 h-4 fill-current text-[#4200FF]" />{" "}
             {/* Star icon */}
-            <span className="text-sm font-bold">{props.rating}</span> {/* Rating */}
-            <span className="text-sm rounded">{props.location}</span> {/* location */}
+            <span className="text-sm font-bold">{props.rating}</span>{" "}
+            {/* Rating */}
+            <span className="text-sm rounded">{props.location}</span>{" "}
+            {/* location */}
           </div>
           <div className="flex flex-wrap gap-2">
             {/* Displaying room features */}

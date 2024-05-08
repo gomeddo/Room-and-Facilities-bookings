@@ -1,6 +1,5 @@
 import { useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { cardsData } from "../../constants";
 import { useRooms } from "../../hooks";
 import RoomCard from "./roomCard";
 
@@ -8,8 +7,7 @@ export default function Rooms() {
   // State to keep track of the number of displayed cards and whether there are more cards to load
   const [displayedCards, setDisplayedCards] = useState(5);
   const [hasMore, setHasMore] = useState(true);
-  const cardsData= useRooms();
-
+  const cardsData = useRooms();
 
   // Function to load more cards when scrolling
   const loadMoreCards = () => {
@@ -43,7 +41,6 @@ export default function Rooms() {
           loader={<h4>Loading.....</h4>} // Loader displayed while loading more cards
           className="flex flex-col gap-6" // Styling for the container of the cards
         >
-          
           {/* Mapping over the sliced portion of cardsData to render RoomCard components */}
           {cardsData.slice(0, displayedCards).map((card, index) => (
             <RoomCard {...card} id={index} key={index} />
