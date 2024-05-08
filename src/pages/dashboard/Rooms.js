@@ -31,7 +31,7 @@ export default function Rooms() {
       <div className="w-3/4 pl-8 py-12">
         {/* Title indicating the number of homes for rent in Amsterdam */}
         <div className="text-xl text-[#666] font-semibold mb-6">
-          {cardsData.length} homes for rent in Amsterdam
+          {cardsData.length} properties for rent in the greater Amsterdam region
         </div>
         {/* Infinite scroll component to dynamically load more cards as user scrolls */}
         <InfiniteScroll

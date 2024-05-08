@@ -18,7 +18,7 @@ export default function RoomCard(props) {
           {/* Displaying room image */}
         </a>
         {/* Product Information */}
-        <Card.Body className="flex-1">
+        <Card.Body className="flex-1 pt-2">
           <h5 className="font-bold text-base tracking-tight text-gray-900 font-ubuntu">
             {props.title} {/* Displaying room title */}
           </h5>
@@ -58,7 +58,7 @@ export default function RoomCard(props) {
               });
             }}
           >
-            Book Class
+            Book Now
           </Button>
         </div>
       </Card>
