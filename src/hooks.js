@@ -46,6 +46,7 @@ export function useRooms(filters) {
                 ?.split(", ") ?? []),
             ],
             location: roomInfo.customProperties.get("Housing_Location__c"),
+            description: roomInfo.customProperties.get("B25__Description__c"),
             price: roomInfo.customProperties.get("B25__Default_Price__c"),
             capacity: roomInfo.customProperties.get("B25__Capacity__c"),
             roomType: roomInfo.customProperties.get("Housing_Type__c"),
