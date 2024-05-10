@@ -8,7 +8,7 @@ export default function RoomCard(props) {
   const [, setSearchParams] = useSearchParams(); // Using the useSearchParams hook from react-router-dom
 
   return (
-    <Link to={`/rooms/${props.id}`}>
+    <Link to={`/rooms/${props.id}`} state={props}>
       {" "}
       {/* Link to navigate to room details */}
       <Card className="group p-2 hover:bg-[#DBDBFE] cursor-pointer transition-colors">

@@ -1,26 +1,22 @@
 import { ChevronLeft, ChevronRight, Star, X } from "react-feather";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Chip from "../../components/chip";
-import { cardsData } from "../../constants";
-import apart1 from "../../assets/apart_1.jpg";
-import apart2 from "../../assets/apart_2.jpg";
-import apart3 from "../../assets/apart_3.jpg";
 import { useState } from "react";
-
-// Array containing image paths
-const photos = [apart1, apart2, apart3];
 
 // RoomPage component definition
 export default function RoomPage() {
+  const currentLocation = useLocation(); // Accessing current location
+  const room = currentLocation.state || {}; // Destructure name, time, and date from location state with fallback to empty object
+  const photos = [room.image2, room.image3, room.image4];
   // Extracting parameters from the URL
-  const { roomId } = useParams();
+  // const { roomId } = useParams();
 
   // State for the currently selected photo index and image modal state
   const [selectedPhoto, setSelectedPhoto] = useState(0);
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
 
   // Retrieve room data based on roomId
-  const room = cardsData[roomId];
+  // const room = cardsData[roomId];
 
   // Hook for navigation
   const navigate = useNavigate();
