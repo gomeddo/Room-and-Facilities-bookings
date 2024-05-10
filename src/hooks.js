@@ -1,13 +1,16 @@
 import useGoMeddo from "./hooks/useGoMeddo";
 import { useEffect, useState } from "react";
 
-export function useRooms() {
+export function useRooms(filters) {
   const gm = useGoMeddo();
   const universityResourceId = "a0Zao000000jEEvEAM";
+  const [isLoading, setIsLoading] = useState(true);
   const [rooms, setRooms] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
+      setIsLoading(true);
+
       const resourceResult = await gm
         .buildResourceRequest()
         .includeAllResourcesAt(universityResourceId)
@@ -28,7 +31,7 @@ export function useRooms() {
 
       // Fetching additional fields for the second, third, and fourth resources in the result
       const resourceIds = resourceResult.getResourceIds();
-      const selectedResourceIds = resourceIds.slice(1, 5); // Selecting the second, third, and fourth resources
+      const selectedResourceIds = resourceIds.slice(1, 13); // Selecting the second, third, and fourth resources
 
       setRooms(
         selectedResourceIds.map((resourceId) => {
@@ -36,10 +39,12 @@ export function useRooms() {
           return {
             ...roomInfo,
             title: roomInfo.name,
-            features:
-              roomInfo.customProperties
+            features: [
+              `${roomInfo.customProperties.get("B25__Capacity__c")} Guest/s`,
+              ...(roomInfo.customProperties
                 .get("Housing_Features__c")
-                ?.split(", ") ?? [],
+                ?.split(", ") ?? []),
+            ],
             location: roomInfo.customProperties.get("Housing_Location__c"),
             price: roomInfo.customProperties.get("B25__Default_Price__c"),
             capacity: roomInfo.customProperties.get("B25__Capacity__c"),
@@ -52,9 +57,20 @@ export function useRooms() {
           };
         })
       );
+
+      setIsLoading(false);
     };
     fetchData();
-  }, [gm]);
+  }, [gm, filters]);
 
-  return rooms;
+  const filteredRooms = rooms
+    .filter((room) => (!!filters.price ? room.price === filters.price : true))
+    .filter((room) =>
+      !!filters.capacity ? room.capacity === filters.capacity : true
+    )
+    .filter((room) =>
+      !!filters.roomType ? room.roomType === filters.roomType : true
+    );
+
+  return { rooms: rooms, filteredRooms: filteredRooms, isLoading: isLoading };
 }

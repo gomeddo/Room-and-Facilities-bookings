@@ -1,13 +1,14 @@
-import { ChevronLeft, ChevronRight, Star, X } from "react-feather";
-import { useNavigate, useLocation } from "react-router-dom";
-import Chip from "../../components/chip";
 import { useState } from "react";
+import { ChevronLeft, ChevronRight, Star, X } from "react-feather";
+import { useNavigate, useParams } from "react-router-dom";
+import Chip from "../../components/chip";
+import { useRoomContext } from "../../context";
 
 // RoomPage component definition
 export default function RoomPage() {
-  const currentLocation = useLocation(); // Accessing current location
-  const room = currentLocation.state || {}; // Destructure name, time, and date from location state with fallback to empty object
-  const photos = [room.image2, room.image3, room.image4];
+  const { rooms, isLoading } = useRoomContext();
+  const { roomId } = useParams();
+
   // Extracting parameters from the URL
   // const { roomId } = useParams();
 
@@ -20,6 +21,13 @@ export default function RoomPage() {
 
   // Hook for navigation
   const navigate = useNavigate();
+
+  const room = rooms.at(Number(roomId));
+  if (isLoading || !room) {
+    return <>Loading...</>;
+  }
+
+  const photos = [room.image2, room.image3, room.image4];
 
   // Function to close the page
   const handleClose = () => {
@@ -47,8 +55,8 @@ export default function RoomPage() {
           {/* Displaying rating and reviewer */}
           <div className="flex flex-row gap-2 items-center text-[#444] text-2xl">
             <Star className="w-7 h-7 fill-current text-[#4200FF]" />
-            <span className="font-bold">4.5</span>
-            <span className="rounded">Tony Vito</span>
+            <span className="font-bold">{room.rating}</span>
+            <span className="rounded">{room.location}</span>
           </div>
           {/* Displaying room features */}
           <div className="flex flex-wrap gap-2 justify-center">

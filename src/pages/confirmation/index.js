@@ -3,15 +3,22 @@ import { useSearchParams } from "react-router-dom"; // Hook to access the URL qu
 import Button from "../../components/button"; // Custom Button component
 import Card from "../../components/card"; // Custom Card component
 import Chip from "../../components/chip"; // Custom Chip component
-import { cardsData } from "../../constants"; // Importing constant data for cards
 import { Star } from "react-feather"; // Icon component
+import { useRoomContext } from "../../context";
 
 // Function component for displaying booking confirmation details
 function Confirmation(props) {
   // Destructuring the setSearchParams hook from useSearchParams
   const [, setSearchParams] = useSearchParams();
+
   // Retrieving room details from the constant data using the id passed as props
-  const room = cardsData[props.id];
+  const { rooms } = useRoomContext();
+  const room = rooms.at(props.id);
+
+  if (!room) {
+    return <>Loading...</>;
+  }
+
   // Calculating the duration of stay in days
   const days = Math.round(
     (new Date(room.to).getTime() - new Date(room.from).getTime()) /
@@ -41,8 +48,8 @@ function Confirmation(props) {
           <div className="justify-center flex items-center gap-2 text-[#444444]">
             {/* Displaying star rating */}
             <Star className="w-4 h-4 fill-current text-[#4200FF]" />
-            <span className="font-bold">4.5</span>
-            <span className="rounded">Tony Vito</span>
+            <span className="font-bold">{room.rating}</span>
+            <span className="rounded">{room.location}</span>
           </div>
           <div className="justify-center flex flex-wrap gap-2 pb-2">
             {/* Displaying room features as chips */}

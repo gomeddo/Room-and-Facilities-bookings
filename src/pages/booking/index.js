@@ -5,11 +5,19 @@ import Label from "../../components/label"; // Importing Label component
 import Input from "../../components/input"; // Importing Input component
 import Button from "../../components/button"; // Importing Button component
 import clsx from "clsx"; // Importing clsx library for conditional classes
+import { useRoomContext } from "../../context";
 
 // Functional component for booking details
 function Booking(props) {
+  const { rooms } = useRoomContext();
   const [, setSearchParams] = useSearchParams(); // Getting and setting URL search parameters
-  const room = cardsData[props.id]; // Getting room details from cardsData based on ID passed as props
+
+  const room = rooms.at(props.id);
+  if (!room) {
+    return <>Loading...</>;
+  }
+
+  console.log(room);
 
   return (
     <Card className="m-20 rounded-lg w-auto max-w-4xl">
@@ -17,11 +25,10 @@ function Booking(props) {
       {/* Styling for Card */}
       <Card.Image
         src={room.image}
-        alt={room.alt}
+        //alt={room.alt}
         className="rounded-none rounded-l-lg h-full w-2/5" // Styling for Card Image
       />
       <Card.Body className="px-6 py-10 w-3/5">
-        {" "}
         {/* Styling for Card Body */}
         <div className="font-bold text-2xl text-center">{room.title}</div>{" "}
         {/* Displaying room title */}
