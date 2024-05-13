@@ -8,6 +8,21 @@ import { useRoomContext } from "../../context";
 function DashboardFilters() {
   const context = useRoomContext();
 
+  const priceRange = 50;
+  const capacities = [...new Set(context.rooms.map((room) => room.capacity))];
+  let intervals = [];
+  context.rooms
+    .map((room) => room.price)
+    .forEach((number) => {
+      const key = Math.floor(number / priceRange) * priceRange;
+      if (!intervals[key]) {
+        intervals[key] = [key, key + priceRange];
+      }
+    });
+  intervals = intervals
+    .filter(Boolean)
+    .map((interval) => interval.sort((a, b) => a - b));
+
   const [filters, setFilters] = useState({
     capacity: undefined,
     roomType: undefined,
@@ -46,13 +61,11 @@ function DashboardFilters() {
             }}
           >
             <option value={-1}>Group Size</option>
-            {context.rooms
-              .map((room) => room.capacity)
-              .map((capacity, index) => (
-                <option key={index} value={capacity}>
-                  {capacity} Guest/s
-                </option>
-              ))}
+            {capacities.map((capacity, index) => (
+              <option key={index} value={capacity}>
+                {capacity} Guest/s
+              </option>
+            ))}
           </Select>
           {/* <Select>
             <option value="">Location</option>
@@ -87,14 +100,11 @@ function DashboardFilters() {
             }}
           >
             <option value={-1}>Price</option>
-            {context.rooms
-              .map((room) => room.price)
-              .sort((left, right) => left - right)
-              .map((price, index) => (
-                <option key={index} value={price}>
-                  {price}
-                </option>
-              ))}
+            {intervals.map((prices, index) => (
+              <option key={index} value={prices}>
+                {prices[0]} - {prices[1]}
+              </option>
+            ))}
           </Select>
           {/* <Select>
             <option value="">Distance</option>
