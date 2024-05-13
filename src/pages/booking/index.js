@@ -78,12 +78,21 @@ function Booking(props) {
           </Button>
           <Button
             onClick={async () => {
+              /*
+              The reservation is being saved but neither the lead or the contact
+              seem to be showing up against the reservation
+              */
               const reservation = new Reservation()
                 .setResource(room)
                 .setContact(new Contact("Test", "Contact", "test@contact.com"))
                 .setLead(new Lead("Test", "Contact", "test@contact.com"))
-                .setStartDatetime(new Date('2024-5-1'))
-                .setEndDatetime(new Date("2024-5-1"));
+                .setStartDatetime(new Date())
+                .setEndDatetime(new Date());
+
+              reservation.setCustomProperty(
+                "B25__Reservation_Type__c",
+                "a0Uao000001fNCzEAM"
+              ); // Setting reservation type to "Student Housing"
 
               await gm.saveReservation(reservation);
 
