@@ -6,18 +6,19 @@ import Input from "../../components/input"; // Importing Input component
 import Button from "../../components/button"; // Importing Button component
 import clsx from "clsx"; // Importing clsx library for conditional classes
 import { useRoomContext } from "../../context";
+import useGoMeddo from "../../hooks/useGoMeddo";
+import { Contact, Lead, Reservation } from "@gomeddo/sdk";
 
 // Functional component for booking details
 function Booking(props) {
   const { rooms } = useRoomContext();
   const [, setSearchParams] = useSearchParams(); // Getting and setting URL search parameters
+  const gm = useGoMeddo();
 
   const room = rooms.at(props.id);
   if (!room) {
     return <>Loading...</>;
   }
-
-  console.log(room);
 
   return (
     <Card className="m-20 rounded-lg w-auto max-w-4xl">
@@ -76,7 +77,16 @@ function Booking(props) {
             Cancel
           </Button>
           <Button
-            onClick={() => {
+            onClick={async () => {
+              const reservation = new Reservation()
+                .setResource(room)
+                .setContact(new Contact("Test", "Contact", "test@contact.com"))
+                .setLead(new Lead("Test", "Contact", "test@contact.com"))
+                .setStartDatetime(new Date('2024-5-1'))
+                .setEndDatetime(new Date("2024-5-1"));
+
+              await gm.saveReservation(reservation);
+
               setSearchParams((params) => {
                 params.delete("bookingId"); // Deleting bookingId parameter from URL
                 params.set("confirmationId", props.id); // Setting confirmationId parameter in URL
