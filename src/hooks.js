@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 export function useRooms(filters) {
   const gm = useGoMeddo();
-  const universityResourceId = "a0Zao000000jEEvEAM";
+  const universityResourceId = "a0Zbn000000YISLEA4"; //Put the University Resource ID here
   const [isLoading, setIsLoading] = useState(true);
   const [rooms, setRooms] = useState([]);
 
