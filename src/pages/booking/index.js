@@ -82,19 +82,17 @@ function Booking(props) {
               The reservation is being saved but neither the lead or the contact
               seem to be showing up against the reservation
               */
+              const start = new Date();
+              start.setDate(start.getDate() - 1);
+
               const reservation = new Reservation()
+                .setContact(new Contact("Test", "Test", "test@test.com"))
                 .setResource(room)
-                .setContact(new Contact("Test", "Contact", "test@contact.com"))
-                .setLead(new Lead("Test", "Contact", "test@contact.com"))
-                .setStartDatetime(new Date())
+                .setStartDatetime(start)
                 .setEndDatetime(new Date());
 
-              reservation.setCustomProperty(
-                "B25__Reservation_Type__c",
-                "a0Uao000001fNCzEAM"
-              ); // Setting reservation type to "Student Housing"
-
-              await gm.saveReservation(reservation);
+              const response = await gm.saveReservation(reservation);
+              console.log(response);
 
               setSearchParams((params) => {
                 params.delete("bookingId"); // Deleting bookingId parameter from URL
