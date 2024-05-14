@@ -1,13 +1,12 @@
 import { useSearchParams } from "react-router-dom"; // Importing hook for accessing URL search parameters
 import Card from "../../components/card"; // Importing Card component
-import { cardsData } from "../../constants"; // Importing data for cards
 import Label from "../../components/label"; // Importing Label component
 import Input from "../../components/input"; // Importing Input component
 import Button from "../../components/button"; // Importing Button component
 import clsx from "clsx"; // Importing clsx library for conditional classes
 import { useRoomContext } from "../../context";
 import useGoMeddo from "../../hooks/useGoMeddo";
-import { Contact, Lead, Reservation } from "@gomeddo/sdk";
+import { Contact, Reservation } from "@gomeddo/sdk";
 
 // Functional component for booking details
 function Booking(props) {
@@ -91,6 +90,12 @@ function Booking(props) {
                 .setStartDatetime(start)
                 .setEndDatetime(new Date());
 
+              reservation.setCustomProperty(
+                "B25__Reservation_Type__c",
+                "a0Ubn000000xq7REAQ"
+              ); // Setting reservation type to "Student Housing" using the property ID
+
+              await gm.saveReservation(reservation);
               const response = await gm.saveReservation(reservation);
               console.log(response);
 
