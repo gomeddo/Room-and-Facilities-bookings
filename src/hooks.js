@@ -65,7 +65,11 @@ export function useRooms(filters) {
   }, [gm, filters]);
 
   const filteredRooms = rooms
-    .filter((room) => (!!filters.price ? room.price === filters.price : true))
+    .filter((room) =>
+      !!filters.price
+        ? room.price >= filters.price && room.price < filters.price + 50
+        : true
+    )
     .filter((room) =>
       !!filters.capacity ? room.capacity === filters.capacity : true
     )

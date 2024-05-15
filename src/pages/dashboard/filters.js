@@ -10,18 +10,19 @@ function DashboardFilters() {
 
   const priceRange = 50;
   const capacities = [...new Set(context.rooms.map((room) => room.capacity))];
-  let intervals = [];
-  context.rooms
+
+  const intervals = context.rooms
     .map((room) => room.price)
-    .forEach((number) => {
-      const key = Math.floor(number / priceRange) * priceRange;
+    .reduce((intervals, price) => {
+      const key = Math.floor(price / priceRange) * priceRange;
       if (!intervals[key]) {
         intervals[key] = [key, key + priceRange];
       }
-    });
-  intervals = intervals
+
+      return intervals;
+    }, [])
     .filter(Boolean)
-    .map((interval) => interval.sort((a, b) => a - b));
+    .sort((left, right) => left - right);
 
   const [filters, setFilters] = useState({
     capacity: undefined,
@@ -60,11 +61,6 @@ function DashboardFilters() {
             <Card.Body className="flex-1 p-6 gap-4">
               {/* Title for the filter section */}
               <div className="text-[#6D6A75] text-xl font-bold">Filters</div>
-              {/* Date Picker for selecting dates */}
-              <DatePicker
-                date={context.duration}
-                setDate={context.setDuration}
-              />
               {/* Select Inputs for various filter options */}
               <Select
                 value={filters.capacity ?? ""}
@@ -84,7 +80,7 @@ function DashboardFilters() {
                 ))}
               </Select>
               {/* <Select>
-            <option value="">Location</option>
+            <option value="">Location</option> //Uncomment if needed
           </Select> */}
               <Select
                 value={filters.roomType ?? ""}
@@ -108,6 +104,7 @@ function DashboardFilters() {
               <Select
                 value={filters.price ?? ""}
                 onChange={(e) => {
+                  console.log(e.target.value);
                   const value = Number(e.target.value) || -1;
                   setFilters((state) => ({
                     ...state,
@@ -116,14 +113,14 @@ function DashboardFilters() {
                 }}
               >
                 <option value={-1}>Price</option>
-                {intervals.map((prices, index) => (
-                  <option key={index} value={prices}>
-                    {prices[0]} - {prices[1]}
+                {intervals.map(([left, right], index) => (
+                  <option key={index} value={left}>
+                    {left} - {right}
                   </option>
                 ))}
               </Select>
               {/* <Select>
-            <option value="">Distance</option>
+            <option value="">Distance</option> //Uncomment if needed
           </Select> */}
               {/* Apply and Cancel Buttons to apply or cancel filter changes */}
               <div className="flex justify-end gap-2 mx-1">
