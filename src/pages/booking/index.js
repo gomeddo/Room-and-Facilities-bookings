@@ -15,11 +15,13 @@ function Booking(props) {
   const [, setSearchParams] = useSearchParams(); // Getting and setting URL search parameters
   const gm = useGoMeddo();
 
-  // State variables for form fields
+  // State variables for form fields and errors
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [dataPermission, setDataPermission] = useState(false); // State variable for data permission checkbox
+  const [errors, setErrors] = useState({}); // State variable for storing error messages
 
   const room = rooms.at(props.id);
   if (!room) {
@@ -27,6 +29,30 @@ function Booking(props) {
   }
 
   const areDatesSelected = !!duration?.from && !!duration?.to; // Determine if dates are selected
+
+  // Function to validate form fields
+  const validateForm = () => {
+    let formErrors = {};
+
+    if (!firstName.trim()) {
+      formErrors.firstName = "First Name is required";
+    }
+    if (!lastName.trim()) {
+      formErrors.lastName = "Last Name is required";
+    }
+    if (!email.trim()) {
+      formErrors.email = "Email is required";
+    }
+    if (!phoneNumber.trim()) {
+      formErrors.phoneNumber = "Phone Number is required";
+    }
+    if (!dataPermission) {
+      formErrors.dataPermission = "Data permission is required"; // Error message for data permission checkbox
+    }
+
+    setErrors(formErrors);
+    return Object.keys(formErrors).length === 0;
+  };
 
   return (
     <Card className="m-20 rounded-lg w-auto max-w-4xl">
@@ -64,6 +90,9 @@ function Booking(props) {
             onChange={(e) => setFirstName(e.target.value)}
             required // Making the input required
           />
+          {errors.firstName && (
+            <div className="text-red-500">{errors.firstName}</div> // Display error message for first name
+          )}
         </Label>
         <Label className="flex flex-col">
           Last Name
@@ -73,6 +102,9 @@ function Booking(props) {
             onChange={(e) => setLastName(e.target.value)}
             required // Making the input required
           />
+          {errors.lastName && (
+            <div className="text-red-500">{errors.lastName}</div> // Display error message for last name
+          )}
         </Label>
         <Label className="flex flex-col">
           Email
@@ -82,6 +114,9 @@ function Booking(props) {
             onChange={(e) => setEmail(e.target.value)}
             required // Making the input required
           />
+          {errors.email && (
+            <div className="text-red-500">{errors.email}</div> // Display error message for email
+          )}
         </Label>
         <Label className="flex flex-col">
           Phone Number
@@ -91,15 +126,27 @@ function Booking(props) {
             onChange={(e) => setPhoneNumber(e.target.value)}
             required // Making the input required
           />
+          {errors.phoneNumber && (
+            <div className="text-red-500">{errors.phoneNumber}</div> // Display error message for phone number
+          )}
         </Label>
         {/* Checkbox for data permission, disabled if dates not selected */}
         <div className="flex gap-4 text-xs pt-2">
-          <input type="checkbox" disabled={!areDatesSelected} required />
+          <input
+            type="checkbox"
+            disabled={!areDatesSelected}
+            checked={dataPermission}
+            onChange={(e) => setDataPermission(e.target.checked)}
+            required // Making the checkbox required
+          />
           <div>
             I give permission to save the data I have entered here and use this
             data to contact me. More information in our privacy statement.
           </div>
         </div>
+        {errors.dataPermission && (
+          <div className="text-red-500">{errors.dataPermission}</div> // Display error message for data permission checkbox
+        )}
         {/* Buttons for cancelling or confirming booking, disable Confirm if dates not selected */}
         <div className="flex gap-2 justify-end">
           <Button
@@ -116,31 +163,34 @@ function Booking(props) {
           <Button
             disabled={!areDatesSelected}
             onClick={async () => {
-              const reservation = new Reservation()
-                // Using user input to set contact information
-                .setContact(
-                  new Contact(firstName, lastName, email, phoneNumber)
-                )
-                .setResource(room)
-                .setStartDatetime(new Date(duration.from))
-                .setEndDatetime(new Date(duration.to));
+              if (validateForm()) {
+                // Proceed with booking if form is valid
+                const reservation = new Reservation()
+                  // Using user input to set contact information
+                  .setContact(
+                    new Contact(firstName, lastName, email, phoneNumber)
+                  )
+                  .setResource(room)
+                  .setStartDatetime(new Date(duration.from))
+                  .setEndDatetime(new Date(duration.to));
 
-              reservation.setCustomProperty(
-                "B25__Reservation_Type__c",
-                "a0Ubn000000xq7REAQ"
-              ); // Setting reservation type to "Student Housing" using the property ID
+                reservation.setCustomProperty(
+                  "B25__Reservation_Type__c",
+                  "a0Ubn000000xq7REAQ"
+                ); // Setting reservation type to "Student Housing" using the property ID
 
-              try {
-                const response = await gm.saveReservation(reservation);
-                console.log(response);
+                try {
+                  const response = await gm.saveReservation(reservation);
+                  console.log(response);
 
-                setSearchParams((params) => {
-                  params.delete("bookingId"); // Deleting bookingId parameter from URL
-                  params.set("confirmationId", props.id); // Setting confirmationId parameter in URL
-                  return params;
-                });
-              } catch (error) {
-                console.error("Failed to save reservation:", error);
+                  setSearchParams((params) => {
+                    params.delete("bookingId"); // Deleting bookingId parameter from URL
+                    params.set("confirmationId", props.id); // Setting confirmationId parameter in URL
+                    return params;
+                  });
+                } catch (error) {
+                  console.error("Failed to save reservation:", error);
+                }
               }
             }}
           >
