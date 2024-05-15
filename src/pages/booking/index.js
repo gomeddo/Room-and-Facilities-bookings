@@ -4,9 +4,9 @@ import Label from "../../components/label"; // Importing Label component
 import Input from "../../components/input"; // Importing Input component
 import Button from "../../components/button"; // Importing Button component
 import clsx from "clsx"; // Importing clsx library for conditional classes
-import { useRoomContext } from "../../context";
-import useGoMeddo from "../../hooks/useGoMeddo";
-import { Contact, Reservation } from "@gomeddo/sdk";
+import { useRoomContext } from "../../context"; // Context hook for room data
+import useGoMeddo from "../../hooks/useGoMeddo"; // Custom hook for GoMeddo API
+import { Contact, Reservation } from "@gomeddo/sdk"; // SDK for GoMeddo service
 
 // Functional component for booking details
 function Booking(props) {
@@ -16,65 +16,64 @@ function Booking(props) {
 
   const room = rooms.at(props.id);
   if (!room) {
-    return <>Loading...</>;
+    return <>Loading...</>; // Display while room data is loading
   }
+
+  const areDatesSelected = !!duration?.from && !!duration?.to; // Determine if dates are selected
 
   return (
     <Card className="m-20 rounded-lg w-auto max-w-4xl">
-      {" "}
       {/* Styling for Card */}
       <Card.Image
         src={room.image}
-        //alt={room.alt}
         className="rounded-none rounded-l-lg h-full w-2/5" // Styling for Card Image
       />
+      {/* Styling for Card Body */}
       <Card.Body className="px-6 py-10 w-3/5">
-        {/* Styling for Card Body */}
-        <div className="font-bold text-2xl text-center">{room.title}</div>{" "}
         {/* Displaying room title */}
+        <div className="font-bold text-2xl text-center">{room.title}</div>
         {/* Conditional rendering for booking duration messages */}
         <div
           className={clsx("rounded-full font-bold text-center p-1", {
-            "bg-[#DBDBFE]": !!duration?.from && !!duration?.to, // Keep background if dates are selected
-            "text-red-500 font-bold": !duration?.from || !duration?.to, // Make text red and bold if dates are not selected
+            "bg-[#DBDBFE]": areDatesSelected, // Keep background if dates are selected
+            "text-red-500 font-bold": !areDatesSelected, // Make text red and bold if dates are not selected
           })}
         >
-          {!!duration?.from && !!duration?.to && (
+          {areDatesSelected ? (
             <>
               {new Date(duration?.from).toLocaleDateString()} -{" "}
               {new Date(duration?.to).toLocaleDateString()}
             </>
-          )}
-          {(!duration?.from || !duration?.to) && (
+          ) : (
             <> Please select your stay duration before making a booking ! </> // Display when no duration is selected
           )}
         </div>
-        {/* Labels and Inputs for user information */}
+        {/* Labels and Inputs for user information, disabled if dates not selected */}
         <Label className="flex flex-col">
           First Name
-          <Input />
+          <Input disabled={!areDatesSelected} />
         </Label>
         <Label className="flex flex-col">
           Last Name
-          <Input />
+          <Input disabled={!areDatesSelected} />
         </Label>
         <Label className="flex flex-col">
           Email
-          <Input />
+          <Input disabled={!areDatesSelected} />
         </Label>
         <Label className="flex flex-col">
           Phone Number
-          <Input />
+          <Input disabled={!areDatesSelected} />
         </Label>
-        {/* Checkbox for data permission */}
+        {/* Checkbox for data permission, disabled if dates not selected */}
         <div className="flex gap-4 text-xs pt-2">
-          <input type="checkbox" />
+          <input type="checkbox" disabled={!areDatesSelected} />
           <div>
             I give permission to save the data I have entered here and use this
             data to contact me. More information in our privacy statement.
           </div>
         </div>
-        {/* Buttons for cancelling or confirming booking */}
+        {/* Buttons for cancelling or confirming booking, disable Confirm if dates not selected */}
         <div className="flex gap-2 justify-end">
           <Button
             variant="secondary"
@@ -88,7 +87,7 @@ function Booking(props) {
             Cancel
           </Button>
           <Button
-            disabled={!duration?.from || !duration.to}
+            disabled={!areDatesSelected}
             onClick={async () => {
               const reservation = new Reservation()
                 .setContact(new Contact("Test", "Test", "test@test.com"))
@@ -125,15 +124,15 @@ function Booking(props) {
 
 // Functional component for Booking page
 export default function BookingPage() {
-  const [searchParams] = useSearchParams(); // Getting URL search parameters
-  const bookingId = searchParams.get("bookingId"); // Getting bookingId from URL
+  const [searchParams] = useSearchParams(); // Access URL search parameters
+  const bookingId = searchParams.get("bookingId"); // Retrieve bookingId from URL
 
   return (
     <div
       className={clsx(
         "z-20 h-screen w-screen fixed top-0 left-0 bg-black bg-opacity-65", // Styling for overlay background
         {
-          hidden: bookingId == null, // Hiding if bookingId is null
+          hidden: bookingId == null, // Hide if there is no bookingId
         }
       )}
     >
