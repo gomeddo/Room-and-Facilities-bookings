@@ -7,6 +7,7 @@ function Calendar({ className, classNames, showOutsideDays = true, ...props }) {
   // Functional component named Calendar receiving props like className, classNames, showOutsideDays with a default value of true, and other props
   return (
     <DayPicker
+      fromDate={new Date()}
       showOutsideDays={showOutsideDays} // Prop to control whether to show days outside of the current month
       className={twMerge("p-3", className)} // Applying Tailwind CSS classes to the DayPicker component, merging the existing className with "p-3"
       classNames={{
