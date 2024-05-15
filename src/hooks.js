@@ -2,15 +2,17 @@ import useGoMeddo from "./hooks/useGoMeddo";
 import { useEffect, useState } from "react";
 
 export function useRooms(filters) {
-  const gm = useGoMeddo();
-  const universityResourceId = "a0Zbn000000YISLEA4"; //Put the University Resource ID here
-  const [isLoading, setIsLoading] = useState(true);
-  const [rooms, setRooms] = useState([]);
+  const gm = useGoMeddo(); // Get the GoMeddo instance
+  const universityResourceId = "a0Zbn000000YISLEA4"; // University Resource ID
+
+  const [isLoading, setIsLoading] = useState(true); // Loading state
+  const [rooms, setRooms] = useState([]); // State to store the rooms data
 
   useEffect(() => {
     const fetchData = async () => {
-      setIsLoading(true);
+      setIsLoading(true); // Set loading state to true while fetching data
 
+      // Fetch resource data from GoMeddo
       const resourceResult = await gm
         .buildResourceRequest()
         .includeAllResourcesAt(universityResourceId)
@@ -29,10 +31,10 @@ export function useRooms(filters) {
         ])
         .getResults();
 
-      // Fetching additional fields for the second, third, and fourth resources in the result
       const resourceIds = resourceResult.getResourceIds();
-      const selectedResourceIds = resourceIds.slice(1, 13); // Selecting the second, third, and fourth resources
+      const selectedResourceIds = resourceIds.slice(1, 13); // Select specific resource IDs
 
+      // Map the selected resources to room objects
       setRooms(
         selectedResourceIds.map((resourceId) => {
           const roomInfo = resourceResult.getResource(resourceId);
@@ -59,11 +61,13 @@ export function useRooms(filters) {
         })
       );
 
-      setIsLoading(false);
+      setIsLoading(false); // Set loading state to false after fetching data
     };
-    fetchData();
+
+    fetchData(); // Call the fetchData function when the component mounts or filters change
   }, [gm, filters]);
 
+  // Filter the rooms based on the selected filters
   const filteredRooms = rooms
     .filter((room) =>
       !!filters.price
@@ -77,5 +81,9 @@ export function useRooms(filters) {
       !!filters.roomType ? room.roomType === filters.roomType : true
     );
 
-  return { rooms: rooms, filteredRooms: filteredRooms, isLoading: isLoading };
+  return {
+    rooms: rooms, // Return all rooms
+    filteredRooms: filteredRooms, // Return filtered rooms
+    isLoading: isLoading, // Return loading state
+  };
 }

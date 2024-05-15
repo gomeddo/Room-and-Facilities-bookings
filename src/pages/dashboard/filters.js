@@ -6,11 +6,12 @@ import Button from "../../components/button";
 import { useRoomContext } from "../../context";
 
 function DashboardFilters() {
-  const context = useRoomContext();
+  const context = useRoomContext(); // Get the room context data
 
-  const priceRange = 50;
-  const capacities = [...new Set(context.rooms.map((room) => room.capacity))];
+  const priceRange = 50; // Set the price range for filtering
+  const capacities = [...new Set(context.rooms.map((room) => room.capacity))]; // Get unique room capacities
 
+  // Calculate price intervals based on the price range
   const intervals = context.rooms
     .map((room) => room.price)
     .reduce((intervals, price) => {
@@ -18,23 +19,25 @@ function DashboardFilters() {
       if (!intervals[key]) {
         intervals[key] = [key, key + priceRange];
       }
-
       return intervals;
     }, [])
     .filter(Boolean)
     .sort((left, right) => left - right);
 
+  // State to store the selected filters
   const [filters, setFilters] = useState({
     capacity: undefined,
     roomType: undefined,
     price: undefined,
   });
 
+  // Function to clear the selected filters
   const onClear = () => {
     setFilters({});
     context.setFilters({});
   };
 
+  // Function to apply the selected filters
   const onApply = () => {
     context.setFilters(filters);
   };
@@ -56,12 +59,12 @@ function DashboardFilters() {
               />
             </Card.Body>
           </Card>
-          {/* Left portion taking 1/4 of the page */}
-          <Card className="">
+          {/* Card for the filter section */}
+          <Card>
             <Card.Body className="flex-1 p-6 gap-4">
               {/* Title for the filter section */}
               <div className="text-[#6D6A75] text-xl font-bold">Filters</div>
-              {/* Select Inputs for various filter options */}
+              {/* Select input for group size */}
               <Select
                 value={filters.capacity ?? ""}
                 onChange={(e) => {
@@ -82,6 +85,7 @@ function DashboardFilters() {
               {/* <Select>
             <option value="">Location</option> //Uncomment if needed
           </Select> */}
+              {/* Select input for accommodation type */}
               <Select
                 value={filters.roomType ?? ""}
                 onChange={(e) => {
@@ -101,10 +105,10 @@ function DashboardFilters() {
                     </option>
                   ))}
               </Select>
+              {/* Select input for price range */}
               <Select
                 value={filters.price ?? ""}
                 onChange={(e) => {
-                  console.log(e.target.value);
                   const value = Number(e.target.value) || -1;
                   setFilters((state) => ({
                     ...state,
@@ -112,7 +116,7 @@ function DashboardFilters() {
                   }));
                 }}
               >
-                <option value={-1}>Price</option>
+                <option value={-1}>Price Per Night</option>
                 {intervals.map(([left, right], index) => (
                   <option key={index} value={left}>
                     {left} - {right}
@@ -122,7 +126,7 @@ function DashboardFilters() {
               {/* <Select>
             <option value="">Distance</option> //Uncomment if needed
           </Select> */}
-              {/* Apply and Cancel Buttons to apply or cancel filter changes */}
+              {/* Buttons to apply or cancel filter changes */}
               <div className="flex justify-end gap-2 mx-1">
                 <Button variant="secondary" onClick={onClear}>
                   Cancel
@@ -135,8 +139,6 @@ function DashboardFilters() {
           </Card>
         </div>
       </div>
-
-      {/* Right portion taking 3/4 of the page - To be implemented */}
     </>
   );
 }

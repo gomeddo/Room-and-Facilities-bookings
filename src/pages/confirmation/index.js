@@ -3,20 +3,18 @@ import { useSearchParams } from "react-router-dom"; // Hook to access the URL qu
 import Button from "../../components/button"; // Custom Button component
 import Card from "../../components/card"; // Custom Card component
 import Chip from "../../components/chip"; // Custom Chip component
-import { Star } from "react-feather"; // Icon component
-import { useRoomContext } from "../../context";
+import { Star } from "react-feather"; // Icon component for displaying a star
+import { useRoomContext } from "../../context"; // Custom hook for accessing room context
 
 // Function component for displaying booking confirmation details
 function Confirmation(props) {
-  // Destructuring the setSearchParams hook from useSearchParams
-  const [, setSearchParams] = useSearchParams();
+  const [, setSearchParams] = useSearchParams(); // Destructuring the setSearchParams hook from useSearchParams
 
-  // Retrieving room details from the constant data using the id passed as props
-  const { rooms, duration } = useRoomContext();
-  const room = rooms.at(props.id);
+  const { rooms, duration } = useRoomContext(); // Retrieving room details and duration from the room context
+  const room = rooms.at(props.id); // Getting the specific room based on the provided ID
 
   if (!room) {
-    return <>Loading...</>;
+    return <>Loading...</>; // Display a loading message while the room data is being fetched
   }
 
   // Calculating the duration of stay in days
@@ -95,10 +93,8 @@ function Confirmation(props) {
 
 // Main component for the confirmation page
 export default function ConfirmationPage() {
-  // Retrieving search parameters from the URL
-  const [searchParams] = useSearchParams();
-  // Extracting 'confirmationId' from search parameters
-  const confirmationId = searchParams.get("confirmationId");
+  const [searchParams] = useSearchParams(); // Retrieving search parameters from the URL
+  const confirmationId = searchParams.get("confirmationId"); // Extracting 'confirmationId' from search parameters
 
   // Rendering the confirmation page or hiding it based on confirmationId presence
   return (
@@ -106,7 +102,7 @@ export default function ConfirmationPage() {
       className={clsx(
         "z-20 h-screen w-screen fixed top-0 left-0 bg-black bg-opacity-65",
         {
-          hidden: confirmationId == null,
+          hidden: confirmationId == null, // Hide the confirmation page if confirmationId is not present
         }
       )}
     >

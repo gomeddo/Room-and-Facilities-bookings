@@ -11,19 +11,19 @@ import { useState } from "react"; // Importing useState hook for managing form s
 
 // Functional component for booking details
 function Booking(props) {
-  const { rooms, duration } = useRoomContext();
+  const { rooms, duration } = useRoomContext(); // Get room data and booking duration from context
   const [, setSearchParams] = useSearchParams(); // Getting and setting URL search parameters
-  const gm = useGoMeddo();
+  const gm = useGoMeddo(); // Initialize GoMeddo API
 
   // State variables for form fields and errors
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const [firstName, setFirstName] = useState(""); // State for first name input
+  const [lastName, setLastName] = useState(""); // State for last name input
+  const [email, setEmail] = useState(""); // State for email input
+  const [phoneNumber, setPhoneNumber] = useState(""); // State for phone number input
   const [dataPermission, setDataPermission] = useState(false); // State variable for data permission checkbox
   const [errors, setErrors] = useState({}); // State variable for storing error messages
 
-  const room = rooms.at(props.id);
+  const room = rooms.at(props.id); // Get the selected room based on the provided ID
   if (!room) {
     return <>Loading...</>; // Display while room data is loading
   }
@@ -34,6 +34,7 @@ function Booking(props) {
   const validateForm = () => {
     let formErrors = {};
 
+    // Validation checks for each form field
     if (!firstName.trim()) {
       formErrors.firstName = "First Name is required";
     }
@@ -50,8 +51,8 @@ function Booking(props) {
       formErrors.dataPermission = "Data permission is required"; // Error message for data permission checkbox
     }
 
-    setErrors(formErrors);
-    return Object.keys(formErrors).length === 0;
+    setErrors(formErrors); // Update the errors state with the validation errors
+    return Object.keys(formErrors).length === 0; // Return true if there are no errors
   };
 
   return (
@@ -180,8 +181,8 @@ function Booking(props) {
                 ); // Setting reservation type to "Student Housing" using the property ID
 
                 try {
-                  const response = await gm.saveReservation(reservation);
-                  console.log(response);
+                  const response = await gm.saveReservation(reservation); // Save the reservation using GoMeddo API
+                  console.log(response); // Log the response for debugging or further processing
 
                   setSearchParams((params) => {
                     params.delete("bookingId"); // Deleting bookingId parameter from URL
@@ -189,7 +190,7 @@ function Booking(props) {
                     return params;
                   });
                 } catch (error) {
-                  console.error("Failed to save reservation:", error);
+                  console.error("Failed to save reservation:", error); // Log any errors that occur during reservation saving
                 }
               }
             }}
