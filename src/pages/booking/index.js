@@ -41,7 +41,7 @@ function Booking(props) {
             </>
           )}
           {(!duration?.from || !duration?.to) && (
-            <> Please select your stay duration before making a booking! </>
+            <> Please select your stay duration before making a booking ! </>
           )}
         </div>
         {/* Labels and Inputs for user information */}
@@ -83,35 +83,31 @@ function Booking(props) {
             Cancel
           </Button>
           <Button
-            disabled={!duration?.from || !duration?.to}
+            disabled={!duration?.from || !duration.to}
             onClick={async () => {
-              /*
-              The reservation is being saved but neither the lead or the contact
-              seem to be showing up against the reservation
-              */
-              const start = new Date();
-              start.setDate(start.getDate() - 1);
-
               const reservation = new Reservation()
                 .setContact(new Contact("Test", "Test", "test@test.com"))
                 .setResource(room)
-                .setStartDatetime(start)
-                .setEndDatetime(new Date());
+                .setStartDatetime(new Date(duration.from))
+                .setEndDatetime(new Date(duration.to));
 
               reservation.setCustomProperty(
                 "B25__Reservation_Type__c",
                 "a0Ubn000000xq7REAQ"
               ); // Setting reservation type to "Student Housing" using the property ID
 
-              await gm.saveReservation(reservation);
-              const response = await gm.saveReservation(reservation);
-              console.log(response);
+              try {
+                const response = await gm.saveReservation(reservation);
+                console.log(response);
 
-              setSearchParams((params) => {
-                params.delete("bookingId"); // Deleting bookingId parameter from URL
-                params.set("confirmationId", props.id); // Setting confirmationId parameter in URL
-                return params;
-              });
+                setSearchParams((params) => {
+                  params.delete("bookingId"); // Deleting bookingId parameter from URL
+                  params.set("confirmationId", props.id); // Setting confirmationId parameter in URL
+                  return params;
+                });
+              } catch (error) {
+                console.error("Failed to save reservation:", error);
+              }
             }}
           >
             Confirm
