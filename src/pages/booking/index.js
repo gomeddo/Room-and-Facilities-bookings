@@ -32,16 +32,21 @@ function Booking(props) {
         {/* Styling for Card Body */}
         <div className="font-bold text-2xl text-center">{room.title}</div>{" "}
         {/* Displaying room title */}
-        <div className="bg-[#DBDBFE] rounded-full font-bold text-center p-1">
+        {/* Conditional rendering for booking duration messages */}
+        <div
+          className={clsx("rounded-full font-bold text-center p-1", {
+            "bg-[#DBDBFE]": !!duration?.from && !!duration?.to, // Keep background if dates are selected
+            "text-red-500 font-bold": !duration?.from || !duration?.to, // Make text red and bold if dates are not selected
+          })}
+        >
           {!!duration?.from && !!duration?.to && (
             <>
-              {/* Displaying booking dates */}
               {new Date(duration?.from).toLocaleDateString()} -{" "}
               {new Date(duration?.to).toLocaleDateString()}
             </>
           )}
           {(!duration?.from || !duration?.to) && (
-            <> Please select your stay duration before making a booking ! </>
+            <> Please select your stay duration before making a booking ! </> // Display when no duration is selected
           )}
         </div>
         {/* Labels and Inputs for user information */}
