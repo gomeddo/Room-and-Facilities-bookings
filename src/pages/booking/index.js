@@ -10,7 +10,7 @@ import { Contact, Reservation } from "@gomeddo/sdk";
 
 // Functional component for booking details
 function Booking(props) {
-  const { rooms } = useRoomContext();
+  const { rooms, duration } = useRoomContext();
   const [, setSearchParams] = useSearchParams(); // Getting and setting URL search parameters
   const gm = useGoMeddo();
 
@@ -33,9 +33,16 @@ function Booking(props) {
         <div className="font-bold text-2xl text-center">{room.title}</div>{" "}
         {/* Displaying room title */}
         <div className="bg-[#DBDBFE] rounded-full font-bold text-center p-1">
-          {/* Displaying booking dates */}
-          {new Date(room.from).toLocaleDateString()} -{" "}
-          {new Date(room.to).toLocaleDateString()}
+          {!!duration?.from && !!duration?.to && (
+            <>
+              {/* Displaying booking dates */}
+              {new Date(duration?.from).toLocaleDateString()} -{" "}
+              {new Date(duration?.to).toLocaleDateString()}
+            </>
+          )}
+          {(!duration?.from || !duration?.to) && (
+            <> Please select your stay duration before making a booking! </>
+          )}
         </div>
         {/* Labels and Inputs for user information */}
         <Label className="flex flex-col">
@@ -76,6 +83,7 @@ function Booking(props) {
             Cancel
           </Button>
           <Button
+            disabled={!duration?.from || !duration?.to}
             onClick={async () => {
               /*
               The reservation is being saved but neither the lead or the contact

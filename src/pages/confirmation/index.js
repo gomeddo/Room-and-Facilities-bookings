@@ -12,7 +12,7 @@ function Confirmation(props) {
   const [, setSearchParams] = useSearchParams();
 
   // Retrieving room details from the constant data using the id passed as props
-  const { rooms } = useRoomContext();
+  const { rooms, duration } = useRoomContext();
   const room = rooms.at(props.id);
 
   if (!room) {
@@ -21,7 +21,7 @@ function Confirmation(props) {
 
   // Calculating the duration of stay in days
   const days = Math.round(
-    (new Date(room.to).getTime() - new Date(room.from).getTime()) /
+    (new Date(duration?.to).getTime() - new Date(duration?.from).getTime()) /
       (1000 * 60 * 60 * 24)
   );
 
@@ -42,8 +42,8 @@ function Confirmation(props) {
           <div className="text-[#3E4958] text-xl font-bold">{room.title}</div>
           <div className="bg-[#DBDBFE] rounded-full p-2 font-bold">
             {/* Displaying booking dates */}
-            {new Date(room.from).toLocaleDateString()} -{" "}
-            {new Date(room.to).toLocaleDateString()}
+            {new Date(duration?.from).toLocaleDateString()} -{" "}
+            {new Date(duration?.to).toLocaleDateString()}
           </div>
           <div className="justify-center flex items-center gap-2 text-[#444444]">
             {/* Displaying star rating */}

@@ -11,6 +11,11 @@ export const RoomContext = createContext({
     price: undefined,
   },
   setFilters: ({ capacity, roomType, price }) => {},
+  duration: {
+    from: undefined,
+    to: undefined,
+  },
+  setDuration: ({ from, to }) => {},
 });
 
 export function useRoomContext() {
@@ -23,6 +28,10 @@ export function RoomProvider({ children }) {
     roomType: undefined,
     price: undefined,
   });
+  const [duration, setDuration] = useState({
+    from: undefined,
+    to: undefined,
+  });
   const { rooms, filteredRooms, isLoading } = useRooms(filters);
 
   return (
@@ -33,6 +42,8 @@ export function RoomProvider({ children }) {
         filteredRooms: filteredRooms,
         filters: filters,
         setFilters: setFilters,
+        duration: duration,
+        setDuration: setDuration,
       }}
     >
       {children}
