@@ -22,6 +22,7 @@ function Booking(props) {
   const [phoneNumber, setPhoneNumber] = useState(""); // State for phone number input
   const [dataPermission, setDataPermission] = useState(false); // State variable for data permission checkbox
   const [errors, setErrors] = useState({}); // State variable for storing error messages
+  const [isLoading, setIsLoading] = useState(false); // State variable for loading status
 
   const room = rooms.at(props.id); // Get the selected room based on the provided ID
   if (!room) {
@@ -37,16 +38,30 @@ function Booking(props) {
     // Validation checks for each form field
     if (!firstName.trim()) {
       formErrors.firstName = "First Name is required";
+    } else if (!/^[A-Za-z]+$/.test(firstName)) {
+      formErrors.firstName =
+        "First Name should only contain alphabetic characters";
     }
+
     if (!lastName.trim()) {
       formErrors.lastName = "Last Name is required";
+    } else if (!/^[A-Za-z]+$/.test(lastName)) {
+      formErrors.lastName =
+        "Last Name should only contain alphabetic characters";
     }
+
     if (!email.trim()) {
       formErrors.email = "Email is required";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      formErrors.email = "Email should be a valid email address";
     }
+
     if (!phoneNumber.trim()) {
       formErrors.phoneNumber = "Phone Number is required";
+    } else if (!/^\+?[1-9]\d{1,14}$/.test(phoneNumber)) {
+      formErrors.phoneNumber = "Phone Number should be a valid phone number";
     }
+
     if (!dataPermission) {
       formErrors.dataPermission = "Data permission is required"; // Error message for data permission checkbox
     }
@@ -82,122 +97,136 @@ function Booking(props) {
             <> Please select your stay duration before making a booking ! </> // Display when no duration is selected
           )}
         </div>
-        {/* Labels and Inputs for user information, disabled if dates not selected */}
-        <Label className="flex flex-col">
-          First Name
-          <Input
-            disabled={!areDatesSelected}
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            required // Making the input required
-          />
-          {errors.firstName && (
-            <div className="text-red-500">{errors.firstName}</div> // Display error message for first name
-          )}
-        </Label>
-        <Label className="flex flex-col">
-          Last Name
-          <Input
-            disabled={!areDatesSelected}
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-            required // Making the input required
-          />
-          {errors.lastName && (
-            <div className="text-red-500">{errors.lastName}</div> // Display error message for last name
-          )}
-        </Label>
-        <Label className="flex flex-col">
-          Email
-          <Input
-            disabled={!areDatesSelected}
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required // Making the input required
-          />
-          {errors.email && (
-            <div className="text-red-500">{errors.email}</div> // Display error message for email
-          )}
-        </Label>
-        <Label className="flex flex-col">
-          Phone Number
-          <Input
-            disabled={!areDatesSelected}
-            value={phoneNumber}
-            onChange={(e) => setPhoneNumber(e.target.value)}
-            required // Making the input required
-          />
-          {errors.phoneNumber && (
-            <div className="text-red-500">{errors.phoneNumber}</div> // Display error message for phone number
-          )}
-        </Label>
-        {/* Checkbox for data permission, disabled if dates not selected */}
-        <div className="flex gap-4 text-xs pt-2">
-          <input
-            type="checkbox"
-            disabled={!areDatesSelected}
-            checked={dataPermission}
-            onChange={(e) => setDataPermission(e.target.checked)}
-            required // Making the checkbox required
-          />
-          <div>
-            I give permission to save the data I have entered here and use this
-            data to contact me. More information in our privacy statement.
+        {isLoading ? (
+          <div className="flex items-center justify-center h-96 w-full">
+            <div className="text-center text-2xl font-bold animate-pulse">
+              {room.title} is being booked! Please wait...
+            </div>
           </div>
-        </div>
-        {errors.dataPermission && (
-          <div className="text-red-500">{errors.dataPermission}</div> // Display error message for data permission checkbox
-        )}
-        {/* Buttons for cancelling or confirming booking, disable Confirm if dates not selected */}
-        <div className="flex gap-2 justify-end">
-          <Button
-            variant="secondary"
-            onClick={() =>
-              setSearchParams((params) => {
-                params.delete("bookingId"); // Deleting bookingId parameter from URL
-                return params;
-              })
-            }
-          >
-            Cancel
-          </Button>
-          <Button
-            disabled={!areDatesSelected}
-            onClick={async () => {
-              if (validateForm()) {
-                // Proceed with booking if form is valid
-                const reservation = new Reservation()
-                  // Using user input to set contact information
-                  .setContact(
-                    new Contact(firstName, lastName, email, phoneNumber)
-                  )
-                  .setResource(room)
-                  .setStartDatetime(new Date(duration.from))
-                  .setEndDatetime(new Date(duration.to));
-
-                reservation.setCustomProperty(
-                  "B25__Reservation_Type__c",
-                  "a0Ubn000000xq7REAQ"
-                ); // Setting reservation type to "Student Housing" using the property ID
-
-                try {
-                  const response = await gm.saveReservation(reservation); // Save the reservation using GoMeddo API
-                  console.log(response); // Log the response for debugging or further processing
-
+        ) : (
+          <>
+            {/* Labels and Inputs for user information, disabled if dates not selected */}
+            <Label className="flex flex-col">
+              First Name
+              <Input
+                disabled={!areDatesSelected}
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                required // Making the input required
+              />
+              {errors.firstName && (
+                <div className="text-red-500">{errors.firstName}</div> // Display error message for first name
+              )}
+            </Label>
+            <Label className="flex flex-col">
+              Last Name
+              <Input
+                disabled={!areDatesSelected}
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+                required // Making the input required
+              />
+              {errors.lastName && (
+                <div className="text-red-500">{errors.lastName}</div> // Display error message for last name
+              )}
+            </Label>
+            <Label className="flex flex-col">
+              Email
+              <Input
+                disabled={!areDatesSelected}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required // Making the input required
+              />
+              {errors.email && (
+                <div className="text-red-500">{errors.email}</div> // Display error message for email
+              )}
+            </Label>
+            <Label className="flex flex-col">
+              Phone Number
+              <Input
+                disabled={!areDatesSelected}
+                value={phoneNumber}
+                onChange={(e) => setPhoneNumber(e.target.value)}
+                required // Making the input required
+              />
+              {errors.phoneNumber && (
+                <div className="text-red-500">{errors.phoneNumber}</div> // Display error message for phone number
+              )}
+            </Label>
+            {/* Checkbox for data permission, disabled if dates not selected */}
+            <div className="flex gap-4 text-xs pt-2">
+              <input
+                type="checkbox"
+                disabled={!areDatesSelected}
+                checked={dataPermission}
+                onChange={(e) => setDataPermission(e.target.checked)}
+                required // Making the checkbox required
+              />
+              <div>
+                I give permission to save the data I have entered here and use
+                this data to contact me. More information in our privacy
+                statement.
+              </div>
+            </div>
+            {errors.dataPermission && (
+              <div className="text-red-500">{errors.dataPermission}</div> // Display error message for data permission checkbox
+            )}
+            {/* Buttons for cancelling or confirming booking, disable Confirm if dates not selected */}
+            <div className="flex gap-2 justify-end">
+              <Button
+                variant="secondary"
+                onClick={() =>
                   setSearchParams((params) => {
                     params.delete("bookingId"); // Deleting bookingId parameter from URL
-                    params.set("confirmationId", props.id); // Setting confirmationId parameter in URL
                     return params;
-                  });
-                } catch (error) {
-                  console.error("Failed to save reservation:", error); // Log any errors that occur during reservation saving
+                  })
                 }
-              }
-            }}
-          >
-            Confirm
-          </Button>
-        </div>
+              >
+                Cancel
+              </Button>
+              <Button
+                disabled={!areDatesSelected}
+                onClick={async () => {
+                  if (validateForm()) {
+                    setIsLoading(true); // Set loading state to true
+                    // Proceed with booking if form is valid
+                    const reservation = new Reservation()
+                      // Using user input to set contact information
+                      .setContact(
+                        new Contact(firstName, lastName, email, phoneNumber)
+                      )
+                      .setResource(room)
+                      .setStartDatetime(new Date(duration.from))
+                      .setEndDatetime(new Date(duration.to));
+
+                    reservation.setCustomProperty(
+                      "B25__Reservation_Type__c",
+                      "a0Ubn000000xq7REAQ"
+                    ); // Setting reservation type to "Student Housing" using the property ID
+
+                    try {
+                      const response = await gm.saveReservation(reservation); // Save the reservation using GoMeddo API
+                      console.log(response); // Log the response for debugging or further processing
+
+                      setSearchParams((params) => {
+                        params.delete("bookingId"); // Deleting bookingId parameter from URL
+                        params.set("confirmationId", props.id); // Setting confirmationId parameter in URL
+                        return params;
+                      });
+                    } catch (error) {
+                      console.error("Failed to save reservation:", error); // Log any errors that occur during reservation saving
+                    } finally {
+                      setIsLoading(false); // Set loading state to false after reservation is processed
+                    }
+                  }
+                }}
+              >
+                Confirm
+              </Button>
+            </div>
+          </>
+        )}
       </Card.Body>
     </Card>
   );
