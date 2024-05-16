@@ -201,6 +201,10 @@ function Booking(props) {
                       .setEndDatetime(new Date(duration.to));
 
                     reservation.setCustomProperty(
+                      "B25__Base_Price__c",
+                      room.price
+                    ); // Setting the base price for the room
+                    reservation.setCustomProperty(
                       "B25__Reservation_Type__c",
                       "a0Ubn000000xq7REAQ"
                     ); // Setting reservation type to "Student Housing" using the property ID
@@ -211,7 +215,7 @@ function Booking(props) {
 
                       setSearchParams((params) => {
                         params.delete("bookingId"); // Deleting bookingId parameter from URL
-                        params.set("confirmationId", props.id); // Setting confirmationId parameter in URL
+                        params.set("confirmationId", response.id); // Setting confirmationId parameter in URL
                         return params;
                       });
                     } catch (error) {
