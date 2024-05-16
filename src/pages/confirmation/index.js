@@ -11,7 +11,7 @@ function Confirmation(props) {
   const [, setSearchParams] = useSearchParams(); // Destructuring the setSearchParams hook from useSearchParams
 
   const { rooms, duration } = useRoomContext(); // Retrieving room details and duration from the room context
-  const room = rooms.at(props.id); // Getting the specific room based on the provided ID
+  const room = rooms.find((room) => room.id === props.id); // Getting the specific room based on the provided ID
 
   if (!room) {
     return <>Loading...</>; // Display a loading message while the room data is being fetched

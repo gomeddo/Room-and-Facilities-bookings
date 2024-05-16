@@ -24,7 +24,7 @@ function Booking(props) {
   const [errors, setErrors] = useState({}); // State variable for storing error messages
   const [isLoading, setIsLoading] = useState(false); // State variable for loading status
 
-  const room = rooms.at(props.id); // Get the selected room based on the provided ID
+  const room = rooms.find((room) => room.id === props.id); // Getting the specific room based on the provided ID
   if (!room) {
     return <>Loading...</>; // Display while room data is loading
   }

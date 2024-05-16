@@ -44,7 +44,7 @@ export default function Rooms() {
         >
           {/* Mapping over the sliced portion of cardsData to render RoomCard components */}
           {filteredRooms.slice(0, displayedCards).map((card, index) => (
-            <RoomCard {...card} id={index} key={index} />
+            <RoomCard {...card} key={index} />
           ))}
         </InfiniteScroll>
       </div>
