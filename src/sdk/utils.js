@@ -21,11 +21,8 @@ export function parseRoom(roomInfo) {
   return {
     ...roomInfo,
     title: roomInfo.name,
-    features: [
-      `${roomInfo.customProperties.get(FIELD_CAPACITY)} Guest/s`,
-      ...(roomInfo.customProperties.get(FIELD_HOUSING_FEATURES)?.split(", ") ??
-        []),
-    ],
+    features:
+      roomInfo.customProperties.get(FIELD_HOUSING_FEATURES)?.split(", ") ?? [],
     location: roomInfo.customProperties.get(FIELD_HOUSING_LOCATION),
     description: roomInfo.customProperties.get(FIELD_DESCRIPTION),
     price: roomInfo.customProperties.get(FIELD_DEFAULT_PRICE),
