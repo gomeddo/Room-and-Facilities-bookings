@@ -30,14 +30,6 @@ export default function RoomCard(props) {
             {/* location */}
           </div>
           <div className="flex flex-wrap gap-2">
-            <Chip className="group-hover:bg-white transition-colors">
-              {props.capacity} Guest/s
-            </Chip>
-            <Chip className="group-hover:bg-white transition-colors">
-              € {props.price} Per Day
-            </Chip>
-          </div>
-          <div className="flex flex-wrap gap-2">
             {/* Displaying room features */}
             {props.features.map((feature, index) => (
               <Chip
@@ -52,10 +44,11 @@ export default function RoomCard(props) {
 
         {/* Verify Button */}
         <div className="flex flex-col justify-center gap-4 px-4">
+          {/* Button to view room info */}
+          <Button variant="secondary">View Info</Button>
           {/* Button to book the room */}
           <Button
             variant="primary"
-            className="text-sm py-2"
             onClick={(e) => {
               e.preventDefault();
               setSearchParams((params) => {

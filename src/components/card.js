@@ -24,7 +24,7 @@ function CardBody(props) {
       {...rest} // Spread operator to pass down any additional props to the div element
       className={twMerge(
         // Applying Tailwind CSS classes to the div element, merging existing className with Tailwind classes
-        "flex flex-col gap-4 p-4 justify-center", // Styling for flex layout, padding, and vertical alignment
+        "flex flex-col gap-4 px-12 justify-center", // Styling for flex layout, padding, and vertical alignment
         className
       )}
     />
