@@ -9,9 +9,15 @@ export default function RoomPage() {
   const { rooms, isLoading } = useRoomContext();
   const { roomId } = useParams();
 
+  // Extracting parameters from the URL
+  // const { roomId } = useParams();
+
   // State for the currently selected photo index and image modal state
   const [selectedPhoto, setSelectedPhoto] = useState(0);
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
+
+  // Retrieve room data based on roomId
+  // const room = cardsData[roomId];
 
   // Hook for navigation
   const navigate = useNavigate();

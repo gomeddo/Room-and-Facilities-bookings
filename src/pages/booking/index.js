@@ -5,7 +5,7 @@ import Input from "../../components/input"; // Importing Input component
 import Button from "../../components/button"; // Importing Button component
 import clsx from "clsx"; // Importing clsx library for conditional classes
 import { useRoomContext } from "../../context"; // Context hook for room data
-import useGoMeddo from "../../hooks/useGoMeddo"; // Custom hook for GoMeddo API
+import useGoMeddo from "../../sdk/useGoMeddo"; // Custom hook for GoMeddo API
 import { Contact, Reservation } from "@gomeddo/sdk"; // SDK for GoMeddo service
 import { useState } from "react"; // Importing useState hook for managing form state
 

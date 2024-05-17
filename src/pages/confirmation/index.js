@@ -1,47 +1,18 @@
 import clsx from "clsx"; // A utility for constructing className strings conditionally
+import { Star } from "react-feather"; // Icon component for displaying a star
 import { useSearchParams } from "react-router-dom"; // Hook to access the URL query parameters
 import Button from "../../components/button"; // Custom Button component
 import Card from "../../components/card"; // Custom Card component
 import Chip from "../../components/chip"; // Custom Chip component
-import { Star } from "react-feather"; // Icon component for displaying a star
-import { useRoomContext } from "../../context"; // Custom hook for accessing room context
-import useGoMeddo from "../../hooks/useGoMeddo";
-import { useEffect, useState } from "react";
+import { useReservation, useRoom } from "../../sdk/hooks";
 
 // Function component for displaying booking confirmation details
 function Confirmation() {
   const [searchParams, setSearchParams] = useSearchParams(); // Destructuring the setSearchParams hook from useSearchParams
-  const { rooms } = useRoomContext(); // Retrieving room details and duration from the room context
-  //const room = rooms.find((room) => room.id === props.id); // Getting the specific room based on the provided ID
 
   const reservationId = searchParams.get("confirmationId");
-
-  const gm = useGoMeddo();
-  const [reservation, setReservation] = useState(undefined);
-
-  const room = rooms.find(
-    (room) => room.id === reservation?.customProperties.get("B25__Resource__c")
-  );
-
-  useEffect(() => {
-    const fetch = async () => {
-      const result = await gm
-        .buildReservationRequest()
-        .withIds(reservationId)
-        .includeAdditionalFields([
-          "B25__Total_Price__c",
-          "B25__Resource__c",
-          "B25__Start_Date__c",
-          "B25__End_Date__c",
-          "Duration_in_Hours__c",
-        ])
-        .getResults();
-
-      setReservation(result.getReservation(reservationId));
-    };
-
-    fetch();
-  }, [gm, reservationId]);
+  const { reservation } = useReservation(reservationId);
+  const room = useRoom(reservation?.resourceId);
 
   if (!room || !reservation) {
     return <>Loading...</>; // Display a loading message while the room data is being fetched
@@ -65,13 +36,8 @@ function Confirmation() {
           {/* <div className="bg-[#DBDBFE] rounded-full p-2 font-bold w-6/12 mx-auto flex justify-center items-center"> */}
           <div className="bg-[#DBDBFE] rounded-full p-2 font-bold">
             {/* Displaying booking dates */}
-            {new Date(
-              reservation.customProperties.get("B25__Start_Date__c")
-            ).toLocaleDateString()}{" "}
-            -{" "}
-            {new Date(
-              reservation.customProperties.get("B25__End_Date__c")
-            ).toLocaleDateString()}
+            {new Date(reservation.startDate).toLocaleDateString()} -{" "}
+            {new Date(reservation.endDate).toLocaleDateString()}
           </div>
           <div className="justify-center flex items-center gap-2 text-[#444444]">
             {/* Displaying star rating */}
@@ -95,15 +61,11 @@ function Confirmation() {
           {/* Displaying cost calculation */}
           <div className="text-m">
             Calculation: € {room.price} x{" "}
-            {Math.floor(
-              reservation.customProperties.get("Duration_in_Hours__c") / 24
-            )}{" "}
-            days
+            {Math.floor(reservation.duration / 24)} days
           </div>
           {/* Displaying total cost including taxes */}
           <div className="text-m font-bold">
-            Total Cost (incl. Taxes): €{" "}
-            {reservation.customProperties.get("B25__Total_Price__c")}
+            Total Cost (incl. Taxes): € {reservation.totalPrice}
           </div>
         </div>
         {/* Button for navigating back to dashboard */}

@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react";
-import { useRooms } from "./hooks";
+import { useRooms } from "./sdk/hooks";
 
 // Create a context for room-related data and functions
 export const RoomContext = createContext({
