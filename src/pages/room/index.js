@@ -1,13 +1,16 @@
 import { useState } from "react";
 import { ChevronLeft, ChevronRight, Star, X } from "react-feather";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import Chip from "../../components/chip";
 import { useRoomContext } from "../../context";
+import Button from "../../components/button";
 
 // RoomPage component definition
 export default function RoomPage() {
   const { rooms, isLoading } = useRoomContext();
   const { roomId } = useParams();
+
+  const [, setSearchParams] = useSearchParams();
 
   // Extracting parameters from the URL
   // const { roomId } = useParams();
@@ -72,6 +75,19 @@ export default function RoomPage() {
           <div className="text-1xl font-bold">
             Price per night: € {room.price}
           </div>
+          <Button
+            variant="primary"
+            className="text-md py-3"
+            onClick={(e) => {
+              e.preventDefault();
+              setSearchParams((params) => {
+                params.set("bookingId", roomId); // Setting bookingId parameter
+                return params;
+              });
+            }}
+          >
+            Book Now
+          </Button>
         </div>
       </div>
       <div className="w-2/3 my-auto relative">
