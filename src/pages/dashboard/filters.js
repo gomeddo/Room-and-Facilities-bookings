@@ -129,7 +129,7 @@ function DashboardFilters() {
               {/* Buttons to apply or cancel filter changes */}
               <div className="flex justify-end gap-2 mx-1">
                 <Button variant="secondary" onClick={onClear}>
-                  Cancel
+                  Reset
                 </Button>
                 <Button variant="primary" onClick={onApply}>
                   Apply
