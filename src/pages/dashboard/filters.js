@@ -82,9 +82,6 @@ function DashboardFilters() {
                   </option>
                 ))}
               </Select>
-              {/* <Select>
-            <option value="">Location</option> //Uncomment if needed
-          </Select> */}
               {/* Select input for accommodation type */}
               <Select
                 value={filters.roomType ?? ""}
@@ -123,9 +120,6 @@ function DashboardFilters() {
                   </option>
                 ))}
               </Select>
-              {/* <Select>
-            <option value="">Distance</option> //Uncomment if needed
-          </Select> */}
               {/* Buttons to apply or cancel filter changes */}
               <div className="flex justify-end gap-2 mx-1">
                 <Button variant="secondary" onClick={onClear}>
