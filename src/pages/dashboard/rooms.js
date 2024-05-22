@@ -34,19 +34,27 @@ export default function Rooms() {
           {filteredRooms.length} properties for rent in the greater Amsterdam
           region
         </div>
-        {/* Infinite scroll component to dynamically load more cards as user scrolls */}
-        <InfiniteScroll
-          dataLength={displayedCards}
-          next={loadMoreCards} // Function to call when reaching the bottom to load more cards
-          hasMore={hasMore} // Boolean indicating whether there are more cards to load
-          loader={<h4>Loading.....</h4>} // Loader displayed while loading more cards
-          className="flex flex-col gap-6" // Styling for the container of the cards
-        >
-          {/* Mapping over the sliced portion of cardsData to render RoomCard components */}
-          {filteredRooms.slice(0, displayedCards).map((card, index) => (
-            <RoomCard {...card} key={index} />
-          ))}
-        </InfiniteScroll>
+        {/* Check if filteredRooms is empty */}
+        {filteredRooms.length === 0 ? (
+          <div className="text-center text-[#666] pt-5">
+            No properties found matching your filters. Try adjusting or removing
+            one of your filters.
+          </div>
+        ) : (
+          /* Infinite scroll component to dynamically load more cards as user scrolls */
+          <InfiniteScroll
+            dataLength={displayedCards}
+            next={loadMoreCards} // Function to call when reaching the bottom to load more cards
+            hasMore={hasMore} // Boolean indicating whether there are more cards to load
+            loader={<h4>Loading.....</h4>} // Loader displayed while loading more cards
+            className="flex flex-col gap-6" // Styling for the container of the cards
+          >
+            {/* Mapping over the sliced portion of cardsData to render RoomCard components */}
+            {filteredRooms.slice(0, displayedCards).map((card, index) => (
+              <RoomCard {...card} key={index} />
+            ))}
+          </InfiniteScroll>
+        )}
       </div>
     </>
   );
