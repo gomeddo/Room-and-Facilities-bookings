@@ -21,7 +21,6 @@ export default function DatePicker({ date, setDate }) {
         </div>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0 bg-white">
-        {" "}
         {/* Content of the popover */}
         <Calendar
           mode="range" // Mode of the calendar, set to "range" for selecting a date range

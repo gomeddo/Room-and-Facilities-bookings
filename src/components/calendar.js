@@ -8,6 +8,7 @@ function Calendar({ className, classNames, showOutsideDays = true, ...props }) {
   return (
     <DayPicker
       fromDate={new Date()}
+      numberOfMonths={2} // Add numberOfMonths prop to display two months
       showOutsideDays={showOutsideDays} // Prop to control whether to show days outside of the current month
       className={twMerge("p-3", className)} // Applying Tailwind CSS classes to the DayPicker component, merging the existing className with "p-3"
       classNames={{
