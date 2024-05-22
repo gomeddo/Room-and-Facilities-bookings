@@ -18,11 +18,8 @@ export default function Rooms() {
       return;
     }
 
-    // Simulate loading delay using setTimeout
-    setTimeout(() => {
-      // Increase the number of displayed cards by 5
-      setDisplayedCards((prevDisplayedCards) => prevDisplayedCards + 5);
-    }, 5000); // Simulated loading time of 5 seconds
+    // Increase the number of displayed cards by 5
+    setDisplayedCards((prevDisplayedCards) => prevDisplayedCards + 5);
   };
 
   return (
