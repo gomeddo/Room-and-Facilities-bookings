@@ -186,7 +186,7 @@ function Booking(props) {
                 Cancel
               </Button>
               <Button
-                disabled={!areDatesSelected}
+                disabled={!areDatesSelected || !dataPermission} // Disable Confirm button if dates or data permission are not selected
                 onClick={async () => {
                   if (validateForm()) {
                     setIsLoading(true); // Set loading state to true
