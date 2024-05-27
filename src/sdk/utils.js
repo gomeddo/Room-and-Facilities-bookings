@@ -40,6 +40,7 @@ export function filterRooms(rooms, filters) {
   let filteredRooms = rooms;
 
   if (filters.price != null) {
+    // The +50 is the range of price that the filters are based on eg 50 -> 100
     filteredRooms = filteredRooms.filter(
       (room) => room.price >= filters.price && room.price < filters.price + 50
     );

@@ -33,7 +33,7 @@ function Confirmation() {
       {/* Displaying confirmation details */}
       <Card.Body className="px-6 py-10 w-3/5">
         <div className="font-bold text-4xl text-center">Booking Confirmed</div>
-        <div className="font-bold text-3xl text-center">Enjoy Your Stay !</div>
+        <div className="font-bold text-3xl text-center">Enjoy Your Stay!</div>
         <div className="bg-[#C3C2C2] bg-opacity-30 px-4 py-6 rounded-lg text-center flex flex-col gap-4">
           <div className="text-[#3E4958] text-2xl font-bold">{room.title}</div>
           {/* <div className="bg-[#DBDBFE] rounded-full p-2 font-bold w-6/12 mx-auto flex justify-center items-center"> */}

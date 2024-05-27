@@ -26,7 +26,11 @@ export function useRooms(filters) {
         .getResults();
 
       const resourceIds = resourceResult.getResourceIds();
-      const selectedResourceIds = resourceIds.slice(1, 13); // Select specific resource IDs
+      //const selectedResourceIds = resourceIds.slice(1, 13); // Select specific resource IDs
+      // filter out the parent university and only show rooms (alternative to the above)
+      const selectedResourceIds = resourceIds.filter(
+        (id) => id !== UNIVERSITY_RESOURCE_ID
+      );
 
       // Map the selected resources to room objects
       setRooms(
