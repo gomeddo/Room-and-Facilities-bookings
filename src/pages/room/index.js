@@ -50,6 +50,13 @@ export default function RoomPage() {
     setIsImageModalOpen(false);
   };
 
+  const handleNextPhoto = () => {
+    setSelectedPhoto((state) => (state === photos.length - 1 ? 0 : state + 1));
+  };
+  const handlePrevPhoto = () => {
+    setSelectedPhoto((state) => (state === 0 ? photos.length - 1 : state - 1));
+  };
+
   // JSX structure for the RoomPage component
   return (
     <div className="h-screen w-screen flex flex-row overflow-hidden">
@@ -104,20 +111,12 @@ export default function RoomPage() {
           <div className="w-full pb-8 relative">
             {/* Button to navigate to previous image */}
             <ChevronLeft
-              onClick={() => {
-                setSelectedPhoto((state) =>
-                  state === 0 ? photos.length - 1 : state - 1
-                );
-              }}
+              onClick={handlePrevPhoto}
               className="absolute top-[calc(50%-16px)] left-4 p-2 w-8 h-8 bg-white rounded-full opacity-75 hover:opacity-100 hover:scale-105 transition-all cursor-pointer"
             />
             {/* Button to navigate to next image */}
             <ChevronRight
-              onClick={() =>
-                setSelectedPhoto((state) =>
-                  state === photos.length - 1 ? 0 : state + 1
-                )
-              }
+              onClick={handleNextPhoto}
               className="absolute top-[calc(50%-16px)] right-4 p-2 w-8 h-8 bg-white rounded-full opacity-75 hover:opacity-100 hover:scale-105 transition-all cursor-pointer"
             />
             {/* Displaying the selected image */}
@@ -160,22 +159,14 @@ export default function RoomPage() {
             {/* Button to navigate to previous image in modal */}
             <div
               className="absolute top-1/2 -translate-y-1/2 left-4 cursor-pointer bg-white rounded-full opacity-75 hover:opacity-100 hover:scale-105"
-              onClick={() => {
-                setSelectedPhoto((state) =>
-                  state === 0 ? photos.length - 1 : state - 1
-                );
-              }}
+              onClick={handlePrevPhoto}
             >
               <ChevronLeft className="w-8 h-8 text-grey " />
             </div>
             {/* Button to navigate to next image in modal */}
             <div
               className="absolute top-1/2 -translate-y-1/2 right-4 cursor-pointer bg-white rounded-full opacity-75 hover:opacity-100 hover:scale-105"
-              onClick={() =>
-                setSelectedPhoto((state) =>
-                  state === photos.length - 1 ? 0 : state + 1
-                )
-              }
+              onClick={handleNextPhoto}
             >
               <ChevronRight className="w-8 h-8 text-grey" />
             </div>
