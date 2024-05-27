@@ -37,22 +37,30 @@ export function parseRoom(roomInfo) {
 }
 
 export function filterRooms(rooms, filters) {
-  return rooms
-    .filter((room) =>
-      !!filters.price
-        ? room.price >= filters.price && room.price < filters.price + 50
-        : true
-    )
-    .filter((room) =>
-      !!filters.capacity ? room.capacity === filters.capacity : true
-    )
-    .filter((room) =>
-      !!filters.roomType ? room.roomType === filters.roomType : true
+  let filteredRooms = rooms;
+
+  if (filters.price != null) {
+    filteredRooms = filteredRooms.filter(
+      (room) => room.price >= filters.price && room.price < filters.price + 50
     );
+  }
+
+  if (filters.capacity != null) {
+    filteredRooms = filteredRooms.filter(
+      (room) => room.capacity === filters.capacity
+    );
+  }
+
+  if (filters.roomType != null) {
+    filteredRooms = filteredRooms.filter(
+      (room) => room.roomType === filters.roomType
+    );
+  }
+
+  return filteredRooms;
 }
 
-export function paresReservation(reservation) {
-  console.log(reservation);
+export function parseReservations(reservation) {
   return {
     ...reservation,
     totalPrice: reservation.customProperties.get(FIELD_TOTAL_PRICE),

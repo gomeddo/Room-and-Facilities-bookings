@@ -5,7 +5,7 @@ import {
   UNIVERSITY_RESOURCE_ID,
 } from "./constants";
 import useGoMeddo from "./useGoMeddo";
-import { filterRooms, paresReservation, parseRoom } from "./utils";
+import { filterRooms, parseReservations, parseRoom } from "./utils";
 import { useRoomContext } from "../context";
 
 export function useRooms(filters) {
@@ -40,7 +40,7 @@ export function useRooms(filters) {
     };
 
     fetchData(); // Call the fetchData function when the component mounts or filters change
-  }, [gm, filters]);
+  }, [gm]);
 
   // Filter the rooms based on the selected filters
   const filteredRooms = filterRooms(rooms, filters);
@@ -74,7 +74,7 @@ export function useReservation(reservationId) {
         .includeAdditionalFields(RESERVATION_FIELDS)
         .getResults();
 
-      setReservation(paresReservation(result.getReservation(reservationId)));
+      setReservation(parseReservations(result.getReservation(reservationId)));
       setIsLoading(false);
     };
 
