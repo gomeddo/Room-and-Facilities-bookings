@@ -12,7 +12,7 @@ export default function Image({ src, alt, className, onClick }) {
       <img
         src={src}
         alt={alt}
-        className={clsx(className, "transition-all duration-300", {
+        className={clsx(className, {
           "opacity-0": loading,
         })}
         onClick={onClick}

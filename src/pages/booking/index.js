@@ -9,6 +9,7 @@ import useGoMeddo from "../../sdk/useGoMeddo"; // Custom hook for GoMeddo API
 import { Contact, Reservation } from "@gomeddo/sdk"; // SDK for GoMeddo service
 import { useState } from "react"; // Importing useState hook for managing form state
 import DatePicker from "../../components/datePicker";
+import Loading from "../../components/loading";
 
 // Functional component for booking details
 function Booking(props) {
@@ -27,7 +28,7 @@ function Booking(props) {
 
   const room = rooms.find((room) => room.id === props.id); // Getting the specific room based on the provided ID
   if (!room) {
-    return <>Loading...</>; // Display while room data is loading
+    return <Loading className="m-20 rounded-lg w-full max-w-4xl p-0 h-16" />;
   }
 
   const areDatesSelected = !!duration?.from && !!duration?.to; // Determine if dates are selected
@@ -74,10 +75,12 @@ function Booking(props) {
   return (
     <Card className="m-20 rounded-lg w-auto max-w-4xl">
       {/* Styling for Card */}
-      <Card.Image
-        src={room.image}
-        className="rounded-none rounded-l-lg h-full w-2/5" // Styling for Card Image
-      />
+      <div className="w-2/5">
+        <Card.Image
+          src={room.image}
+          className="rounded-none rounded-l-lg h-full w-full" // Styling for Card Image
+        />
+      </div>
       {/* Styling for Card Body */}
       <Card.Body className="px-6 py-10 w-3/5">
         {/* Displaying room title */}

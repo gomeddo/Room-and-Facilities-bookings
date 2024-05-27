@@ -7,7 +7,7 @@ export default function Rooms() {
   // State to keep track of the number of displayed cards and whether there are more cards to load
   const [displayedCards, setDisplayedCards] = useState(5);
   const [hasMore, setHasMore] = useState(true);
-  const { filteredRooms } = useRoomContext();
+  const { filteredRooms, isLoading } = useRoomContext();
 
   // Function to load more cards when scrolling
   const loadMoreCards = () => {
@@ -21,6 +21,19 @@ export default function Rooms() {
     // Increase the number of displayed cards by 5
     setDisplayedCards((prevDisplayedCards) => prevDisplayedCards + 5);
   };
+
+  if (isLoading) {
+    return (
+      <div className="w-3/4 pl-8 py-12 flex flex-col gap-6">
+        {Array.from(Array(5).keys()).map((i) => (
+          <div
+            key={i}
+            className="h-48 bg-gray-200 w-full rounded-lg animate-pulse"
+          />
+        ))}
+      </div>
+    );
+  }
 
   return (
     <>

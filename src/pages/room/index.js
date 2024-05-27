@@ -5,6 +5,7 @@ import Chip from "../../components/chip";
 import { useRoomContext } from "../../context";
 import Button from "../../components/button";
 import Image from "../../components/image";
+import Loading from "../../components/loading";
 
 // RoomPage component definition
 export default function RoomPage() {
@@ -28,7 +29,7 @@ export default function RoomPage() {
 
   const room = rooms.find((room) => room.id === roomId);
   if (isLoading || !room) {
-    return <>Loading...</>;
+    return <Loading className="w-screen h-screen" />;
   }
 
   const photos = [room.image2, room.image3, room.image4];
@@ -150,7 +151,7 @@ export default function RoomPage() {
         <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-80 flex justify-center items-center select-none">
           <div className="max-w-screen-lg w-full relative">
             {/* Displaying the enlarged image */}
-            <Image
+            <img
               src={photos[selectedPhoto]}
               alt={room.alt}
               className="rounded-lg object-contain w-full h-full cursor-pointer"

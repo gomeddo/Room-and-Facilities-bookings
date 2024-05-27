@@ -5,6 +5,7 @@ import Button from "../../components/button"; // Custom Button component
 import Card from "../../components/card"; // Custom Card component
 import Chip from "../../components/chip"; // Custom Chip component
 import { useReservation, useRoom } from "../../sdk/hooks";
+import Loading from "../../components/loading";
 
 // Function component for displaying booking confirmation details
 function Confirmation() {
@@ -15,18 +16,20 @@ function Confirmation() {
   const room = useRoom(reservation?.resourceId);
 
   if (!room || !reservation) {
-    return <>Loading...</>; // Display a loading message while the room data is being fetched
+    return <Loading className="m-20 rounded-lg w-full max-w-4xl p-0 h-16" />;
   }
 
   // Rendering the confirmation details
   return (
     <Card className="m-20 rounded-lg w-auto max-w-4xl">
       {/* Displaying room image */}
-      <Card.Image
-        src={room.image}
-        alt={room.alt}
-        className="rounded-none rounded-l-lg h-full w-2/5"
-      />
+      <div className="w-2/5">
+        <Card.Image
+          src={room.image}
+          alt={room.alt}
+          className="rounded-none rounded-l-lg h-full w-full"
+        />
+      </div>
       {/* Displaying confirmation details */}
       <Card.Body className="px-6 py-10 w-3/5">
         <div className="font-bold text-4xl text-center">Booking Confirmed</div>
