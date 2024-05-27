@@ -1,10 +1,11 @@
 import { twMerge } from "tailwind-merge"; // Importing the twMerge function from the tailwind-merge library
+import Image from "./image";
 
 // CardImage component: Renders an image with Tailwind CSS styling
 function CardImage(props) {
   const { className, ...rest } = props; // Destructuring props to extract className, and rest of the props
   return (
-    <img
+    <Image
       {...rest} // Spread operator to pass down any additional props to the img element
       className={twMerge(
         // Applying Tailwind CSS classes to the img element, merging existing className with Tailwind classes

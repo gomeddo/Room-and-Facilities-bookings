@@ -4,6 +4,7 @@ import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import Chip from "../../components/chip";
 import { useRoomContext } from "../../context";
 import Button from "../../components/button";
+import Image from "../../components/image";
 
 // RoomPage component definition
 export default function RoomPage() {
@@ -90,7 +91,7 @@ export default function RoomPage() {
           </Button>
         </div>
       </div>
-      <div className="w-2/3 my-auto relative">
+      <div className="w-2/3 my-auto relative select-none">
         {/* Button to close the page */}
         <div
           className="absolute top-0 right-0 p-2 cursor-pointer hover:bg-gray-200 hover:scale-110 rounded-full m-2 transition-all"
@@ -119,7 +120,7 @@ export default function RoomPage() {
               className="absolute top-[calc(50%-16px)] right-4 p-2 w-8 h-8 bg-white rounded-full opacity-75 hover:opacity-100 hover:scale-105 transition-all cursor-pointer"
             />
             {/* Displaying the selected image */}
-            <img
+            <Image
               src={photos[selectedPhoto]}
               alt={room.alt}
               className="rounded-lg object-cover w-full h-auto aspect-video select-none cursor-pointer"
@@ -134,7 +135,7 @@ export default function RoomPage() {
                 className="flex-1 cursor-pointer hover:scale-105 transition-all"
                 onClick={() => handleImageClick(index)}
               >
-                <img
+                <Image
                   src={photo}
                   alt={room.alt}
                   className="rounded-lg object-cover aspect-video"
@@ -146,10 +147,10 @@ export default function RoomPage() {
       </div>
       {/* Image Modal */}
       {isImageModalOpen && (
-        <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-80 flex justify-center items-center">
+        <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-80 flex justify-center items-center select-none">
           <div className="max-w-screen-lg w-full relative">
             {/* Displaying the enlarged image */}
-            <img
+            <Image
               src={photos[selectedPhoto]}
               alt={room.alt}
               className="rounded-lg object-contain w-full h-full cursor-pointer"
