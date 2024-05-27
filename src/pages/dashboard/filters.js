@@ -33,7 +33,11 @@ function DashboardFilters() {
 
   // Function to clear the selected filters
   const onClear = () => {
-    setFilters({});
+    setFilters({
+      capacity: undefined,
+      roomType: undefined,
+      price: undefined,
+    });
     context.setFilters({});
   };
 
@@ -41,6 +45,12 @@ function DashboardFilters() {
   const onApply = () => {
     context.setFilters(filters);
   };
+
+  // Check if any filters are set
+  const areFiltersSet =
+    filters.capacity !== undefined ||
+    filters.roomType !== undefined ||
+    filters.price !== undefined;
 
   return (
     <>
@@ -122,10 +132,18 @@ function DashboardFilters() {
               </Select>
               {/* Buttons to apply or cancel filter changes */}
               <div className="flex justify-end gap-2 mx-1">
-                <Button variant="secondary" onClick={onClear}>
+                <Button
+                  variant="secondary"
+                  onClick={onClear}
+                  disabled={!areFiltersSet}
+                >
                   Reset
                 </Button>
-                <Button variant="primary" onClick={onApply}>
+                <Button
+                  variant="primary"
+                  onClick={onApply}
+                  disabled={!areFiltersSet}
+                >
                   Apply
                 </Button>
               </div>
