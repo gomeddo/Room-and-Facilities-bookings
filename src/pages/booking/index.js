@@ -8,10 +8,11 @@ import { useRoomContext } from "../../context"; // Context hook for room data
 import useGoMeddo from "../../sdk/useGoMeddo"; // Custom hook for GoMeddo API
 import { Contact, Reservation } from "@gomeddo/sdk"; // SDK for GoMeddo service
 import { useState } from "react"; // Importing useState hook for managing form state
+import DatePicker from "../../components/datePicker";
 
 // Functional component for booking details
 function Booking(props) {
-  const { rooms, duration } = useRoomContext(); // Get room data and booking duration from context
+  const { rooms, duration, setDuration } = useRoomContext(); // Get room data and booking duration from context
   const [, setSearchParams] = useSearchParams(); // Getting and setting URL search parameters
   const gm = useGoMeddo(); // Initialize GoMeddo API
 
@@ -83,19 +84,20 @@ function Booking(props) {
         <div className="font-bold text-2xl text-center">{room.title}</div>
         {/* Conditional rendering for booking duration messages */}
         <div
-          className={clsx("rounded-full font-bold text-center p-1", {
-            "bg-[#DBDBFE]": areDatesSelected, // Keep background if dates are selected
-            "text-red-500 font-bold": !areDatesSelected, // Make text red and bold if dates are not selected
-          })}
-        >
-          {areDatesSelected ? (
-            <>
-              {new Date(duration?.from).toLocaleDateString()} -{" "}
-              {new Date(duration?.to).toLocaleDateString()}
-            </>
-          ) : (
-            <> Please select your stay duration before making a booking ! </> // Display when no duration is selected
+          className={clsx(
+            "rounded-full font-bold text-center flex flex-col gap-2",
+            {
+              "bg-[#DBDBFE]": areDatesSelected, // Keep background if dates are selected
+              "text-red-500 font-bold": !areDatesSelected, // Make text red and bold if dates are not selected
+            }
           )}
+        >
+          <DatePicker date={duration} setDate={setDuration} />
+          {
+            (!duration?.from || !duration?.to) && (
+              <>Please select your stay duration before making a booking!</>
+            ) // Display when no duration is selected
+          }
         </div>
         {isLoading ? (
           <div className="flex items-center justify-center h-96 w-full">
