@@ -1,16 +1,16 @@
-import { useState } from "react";
-import InfiniteScroll from "react-infinite-scroll-component";
+//import { useState } from "react";
+//import InfiniteScroll from "react-infinite-scroll-component";
 import RoomCard from "./roomCard";
 import { useRoomContext } from "../../context";
 
 export default function Rooms() {
   // State to keep track of the number of displayed cards and whether there are more cards to load
-  const [displayedCards, setDisplayedCards] = useState(5);
-  const [hasMore, setHasMore] = useState(true);
-  const { filteredRooms } = useRoomContext();
+  //const [displayedCards, setDisplayedCards] = useState(5);
+  //const [hasMore, setHasMore] = useState(true);
+  const { filteredRooms, isLoading } = useRoomContext();
 
   // Function to load more cards when scrolling
-  const loadMoreCards = () => {
+  /*const loadMoreCards = () => {
     // Check if all cards have been displayed
     if (displayedCards >= filteredRooms.length) {
       // If all cards have been displayed, set hasMore to false to indicate no more cards to load
@@ -20,7 +20,20 @@ export default function Rooms() {
 
     // Increase the number of displayed cards by 5
     setDisplayedCards((prevDisplayedCards) => prevDisplayedCards + 5);
-  };
+  };*/
+
+  if (isLoading) {
+    return (
+      <div className="w-3/4 pl-8 py-12 flex flex-col gap-6">
+        {Array.from(Array(5).keys()).map((i) => (
+          <div
+            key={i}
+            className="h-48 bg-gray-200 w-full rounded-lg animate-pulse"
+          />
+        ))}
+      </div>
+    );
+  }
 
   return (
     <>
@@ -38,20 +51,23 @@ export default function Rooms() {
             one of your filters.
           </div>
         ) : (
-          /* Infinite scroll component to dynamically load more cards as user scrolls */
-          <InfiniteScroll
+          <div
+            className="flex flex-col gap-6" // Styling for the container of the cards
+          >
+            {/* Mapping over the sliced portion of cardsData to render RoomCard components */}
+            {filteredRooms.map((card, index) => (
+              <RoomCard {...card} key={index} />
+            ))}
+          </div>
+        )}
+        {/*<InfiniteScroll
             dataLength={displayedCards}
             next={loadMoreCards} // Function to call when reaching the bottom to load more cards
             hasMore={hasMore} // Boolean indicating whether there are more cards to load
             loader={<h4>Loading.....</h4>} // Loader displayed while loading more cards
+          <div
             className="flex flex-col gap-6" // Styling for the container of the cards
-          >
-            {/* Mapping over the sliced portion of cardsData to render RoomCard components */}
-            {filteredRooms.slice(0, displayedCards).map((card, index) => (
-              <RoomCard {...card} key={index} />
-            ))}
-          </InfiniteScroll>
-        )}
+          />*/}
       </div>
     </>
   );
