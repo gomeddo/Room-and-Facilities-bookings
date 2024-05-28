@@ -4,6 +4,7 @@ import DatePicker from "../../components/datePicker";
 import Select from "../../components/select";
 import Button from "../../components/button";
 import { useRoomContext } from "../../context";
+import resources from "../constants";
 
 function DashboardFilters() {
   const context = useRoomContext(); // Get the room context data
@@ -60,7 +61,7 @@ function DashboardFilters() {
             <Card.Body className="flex-1 p-6">
               {/* Title for the duration section */}
               <div className="text-palette-gray-400 text-xl font-bold">
-                Stay Duration
+                {resources.label_stay_duration}
               </div>
               {/* Date Picker for selecting dates */}
               <DatePicker
@@ -74,7 +75,7 @@ function DashboardFilters() {
             <Card.Body className="flex-1 p-6 gap-4">
               {/* Title for the filter section */}
               <div className="text-palette-gray-400 text-xl font-bold">
-                Filters
+                {resources.label_filter}
               </div>
               {/* Select input for group size */}
               <Select
@@ -87,10 +88,10 @@ function DashboardFilters() {
                   }));
                 }}
               >
-                <option value={-1}>Group Size</option>
+                <option value={-1}>{resources.label_group_size}</option>
                 {capacities.map((capacity, index) => (
                   <option key={index} value={capacity}>
-                    {capacity} Guest/s
+                    {capacity} {resources.label_guests}
                   </option>
                 ))}
               </Select>
@@ -105,7 +106,7 @@ function DashboardFilters() {
                   }));
                 }}
               >
-                <option value={-1}>Accommodation Type</option>
+                <option value={-1}>{resources.label_accommodation_type}</option>
                 {context.rooms
                   .map((room) => room.roomType)
                   .map((roomType, index) => (
@@ -125,7 +126,7 @@ function DashboardFilters() {
                   }));
                 }}
               >
-                <option value={-1}>Price Per Night</option>
+                <option value={-1}>{resources.label_price_per_night}</option>
                 {intervals.map(([left, right], index) => (
                   <option key={index} value={left}>
                     {left} - {right}
@@ -139,14 +140,14 @@ function DashboardFilters() {
                   onClick={onClear}
                   disabled={!areFiltersSet}
                 >
-                  Reset
+                  {resources.label_filter_reset}
                 </Button>
                 <Button
                   variant="primary"
                   onClick={onApply}
                   disabled={!areFiltersSet}
                 >
-                  Apply
+                  {resources.label_filter_apply}
                 </Button>
               </div>
             </Card.Body>

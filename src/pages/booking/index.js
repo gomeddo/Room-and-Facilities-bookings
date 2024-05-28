@@ -10,6 +10,7 @@ import { Contact, Reservation } from "@gomeddo/sdk"; // SDK for GoMeddo service
 import { useState } from "react"; // Importing useState hook for managing form state
 import DatePicker from "../../components/datePicker";
 import Loading from "../../components/loading";
+import resources from "../constants";
 
 // Functional component for booking details
 function Booking(props) {
@@ -39,33 +40,31 @@ function Booking(props) {
 
     // Validation checks for each form field
     if (!firstName.trim()) {
-      formErrors.firstName = "First Name is required";
+      formErrors.firstName = resources.error_first_name_required;
     } else if (!/^[A-Za-z]+$/.test(firstName)) {
-      formErrors.firstName =
-        "First Name should only contain alphabetic characters";
+      formErrors.firstName = resources.error_invalid_first_name;
     }
 
     if (!lastName.trim()) {
-      formErrors.lastName = "Last Name is required";
+      formErrors.lastName = resources.error_last_name_required;
     } else if (!/^[A-Za-z]+$/.test(lastName)) {
-      formErrors.lastName =
-        "Last Name should only contain alphabetic characters";
+      formErrors.lastName = resources.error_invalid_last_name;
     }
 
     if (!email.trim()) {
-      formErrors.email = "Email is required";
+      formErrors.email = resources.error_email_required;
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      formErrors.email = "Email should be a valid email address";
+      formErrors.email = resources.error_invalid_email;
     }
 
     if (!phoneNumber.trim()) {
-      formErrors.phoneNumber = "Phone Number is required";
+      formErrors.phoneNumber = resources.error_phone_number_required;
     } else if (!/^\+?[1-9]\d{1,14}$/.test(phoneNumber)) {
-      formErrors.phoneNumber = "Phone Number should be a valid phone number";
+      formErrors.phoneNumber = resources.error_invalid_phone_number;
     }
 
     if (!dataPermission) {
-      formErrors.dataPermission = "Data permission is required"; // Error message for data permission checkbox
+      formErrors.dataPermission = resources.error_data_permission_required; // Error message for data permission checkbox
     }
 
     setErrors(formErrors); // Update the errors state with the validation errors
@@ -98,21 +97,21 @@ function Booking(props) {
           <DatePicker date={duration} setDate={setDuration} />
           {
             (!duration?.from || !duration?.to) && (
-              <>Please select your stay duration before making a booking!</>
+              <>{resources.error_stay_duration}</>
             ) // Display when no duration is selected
           }
         </div>
         {isLoading ? (
           <div className="flex items-center justify-center h-96 w-full">
             <div className="text-center text-2xl font-bold animate-pulse">
-              {room.title} is being booked! Please wait...
+              {room.title} {resources.message_booking_loading}
             </div>
           </div>
         ) : (
           <>
             {/* Labels and Inputs for user information, disabled if dates not selected */}
             <Label className="flex flex-col">
-              First Name
+              {resources.label_first_name}
               <Input
                 disabled={!areDatesSelected}
                 value={firstName}
@@ -124,7 +123,7 @@ function Booking(props) {
               )}
             </Label>
             <Label className="flex flex-col">
-              Last Name
+              {resources.label_last_name}
               <Input
                 disabled={!areDatesSelected}
                 value={lastName}
@@ -136,7 +135,7 @@ function Booking(props) {
               )}
             </Label>
             <Label className="flex flex-col">
-              Email
+              {resources.label_email}
               <Input
                 disabled={!areDatesSelected}
                 value={email}
@@ -148,7 +147,7 @@ function Booking(props) {
               )}
             </Label>
             <Label className="flex flex-col">
-              Phone Number
+              {resources.label_phone_number}
               <Input
                 disabled={!areDatesSelected}
                 value={phoneNumber}
@@ -168,11 +167,7 @@ function Booking(props) {
                 onChange={(e) => setDataPermission(e.target.checked)}
                 required // Making the checkbox required
               />
-              <div>
-                I give permission to save the data I have entered here and use
-                this data to contact me. More information in our privacy
-                statement.
-              </div>
+              <div>{resources.message_data_permission}</div>
             </div>
             {errors.dataPermission && (
               <div className="text-red-500">{errors.dataPermission}</div> // Display error message for data permission checkbox
@@ -188,7 +183,7 @@ function Booking(props) {
                   })
                 }
               >
-                Cancel
+                {resources.label_cancel}
               </Button>
               <Button
                 disabled={!areDatesSelected || !dataPermission} // Disable Confirm button if dates or data permission are not selected
@@ -233,7 +228,7 @@ function Booking(props) {
                   }
                 }}
               >
-                Confirm
+                {resources.label_confirm}
               </Button>
             </div>
           </>

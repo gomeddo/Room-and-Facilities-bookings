@@ -1,4 +1,5 @@
 import React from "react";
+import resources from "../pages/constants";
 
 function Header() {
   return (
@@ -8,21 +9,21 @@ function Header() {
       <div className="flex flex-col md:flex-row md:justify-between items-center max-w-7xl mx-auto">
         {/* Text on the left side of the navigation bar */}
         <div className="text-black font-bold mb-4 md:mb-0 md:mr-4">
-          Amsterdam Metropolitan University
+          {resources.nav_uni_header}
         </div>
         {/* Navigation links on the right side of the navigation bar */}
         <div className="flex flex-wrap">
           {/* Home link */}
           <div className="text-black mr-4 mb-2 md:mb-0 font-medium text-sm hover:text-lg cursor-not-allowed">
-            Home
+            {resources.nav_home}
           </div>
           {/* Room link */}
           <div className="text-black mr-4 mb-2 md:mb-0 font-medium text-sm hover:text-lg cursor-not-allowed">
-            Room
+            {resources.nav_rooms}
           </div>
           {/* Contact us link */}
           <div className="text-black mb-2 md:mb-0 font-medium text-sm hover:text-lg cursor-not-allowed">
-            Contact us
+            {resources.nav_contact}
           </div>
         </div>
       </div>

@@ -1,26 +1,9 @@
-//import { useState } from "react";
-//import InfiniteScroll from "react-infinite-scroll-component";
 import RoomCard from "./roomCard";
 import { useRoomContext } from "../../context";
+import resources from "../constants";
 
 export default function Rooms() {
-  // State to keep track of the number of displayed cards and whether there are more cards to load
-  //const [displayedCards, setDisplayedCards] = useState(5);
-  //const [hasMore, setHasMore] = useState(true);
   const { filteredRooms, isLoading } = useRoomContext();
-
-  // Function to load more cards when scrolling
-  /*const loadMoreCards = () => {
-    // Check if all cards have been displayed
-    if (displayedCards >= filteredRooms.length) {
-      // If all cards have been displayed, set hasMore to false to indicate no more cards to load
-      setHasMore(false);
-      return;
-    }
-
-    // Increase the number of displayed cards by 5
-    setDisplayedCards((prevDisplayedCards) => prevDisplayedCards + 5);
-  };*/
 
   if (isLoading) {
     return (
@@ -41,14 +24,12 @@ export default function Rooms() {
       <div className="w-3/4 pl-8 py-12">
         {/* Title indicating the number of homes for rent in Amsterdam */}
         <div className="text-xl text-palette-gray-500 font-semibold mb-6">
-          {filteredRooms.length} properties for rent in the greater Amsterdam
-          region
+          {filteredRooms.length} {resources.label_properties_for_rent}
         </div>
         {/* Check if filteredRooms is empty */}
         {filteredRooms.length === 0 ? (
           <div className="text-center text-palette-gray-500 pt-5">
-            No properties found matching your filters. Try adjusting or removing
-            one of your filters.
+            {resources.error_properties_for_rent}
           </div>
         ) : (
           <div
@@ -60,14 +41,6 @@ export default function Rooms() {
             ))}
           </div>
         )}
-        {/*<InfiniteScroll
-            dataLength={displayedCards}
-            next={loadMoreCards} // Function to call when reaching the bottom to load more cards
-            hasMore={hasMore} // Boolean indicating whether there are more cards to load
-            loader={<h4>Loading.....</h4>} // Loader displayed while loading more cards
-          <div
-            className="flex flex-col gap-6" // Styling for the container of the cards
-          />*/}
       </div>
     </>
   );

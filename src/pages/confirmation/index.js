@@ -6,6 +6,7 @@ import Card from "../../components/card"; // Custom Card component
 import Chip from "../../components/chip"; // Custom Chip component
 import { useReservation, useRoom } from "../../sdk/hooks";
 import Loading from "../../components/loading";
+import resources from "../constants";
 
 // Function component for displaying booking confirmation details
 function Confirmation() {
@@ -32,8 +33,12 @@ function Confirmation() {
       </div>
       {/* Displaying confirmation details */}
       <Card.Body className="px-6 py-10 w-3/5">
-        <div className="font-bold text-4xl text-center">Booking Confirmed</div>
-        <div className="font-bold text-3xl text-center">Enjoy Your Stay!</div>
+        <div className="font-bold text-4xl text-center">
+          {resources.message_booking_confirmed}
+        </div>
+        <div className="font-bold text-3xl text-center">
+          {resources.message_enjoy_your_stay}
+        </div>
         <div className="bg-palette-gray-200 bg-opacity-30 px-4 py-6 rounded-lg text-center flex flex-col gap-4">
           <div className="text-palette-gray-700 text-2xl font-bold">
             {room.title}
@@ -65,12 +70,12 @@ function Confirmation() {
           <hr className="h-0.5 border-t-0 bg-neutral-200" />
           {/* Displaying cost calculation */}
           <div className="text-m">
-            Calculation: € {room.price} x{" "}
+            {resources.label_calculation} {room.price} x{" "}
             {Math.floor(reservation.duration / 24)} days
           </div>
           {/* Displaying total cost including taxes */}
           <div className="text-m font-bold">
-            Total Cost (incl. Taxes): € {reservation.totalPrice}
+            {resources.label_total_cost} {reservation.totalPrice}
           </div>
         </div>
         {/* Button for navigating back to dashboard */}
@@ -84,7 +89,7 @@ function Confirmation() {
               });
             }}
           >
-            Back To Dashboard
+            {resources.label_back_to_dashboard}
           </Button>
         </div>
       </Card.Body>

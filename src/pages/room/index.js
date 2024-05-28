@@ -6,6 +6,7 @@ import { useRoomContext } from "../../context";
 import Button from "../../components/button";
 import Image from "../../components/image";
 import Loading from "../../components/loading";
+import resources from "../constants";
 
 // RoomPage component definition
 export default function RoomPage() {
@@ -95,7 +96,7 @@ export default function RoomPage() {
               });
             }}
           >
-            Book Now
+            {resources.label_book_now}
           </Button>
         </div>
       </div>

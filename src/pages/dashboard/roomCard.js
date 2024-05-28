@@ -3,6 +3,7 @@ import Button from "../../components/button"; // Importing Button component
 import Card from "../../components/card"; // Importing Card component
 import Chip from "../../components/chip"; // Importing Chip component
 import { Star } from "react-feather"; // Importing Star icon from react-feather library
+import resources from "../constants";
 
 export default function RoomCard(props) {
   const [, setSearchParams] = useSearchParams(); // Using the useSearchParams hook from react-router-dom
@@ -31,10 +32,10 @@ export default function RoomCard(props) {
           </div>
           <div className="flex flex-wrap gap-2">
             <Chip className="group-hover:bg-white transition-colors">
-              {props.capacity} Guest/s
+              {props.capacity} {resources.label_guests}
             </Chip>
             <Chip className="group-hover:bg-white transition-colors">
-              € {props.price} Per Day
+              € {props.price} {resources.label_per_day}
             </Chip>
           </div>
           <div className="flex flex-wrap gap-2">
@@ -64,7 +65,7 @@ export default function RoomCard(props) {
               });
             }}
           >
-            Book Now
+            {resources.label_book_now}
           </Button>
         </div>
       </Card>
