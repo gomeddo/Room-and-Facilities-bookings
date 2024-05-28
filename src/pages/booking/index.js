@@ -207,11 +207,11 @@ function Booking(props) {
                       .setStartDatetime(new Date(duration.from))
                       .setEndDatetime(new Date(duration.to));
 
-                    reservation.setCustomProperty(FIELD_BASE_PRICE, room.price); // Setting the base price for the room
+                    reservation.setCustomProperty(FIELD_BASE_PRICE, room.price);
                     reservation.setCustomProperty(
                       FIELD_RESERVATION_TYPE,
                       RESERVATION_TYPE_VALUE
-                    ); // Setting reservation type to "Student Housing" using the property ID
+                    );
 
                     try {
                       const response = await gm.saveReservation(reservation); // Save the reservation using GoMeddo API
