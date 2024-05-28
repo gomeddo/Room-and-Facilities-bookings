@@ -195,12 +195,14 @@ function Booking(props) {
                 onClick={async () => {
                   if (validateForm()) {
                     setIsLoading(true); // Set loading state to true
+
+                    const contact = new Contact(firstName, lastName, email);
+                    contact.setCustomProperty("Phone", phoneNumber);
+
                     // Proceed with booking if form is valid
                     const reservation = new Reservation()
                       // Using user input to set contact information
-                      .setContact(
-                        new Contact(firstName, lastName, email, phoneNumber)
-                      )
+                      .setContact(contact)
                       .setResource(room)
                       .setStartDatetime(new Date(duration.from))
                       .setEndDatetime(new Date(duration.to));

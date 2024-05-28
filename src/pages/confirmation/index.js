@@ -35,7 +35,9 @@ function Confirmation() {
         <div className="font-bold text-4xl text-center">Booking Confirmed</div>
         <div className="font-bold text-3xl text-center">Enjoy Your Stay!</div>
         <div className="bg-palette-gray-200 bg-opacity-30 px-4 py-6 rounded-lg text-center flex flex-col gap-4">
-          <div className="text-palette-gray-700 text-2xl font-bold">{room.title}</div>
+          <div className="text-palette-gray-700 text-2xl font-bold">
+            {room.title}
+          </div>
           {/* <div className="bg-palette-secondary-200 rounded-full p-2 font-bold w-6/12 mx-auto flex justify-center items-center"> */}
           <div className="bg-palette-secondary-200 rounded-full p-2 font-bold">
             {/* Displaying booking dates */}

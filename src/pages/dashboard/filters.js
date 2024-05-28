@@ -73,7 +73,9 @@ function DashboardFilters() {
           <Card>
             <Card.Body className="flex-1 p-6 gap-4">
               {/* Title for the filter section */}
-              <div className="text-palette-gray-400 text-xl font-bold">Filters</div>
+              <div className="text-palette-gray-400 text-xl font-bold">
+                Filters
+              </div>
               {/* Select input for group size */}
               <Select
                 value={filters.capacity ?? ""}
