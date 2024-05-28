@@ -11,6 +11,11 @@ import { useState } from "react"; // Importing useState hook for managing form s
 import DatePicker from "../../components/datePicker";
 import Loading from "../../components/loading";
 import resources from "../constants";
+import {
+  FIELD_BASE_PRICE,
+  FIELD_RESERVATION_TYPE,
+  RESERVATION_TYPE_VALUE,
+} from "../../sdk/constants";
 
 // Functional component for booking details
 function Booking(props) {
@@ -202,13 +207,10 @@ function Booking(props) {
                       .setStartDatetime(new Date(duration.from))
                       .setEndDatetime(new Date(duration.to));
 
+                    reservation.setCustomProperty(FIELD_BASE_PRICE, room.price); // Setting the base price for the room
                     reservation.setCustomProperty(
-                      "B25__Base_Price__c",
-                      room.price
-                    ); // Setting the base price for the room
-                    reservation.setCustomProperty(
-                      "B25__Reservation_Type__c",
-                      "a0Ubn000000xq7REAQ"
+                      FIELD_RESERVATION_TYPE,
+                      RESERVATION_TYPE_VALUE
                     ); // Setting reservation type to "Student Housing" using the property ID
 
                     try {

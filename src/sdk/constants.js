@@ -17,6 +17,10 @@ export const FIELD_RESOURCE = "B25__Resource__c";
 export const FIELD_START_DATE = "B25__Start_Date__c";
 export const FIELD_END_DATE = "B25__End_Date__c";
 export const FIELD_DURATION = "Duration_in_Hours__c";
+export const FIELD_BASE_PRICE = "B25__Base_Price__c";
+export const FIELD_RESERVATION_TYPE = "B25__Reservation_Type__c";
+
+export const RESERVATION_TYPE_VALUE = "a0Ubn000000xq7REAQ"; // Setting reservation type to "Student Housing" using the property ID
 
 export const ROOM_FIELDS = [
   FIELD_HOUSING_LOCATION,
