@@ -10,7 +10,7 @@ export default function RoomCard(props) {
   return (
     <Link to={`/rooms/${props.id}`} state={props}>
       {/* Link to navigate to room details */}
-      <Card className="group p-2 hover:bg-[#DBDBFE] cursor-pointer transition-colors">
+      <Card className="group p-2 hover:bg-palette-secondary-200 cursor-pointer transition-colors">
         {/* Image */}
         <a href="#">
           <Card.Image src={props.image} alt={props.alt} className="h-full" />
@@ -21,8 +21,8 @@ export default function RoomCard(props) {
           <h5 className="font-bold text-base tracking-tight text-gray-900 font-ubuntu">
             {props.title} {/* Displaying room title */}
           </h5>
-          <div className="flex items-center gap-2 text-[#444444]">
-            <Star className="w-4 h-4 fill-current text-[#4200FF]" />
+          <div className="flex items-center gap-2 text-palette-gray-800">
+            <Star className="w-4 h-4 fill-current text-palette-accent" />
             {/* Star icon */}
             <span className="text-sm font-bold">{props.rating}</span>
             {/* Rating */}

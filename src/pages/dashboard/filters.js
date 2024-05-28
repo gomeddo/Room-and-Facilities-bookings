@@ -59,7 +59,7 @@ function DashboardFilters() {
           <Card>
             <Card.Body className="flex-1 p-6">
               {/* Title for the duration section */}
-              <div className="text-[#6D6A75] text-xl font-bold">
+              <div className="text-palette-gray-400 text-xl font-bold">
                 Stay Duration
               </div>
               {/* Date Picker for selecting dates */}
@@ -73,7 +73,7 @@ function DashboardFilters() {
           <Card>
             <Card.Body className="flex-1 p-6 gap-4">
               {/* Title for the filter section */}
-              <div className="text-[#6D6A75] text-xl font-bold">Filters</div>
+              <div className="text-palette-gray-400 text-xl font-bold">Filters</div>
               {/* Select input for group size */}
               <Select
                 value={filters.capacity ?? ""}

@@ -65,8 +65,8 @@ export default function RoomPage() {
           {/* Displaying room title */}
           <div className="text-black text-5xl font-bold">{room.title}</div>
           {/* Displaying rating and reviewer */}
-          <div className="flex flex-row gap-2 items-center text-[#444] text-2xl">
-            <Star className="w-7 h-7 fill-current text-[#4200FF]" />
+          <div className="flex flex-row gap-2 items-center text-[#444444] text-2xl">
+            <Star className="w-7 h-7 fill-current text-palette-accent" />
             <span className="font-bold">{room.rating}</span>
             <span className="rounded">{room.location}</span>
           </div>
@@ -77,7 +77,7 @@ export default function RoomPage() {
             ))}
           </div>
           {/* Displaying room description */}
-          <div className="text-[#595959] whitespace-pre-line">
+          <div className="text-palette-gray-600 whitespace-pre-line">
             {room.description}
           </div>
           {/* Displaying room price */}

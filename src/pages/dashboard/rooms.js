@@ -40,13 +40,13 @@ export default function Rooms() {
       {/* Right portion taking 3/4 of the page */}
       <div className="w-3/4 pl-8 py-12">
         {/* Title indicating the number of homes for rent in Amsterdam */}
-        <div className="text-xl text-[#666] font-semibold mb-6">
+        <div className="text-xl text-palette-gray-500 font-semibold mb-6">
           {filteredRooms.length} properties for rent in the greater Amsterdam
           region
         </div>
         {/* Check if filteredRooms is empty */}
         {filteredRooms.length === 0 ? (
-          <div className="text-center text-[#666] pt-5">
+          <div className="text-center text-palette-gray-500 pt-5">
             No properties found matching your filters. Try adjusting or removing
             one of your filters.
           </div>

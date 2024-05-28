@@ -90,7 +90,7 @@ function Booking(props) {
           className={clsx(
             "rounded-full font-bold text-center flex flex-col gap-2",
             {
-              "bg-[#DBDBFE]": areDatesSelected, // Keep background if dates are selected
+              "bg-palette-secondary-200": areDatesSelected, // Keep background if dates are selected
               "text-red-500 font-bold": !areDatesSelected, // Make text red and bold if dates are not selected
             }
           )}
