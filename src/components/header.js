@@ -1,5 +1,6 @@
 import React from "react";
 import resources from "../pages/constants";
+import amsterdamLogo from "../assets/amsterdam-metropolitan-university-high-resolution-logo-transparent.png";
 
 function Header() {
   return (
@@ -7,9 +8,13 @@ function Header() {
     <nav className="bg-white px-8 p-4 shadow-md text-2xl sticky top-0 z-10">
       {/* Container for navigation elements */}
       <div className="flex flex-col md:flex-row md:justify-between items-center max-w-7xl mx-auto">
-        {/* Text on the left side of the navigation bar */}
-        <div className="text-black font-bold mb-4 md:mb-0 md:mr-4">
-          {resources.nav_uni_header}
+        {/* Logo on the left side of the navigation bar */}
+        <div className="mb-4 md:mb-0 md:mr-4">
+          <img
+            src={amsterdamLogo}
+            alt="Amsterdam Metropolitan University Logo"
+            className="h-10"
+          />
         </div>
         {/* Navigation links on the right side of the navigation bar */}
         <div className="flex flex-wrap">
