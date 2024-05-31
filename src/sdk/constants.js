@@ -1,5 +1,7 @@
-// University resource ID
-export const UNIVERSITY_RESOURCE_ID = "a0Zbn000000YISLEA4";
+export const UNIVERSITY_RESOURCE_ID =
+  process.env.REACT_APP_UNIVERSITY_RESOURCE_ID; // University resource ID
+export const RESERVATION_TYPE_VALUE =
+  process.env.REACT_APP_RESERVATION_TYPE_VALUE; // Value indicating "Student Housing" reservation type
 
 // Room fields
 export const FIELD_HOUSING_LOCATION = "Housing_Location__c"; // Location of the housing (Custom Field)
@@ -22,9 +24,6 @@ export const FIELD_END_DATE = "B25__End_Date__c"; // End date of the reservation
 export const FIELD_DURATION = "Duration_in_Hours__c"; // Duration of the reservation
 export const FIELD_BASE_PRICE = "B25__Base_Price__c"; // Base price of the reservation
 export const FIELD_RESERVATION_TYPE = "B25__Reservation_Type__c"; // Type of reservation (Custom Field)
-
-// Reservation type value
-export const RESERVATION_TYPE_VALUE = "a0Ubn000000xq7REAQ"; // Value indicating "Student Housing" reservation type
 
 // Fields to retrieve for rooms
 export const ROOM_FIELDS = [
