@@ -1,30 +1,27 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import DashboardPage from "./pages/dashboard";
+import DashboardLayout from "./pages/dashboardLayout";
+import Home from "./pages/home";
 import RoomPage from "./pages/room";
-import BookingPage from "./pages/booking";
-import ConfirmationPage from "./pages/confirmation";
-import { RoomProvider } from "./context";
+import { ApiProvider } from "./sdk/context";
 
 function App() {
   return (
-    <div>
-      <RoomProvider>
+    <>
+      <ApiProvider>
         {/* BrowserRouter component to enable routing */}
         <BrowserRouter>
           {/* Routes component to define routes */}
           <Routes>
-            {/* Route for the dashboard page */}
-            <Route index element={<DashboardPage />} />
-            {/* Route for individual room pages */}
-            <Route path="/rooms/:roomId" element={<RoomPage />} />
+            <Route index element={<Home />} />
+            <Route path="dashboard" element={<DashboardLayout />}>
+              <Route index element={<DashboardPage />} />
+              <Route path="rooms/:roomId" element={<RoomPage />} />
+            </Route>
           </Routes>
-          {/* BookingPage component rendered outside of the router */}
-          <BookingPage />
-          {/* ConfirmationPage component rendered outside of the router */}
-          <ConfirmationPage />
         </BrowserRouter>
-      </RoomProvider>
-    </div>
+      </ApiProvider>
+    </>
   );
 }
 

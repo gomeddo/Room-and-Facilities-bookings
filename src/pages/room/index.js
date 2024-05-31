@@ -37,7 +37,7 @@ export default function RoomPage() {
 
   // Function to close the page
   const handleClose = () => {
-    navigate("/");
+    navigate("/dashboard");
   };
 
   // Function to handle clicking on an image

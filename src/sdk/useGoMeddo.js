@@ -1,8 +1,9 @@
 import { useMemo } from "react";
 import GoMeddo from "@gomeddo/sdk";
+import { useApiContext } from "./context";
 
 export default function useGoMeddo() {
-  const apiKey = process.env.REACT_APP_GOMEDDO_API_KEY; // Retrieve the API key from environment variables
+  const { apiKey } = useApiContext(); // Retrieve the API key from environment variables
 
   /* useMemo is used to memoize the GoMeddo instance. This ensures that the GoMeddo instance
      is not recreated on every render unless the apiKey changes, which is specified as a dependency
