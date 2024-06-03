@@ -3,7 +3,7 @@ import { useRoomContext } from "../../context";
 import resources from "../constants";
 
 export default function Rooms() {
-  const { filteredRooms, isLoading } = useRoomContext();
+  const { filteredRooms, isLoading, error } = useRoomContext();
 
   if (isLoading) {
     return (
@@ -14,6 +14,16 @@ export default function Rooms() {
             className="h-48 bg-gray-200 w-full rounded-lg animate-pulse"
           />
         ))}
+      </div>
+    );
+  }
+  if (error) {
+    return (
+      <div className="w-3/4 pl-8 py-12 flex flex-col">
+        <div className="text-red-500 text-lg font-bold">
+          Error: Please check if your API Key is valid. <br />
+          {error.name} {error.message} {error.status}
+        </div>
       </div>
     );
   }

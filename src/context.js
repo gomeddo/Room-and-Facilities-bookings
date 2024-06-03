@@ -40,13 +40,14 @@ export function RoomProvider({ children }) {
   });
 
   // Custom hook to fetch room data based on the current filters
-  const { rooms, filteredRooms, isLoading } = useRooms(filters);
+  const { rooms, filteredRooms, isLoading, error } = useRooms(filters);
 
   // Render the RoomContext.Provider and pass the necessary data and functions
   return (
     <RoomContext.Provider
       value={{
         isLoading: isLoading, // Indicates if the room data is being loaded
+        error: error,
         rooms: rooms, // Array of all rooms
         filteredRooms: filteredRooms, // Array of filtered rooms based on user's preferences
         filters: filters, // Current filters applied

@@ -10,6 +10,7 @@ export function useRooms(filters) {
 
   const [isLoading, setIsLoading] = useState(true); // Loading state
   const [rooms, setRooms] = useState([]); // State to store the rooms data
+  const [isApiError, setIsApiError] = useState(undefined);
   const { resourceId } = useApiContext();
 
   useEffect(() => {
@@ -17,11 +18,24 @@ export function useRooms(filters) {
       setIsLoading(true); // Set loading state to true while fetching data
 
       // Fetch resource data from GoMeddo
-      const resourceResult = await gm
-        .buildResourceRequest()
-        .includeAllResourcesAt(resourceId)
-        .includeAdditionalFields(ROOM_FIELDS)
-        .getResults();
+      let resourceResult;
+      try {
+        resourceResult = await gm
+          .buildResourceRequest()
+          .includeAllResourcesAt(resourceId)
+          .includeAdditionalFields(ROOM_FIELDS)
+          .getResults();
+      } catch (error) {
+        setIsLoading(false);
+        console.log(error);
+        setIsApiError(error);
+        return {
+          rooms: rooms, // Return all rooms
+          filteredRooms: [], // Return filtered rooms
+          isLoading: isLoading, // Return loading state
+          error: isApiError,
+        };
+      }
 
       const resourceIds = resourceResult.getResourceIds();
       //const selectedResourceIds = resourceIds.slice(1, 13); // Select specific resource IDs
@@ -49,6 +63,7 @@ export function useRooms(filters) {
     rooms: rooms, // Return all rooms
     filteredRooms: filteredRooms, // Return filtered rooms
     isLoading: isLoading, // Return loading state
+    error: isApiError,
   };
 }
 
