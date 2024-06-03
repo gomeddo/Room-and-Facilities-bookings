@@ -19,7 +19,7 @@ function Booking(props) {
   const { rooms, duration, setDuration } = useRoomContext(); // Get room data and booking duration from context
   const [, setSearchParams] = useSearchParams(); // Getting and setting URL search parameters
   const gm = useGoMeddo(); // Initialize GoMeddo API
-  const { resourceType } = useApiContext();
+  const { reservationType } = useApiContext();
 
   // State variables for form fields and errors
   const [firstName, setFirstName] = useState(""); // State for first name input
@@ -208,7 +208,7 @@ function Booking(props) {
                     reservation.setCustomProperty(FIELD_BASE_PRICE, room.price);
                     reservation.setCustomProperty(
                       FIELD_RESERVATION_TYPE,
-                      resourceType
+                      reservationType
                     );
 
                     try {
