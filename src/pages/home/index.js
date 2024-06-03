@@ -10,7 +10,7 @@ import Button from "../../components/button";
 export default function Home() {
   const apiKeyRef = useRef(null);
   const resourceIdRef = useRef(null);
-  const resourceTypeRef = useRef(null);
+  const reservationTypeRef = useRef(null);
 
   const navigate = useNavigate();
   const {
@@ -18,13 +18,13 @@ export default function Home() {
     setApiKey,
     resourceId,
     setResourceId,
-    resourceType,
-    setResourceType,
+    reservationType,
+    setReservationType,
   } = useApiContext();
 
   useEffect(() => {
-    if (!!apiKey && !!resourceId && !!resourceType) navigate("/dashboard");
-  }, [apiKey, resourceId, resourceType, navigate]);
+    if (!!apiKey && !!resourceId && !!reservationType) navigate("/dashboard");
+  }, [apiKey, resourceId, reservationType, navigate]);
 
   const handleSubmit = () => {
     if (!!apiKeyRef.current && !!apiKeyRef.current.length) {
@@ -33,8 +33,8 @@ export default function Home() {
     if (!!resourceIdRef.current && !!resourceIdRef.current.length) {
       setResourceId(resourceIdRef.current);
     }
-    if (!!resourceTypeRef.current && !!resourceTypeRef.current.length) {
-      setResourceType(resourceTypeRef.current);
+    if (!!reservationTypeRef.current && !!reservationTypeRef.current.length) {
+      setReservationType(reservationTypeRef.current);
     }
   };
 
@@ -53,19 +53,19 @@ export default function Home() {
         )}
         {!resourceId && (
           <>
-            <Label>Resource Id</Label>
+            <Label>Resource ID</Label>
             <Input
-              placeholder="Enter Resource Id"
+              placeholder="Enter Resource ID"
               onChange={(e) => (resourceIdRef.current = e.target.value)}
             />
           </>
         )}
-        {!resourceType && (
+        {!reservationType && (
           <>
-            <Label>Resource Type</Label>
+            <Label>Reservation Type ID</Label>
             <Input
-              placeholder="Enter Resource Type"
-              onChange={(e) => (resourceTypeRef.current = e.target.value)}
+              placeholder="Enter Reservation Type ID"
+              onChange={(e) => (reservationTypeRef.current = e.target.value)}
             />
           </>
         )}
