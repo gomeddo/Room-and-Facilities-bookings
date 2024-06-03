@@ -5,8 +5,8 @@ export const ApiContext = createContext({
   setApiKey: (apiKey) => {},
   resourceId: undefined,
   setResourceId: (resourceId) => {},
-  resourceType: undefined,
-  setResourceType: (resourceType) => {},
+  reservationType: undefined,
+  setReservationType: (reservationType) => {},
 });
 
 export function useApiContext() {
@@ -18,7 +18,7 @@ export function ApiProvider({ children }) {
   const [resourceId, setResourceId] = useState(
     process.env.REACT_APP_UNIVERSITY_RESOURCE_ID
   );
-  const [resourceType, setResourceType] = useState(
+  const [reservationType, setReservationType] = useState(
     process.env.REACT_APP_RESERVATION_TYPE_VALUE
   );
 
@@ -29,8 +29,8 @@ export function ApiProvider({ children }) {
         setApiKey: setApiKey,
         resourceId: resourceId,
         setResourceId: setResourceId,
-        resourceType: resourceType,
-        setResourceType: setResourceType,
+        reservationType: reservationType,
+        setReservationType: setReservationType,
       }}
     >
       {children}
