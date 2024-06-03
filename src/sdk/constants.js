@@ -18,7 +18,7 @@ export const FIELD_START_DATE = "B25__Start_Date__c"; // Start date of the reser
 export const FIELD_END_DATE = "B25__End_Date__c"; // End date of the reservation
 export const FIELD_DURATION = "Duration_in_Hours__c"; // Duration of the reservation
 export const FIELD_BASE_PRICE = "B25__Base_Price__c"; // Base price of the reservation
-export const FIELD_RESERVATION_TYPE = "B25__Reservation_Type__c"; // Type of reservation (Custom Field)
+export const FIELD_RESERVATION_TYPE = "B25__Reservation_Type__c"; // Type of reservation
 
 // Fields to retrieve for rooms
 export const ROOM_FIELDS = [
