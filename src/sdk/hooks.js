@@ -1,18 +1,16 @@
 import { useEffect, useState } from "react";
-import {
-  RESERVATION_FIELDS,
-  ROOM_FIELDS,
-  UNIVERSITY_RESOURCE_ID,
-} from "./constants";
+import { RESERVATION_FIELDS, ROOM_FIELDS } from "./constants";
 import useGoMeddo from "./useGoMeddo";
 import { filterRooms, parseReservations, parseRoom } from "./utils";
 import { useRoomContext } from "../context";
+import { useApiContext } from "./context";
 
 export function useRooms(filters) {
   const gm = useGoMeddo(); // Get the GoMeddo instance
 
   const [isLoading, setIsLoading] = useState(true); // Loading state
   const [rooms, setRooms] = useState([]); // State to store the rooms data
+  const { resourceId } = useApiContext();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -21,16 +19,14 @@ export function useRooms(filters) {
       // Fetch resource data from GoMeddo
       const resourceResult = await gm
         .buildResourceRequest()
-        .includeAllResourcesAt(UNIVERSITY_RESOURCE_ID)
+        .includeAllResourcesAt(resourceId)
         .includeAdditionalFields(ROOM_FIELDS)
         .getResults();
 
       const resourceIds = resourceResult.getResourceIds();
       //const selectedResourceIds = resourceIds.slice(1, 13); // Select specific resource IDs
       // filter out the parent university and only show rooms (alternative to the above)
-      const selectedResourceIds = resourceIds.filter(
-        (id) => id !== UNIVERSITY_RESOURCE_ID
-      );
+      const selectedResourceIds = resourceIds.filter((id) => id !== resourceId);
 
       // Map the selected resources to room objects
       setRooms(

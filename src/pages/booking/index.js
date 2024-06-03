@@ -5,23 +5,21 @@ import Input from "../../components/input"; // Importing Input component
 import Button from "../../components/button"; // Importing Button component
 import clsx from "clsx"; // Importing clsx library for conditional classes
 import { useRoomContext } from "../../context"; // Context hook for room data
+import { useApiContext } from "../../sdk/context";
 import useGoMeddo from "../../sdk/useGoMeddo"; // Custom hook for GoMeddo API
 import { Contact, Reservation } from "@gomeddo/sdk"; // SDK for GoMeddo service
 import { useState } from "react"; // Importing useState hook for managing form state
 import DatePicker from "../../components/datePicker";
 import Loading from "../../components/loading";
 import resources from "../constants";
-import {
-  FIELD_BASE_PRICE,
-  FIELD_RESERVATION_TYPE,
-  RESERVATION_TYPE_VALUE,
-} from "../../sdk/constants";
+import { FIELD_BASE_PRICE, FIELD_RESERVATION_TYPE } from "../../sdk/constants";
 
 // Functional component for booking details
 function Booking(props) {
   const { rooms, duration, setDuration } = useRoomContext(); // Get room data and booking duration from context
   const [, setSearchParams] = useSearchParams(); // Getting and setting URL search parameters
   const gm = useGoMeddo(); // Initialize GoMeddo API
+  const { resourceType } = useApiContext();
 
   // State variables for form fields and errors
   const [firstName, setFirstName] = useState(""); // State for first name input
@@ -210,7 +208,7 @@ function Booking(props) {
                     reservation.setCustomProperty(FIELD_BASE_PRICE, room.price);
                     reservation.setCustomProperty(
                       FIELD_RESERVATION_TYPE,
-                      RESERVATION_TYPE_VALUE
+                      resourceType
                     );
 
                     try {

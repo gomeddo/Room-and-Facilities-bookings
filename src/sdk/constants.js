@@ -1,8 +1,3 @@
-export const UNIVERSITY_RESOURCE_ID =
-  process.env.REACT_APP_UNIVERSITY_RESOURCE_ID; // University resource ID
-export const RESERVATION_TYPE_VALUE =
-  process.env.REACT_APP_RESERVATION_TYPE_VALUE; // Value indicating "Student Housing" reservation type
-
 // Room fields
 export const FIELD_HOUSING_LOCATION = "Housing_Location__c"; // Location of the housing (Custom Field)
 export const FIELD_HOUSING_FEATURES = "Housing_Features__c"; // Features of the housing (Custom Field)
