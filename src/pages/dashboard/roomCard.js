@@ -31,10 +31,10 @@ export default function RoomCard(props) {
             {/* location */}
           </div>
           <div className="flex flex-wrap gap-2">
-            <Chip className="group-hover:bg-white transition-colors">
+            <Chip className="group-hover:bg-gray-600 group-hover:text-white transition-colors bg-black text-white">
               {props.capacity} {resources.label_guests}
             </Chip>
-            <Chip className="group-hover:bg-white transition-colors">
+            <Chip className="group-hover:bg-gray-600 group-hover:text-white transition-colors bg-black text-white">
               € {props.price} {resources.label_per_day}
             </Chip>
           </div>
