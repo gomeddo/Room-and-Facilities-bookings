@@ -8,11 +8,11 @@
 
 This project uses the [GoMeddo JS SDK](https://github.com/gomeddo/js-sdk) to implement an application that lets a user book a room in a student housing via [GoMeddo](https://gomeddo.com).
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?s=https%3A%2F%2Fgithub.com%2Fgomeddo%2FGoMeddo-Activity-Scheduling-and-Registration&showOptionalTeamCreation=false)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?s=https%3A%2F%2Fgithub.com%2Fgomeddo%2FRoom-and-Facilities-bookings&showOptionalTeamCreation=false)
 
 ## Demo
 
-You can find a demo [here](https://gomeddo-activity-scheduling-and-registration.vercel.app/home).
+You can find a demo [here](https://gomeddo-room-and-facilities-bookings.vercel.app).
 
 ## High-Level Use Case
 
@@ -54,7 +54,7 @@ The dashboard of the application lists various available rooms which can be filt
      - `Image_Url_3__c` (Custom Image Field)
      - `Image_Url_4__c` (Custom Image Field)
 
-5. **Create Resources**:
+4. **Create Resources**:
    - Create resources for the rooms you want to display on the frontend.
    - Ensure each resource is linked to the appropriate resource type, description, and other custom fields.
 
@@ -79,7 +79,7 @@ Perform the following steps to run the project in a local environment.
 
 #### Link to Github and Wiki
 
-For further information on utilizing the GoMeddo Javascript SDK, visit [GoMeddo JS SDK wiki](https://github.com/GoMeddo/js-sdk/wiki).
+For further information on utilizing the GoMeddo Javascript SDK, visit [GoMeddo JS SDK wiki](https://github.com/gomeddo/Room-and-Facilities-bookings).
 
 #### Similar use cases
 
