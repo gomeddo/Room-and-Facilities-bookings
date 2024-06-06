@@ -18,9 +18,9 @@ export default function Button(props) {
           "text-xs font-medium", // Additional text styles
           {
             // Conditional classes based on variant prop
-            "bg-[#3A0CA3] text-white": variant === "primary", // Primary variant classes
+            "bg-palette-primary text-white": variant === "primary", // Primary variant classes
             "bg-white text-black": variant === "secondary", // Secondary variant classes
-            "hover:bg-[#3A0CA3] hover:bg-opacity-30 hover:text-black":
+            "hover:bg-palette-primary hover:bg-opacity-30 hover:text-black":
               !disabled, //Enabled classes
             "opacity-50": disabled, //Disabled classes
           }

@@ -9,7 +9,7 @@ export default function Select(props) {
       {/* Container div for relative positioning */}
       <select
         {...rest} // Spread operator to pass all other props to the select element
-        className={`appearance-none w-full rounded-lg px-3 py-2.5 pl-3 pr-10 bg-[#EEEEEE] text-gray-700 text-sm ${className}`} // Setting className dynamically using props
+        className={`appearance-none w-full rounded-lg px-3 py-2.5 pl-3 pr-10 bg-palette-gray-100 text-gray-700 text-sm ${className}`} // Setting className dynamically using props
       >
         {props.children}
         {/* Rendering child elements within the select element */}

@@ -5,6 +5,8 @@ import Button from "../../components/button"; // Custom Button component
 import Card from "../../components/card"; // Custom Card component
 import Chip from "../../components/chip"; // Custom Chip component
 import { useReservation, useRoom } from "../../sdk/hooks";
+import Loading from "../../components/loading";
+import resources from "../constants";
 
 // Function component for displaying booking confirmation details
 function Confirmation() {
@@ -15,33 +17,41 @@ function Confirmation() {
   const room = useRoom(reservation?.resourceId);
 
   if (!room || !reservation) {
-    return <>Loading...</>; // Display a loading message while the room data is being fetched
+    return <Loading className="m-20 rounded-lg w-full max-w-4xl p-0 h-16" />;
   }
 
   // Rendering the confirmation details
   return (
     <Card className="m-20 rounded-lg w-auto max-w-4xl">
       {/* Displaying room image */}
-      <Card.Image
-        src={room.image}
-        alt={room.alt}
-        className="rounded-none rounded-l-lg h-full w-2/5"
-      />
+      <div className="w-2/5">
+        <Card.Image
+          src={room.image}
+          alt={room.alt}
+          className="rounded-none rounded-l-lg h-full w-full"
+        />
+      </div>
       {/* Displaying confirmation details */}
       <Card.Body className="px-6 py-10 w-3/5">
-        <div className="font-bold text-4xl text-center">Booking Confirmed</div>
-        <div className="font-bold text-3xl text-center">Enjoy Your Stay !</div>
-        <div className="bg-[#C3C2C2] bg-opacity-30 px-4 py-6 rounded-lg text-center flex flex-col gap-4">
-          <div className="text-[#3E4958] text-2xl font-bold">{room.title}</div>
-          {/* <div className="bg-[#DBDBFE] rounded-full p-2 font-bold w-6/12 mx-auto flex justify-center items-center"> */}
-          <div className="bg-[#DBDBFE] rounded-full p-2 font-bold">
+        <div className="font-bold text-4xl text-center">
+          {resources.message_booking_confirmed}
+        </div>
+        <div className="font-bold text-3xl text-center">
+          {resources.message_enjoy_your_stay}
+        </div>
+        <div className="bg-palette-gray-200 bg-opacity-30 px-4 py-6 rounded-lg text-center flex flex-col gap-4">
+          <div className="text-palette-gray-700 text-2xl font-bold">
+            {room.title}
+          </div>
+          {/* <div className="bg-palette-secondary-200 rounded-full p-2 font-bold w-6/12 mx-auto flex justify-center items-center"> */}
+          <div className="bg-palette-secondary-200 rounded-full p-2 font-bold">
             {/* Displaying booking dates */}
             {new Date(reservation.startDate).toLocaleDateString()} -{" "}
             {new Date(reservation.endDate).toLocaleDateString()}
           </div>
-          <div className="justify-center flex items-center gap-2 text-[#444444]">
+          <div className="justify-center flex items-center gap-2 text-palette-gray-800">
             {/* Displaying star rating */}
-            <Star className="w-4 h-4 fill-current text-[#4200FF]" />
+            <Star className="w-4 h-4 fill-current text-palette-accent" />
             <span className="font-bold">{room.rating}</span>
             <span className="rounded">{room.location}</span>
           </div>
@@ -60,12 +70,12 @@ function Confirmation() {
           <hr className="h-0.5 border-t-0 bg-neutral-200" />
           {/* Displaying cost calculation */}
           <div className="text-m">
-            Calculation: € {room.price} x{" "}
+            {resources.label_calculation} {room.price} x{" "}
             {Math.floor(reservation.duration / 24)} days
           </div>
           {/* Displaying total cost including taxes */}
           <div className="text-m font-bold">
-            Total Cost (incl. Taxes): € {reservation.totalPrice}
+            {resources.label_total_cost} {reservation.totalPrice}
           </div>
         </div>
         {/* Button for navigating back to dashboard */}
@@ -79,7 +89,7 @@ function Confirmation() {
               });
             }}
           >
-            Back To Dashboard
+            {resources.label_back_to_dashboard}
           </Button>
         </div>
       </Card.Body>

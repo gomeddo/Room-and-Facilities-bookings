@@ -3,14 +3,15 @@ import Button from "../../components/button"; // Importing Button component
 import Card from "../../components/card"; // Importing Card component
 import Chip from "../../components/chip"; // Importing Chip component
 import { Star } from "react-feather"; // Importing Star icon from react-feather library
+import resources from "../constants";
 
 export default function RoomCard(props) {
   const [, setSearchParams] = useSearchParams(); // Using the useSearchParams hook from react-router-dom
 
   return (
-    <Link to={`/rooms/${props.id}`} state={props}>
+    <Link to={`rooms/${props.id}`} state={props}>
       {/* Link to navigate to room details */}
-      <Card className="group p-2 hover:bg-[#DBDBFE] cursor-pointer transition-colors">
+      <Card className="group p-2 hover:bg-palette-secondary-200 cursor-pointer transition-colors">
         {/* Image */}
         <a href="#">
           <Card.Image src={props.image} alt={props.alt} className="h-full" />
@@ -21,8 +22,8 @@ export default function RoomCard(props) {
           <h5 className="font-bold text-base tracking-tight text-gray-900 font-ubuntu">
             {props.title} {/* Displaying room title */}
           </h5>
-          <div className="flex items-center gap-2 text-[#444444]">
-            <Star className="w-4 h-4 fill-current text-[#4200FF]" />
+          <div className="flex items-center gap-2 text-palette-gray-800">
+            <Star className="w-4 h-4 fill-current text-palette-accent" />
             {/* Star icon */}
             <span className="text-sm font-bold">{props.rating}</span>
             {/* Rating */}
@@ -30,11 +31,11 @@ export default function RoomCard(props) {
             {/* location */}
           </div>
           <div className="flex flex-wrap gap-2">
-            <Chip className="group-hover:bg-white transition-colors">
-              {props.capacity} Guest/s
+            <Chip className="group-hover:bg-gray-600 group-hover:text-white transition-colors bg-black text-white">
+              {props.capacity} {resources.label_guests}
             </Chip>
-            <Chip className="group-hover:bg-white transition-colors">
-              € {props.price} Per Day
+            <Chip className="group-hover:bg-gray-600 group-hover:text-white transition-colors bg-black text-white">
+              € {props.price} {resources.label_per_day}
             </Chip>
           </div>
           <div className="flex flex-wrap gap-2">
@@ -64,7 +65,7 @@ export default function RoomCard(props) {
               });
             }}
           >
-            Book Now
+            {resources.label_book_now}
           </Button>
         </div>
       </Card>

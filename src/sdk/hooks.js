@@ -1,32 +1,46 @@
 import { useEffect, useState } from "react";
-import {
-  RESERVATION_FIELDS,
-  ROOM_FIELDS,
-  UNIVERSITY_RESOURCE_ID,
-} from "./constants";
+import { RESERVATION_FIELDS, ROOM_FIELDS } from "./constants";
 import useGoMeddo from "./useGoMeddo";
-import { filterRooms, paresReservation, parseRoom } from "./utils";
+import { filterRooms, parseReservations, parseRoom } from "./utils";
 import { useRoomContext } from "../context";
+import { useApiContext } from "./context";
 
 export function useRooms(filters) {
   const gm = useGoMeddo(); // Get the GoMeddo instance
 
   const [isLoading, setIsLoading] = useState(true); // Loading state
   const [rooms, setRooms] = useState([]); // State to store the rooms data
+  const [isApiError, setIsApiError] = useState(undefined);
+  const { resourceId } = useApiContext();
 
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true); // Set loading state to true while fetching data
 
       // Fetch resource data from GoMeddo
-      const resourceResult = await gm
-        .buildResourceRequest()
-        .includeAllResourcesAt(UNIVERSITY_RESOURCE_ID)
-        .includeAdditionalFields(ROOM_FIELDS)
-        .getResults();
+      let resourceResult;
+      try {
+        resourceResult = await gm
+          .buildResourceRequest()
+          .includeAllResourcesAt(resourceId)
+          .includeAdditionalFields(ROOM_FIELDS)
+          .getResults();
+      } catch (error) {
+        setIsLoading(false);
+        console.log(error);
+        setIsApiError(error);
+        return {
+          rooms: rooms, // Return all rooms
+          filteredRooms: [], // Return filtered rooms
+          isLoading: isLoading, // Return loading state
+          error: isApiError,
+        };
+      }
 
       const resourceIds = resourceResult.getResourceIds();
-      const selectedResourceIds = resourceIds.slice(1, 13); // Select specific resource IDs
+      //const selectedResourceIds = resourceIds.slice(1, 13); // Select specific resource IDs
+      // filter out the parent university and only show rooms (alternative to the above)
+      const selectedResourceIds = resourceIds.filter((id) => id !== resourceId);
 
       // Map the selected resources to room objects
       setRooms(
@@ -40,7 +54,7 @@ export function useRooms(filters) {
     };
 
     fetchData(); // Call the fetchData function when the component mounts or filters change
-  }, [gm, filters]);
+  }, [gm]);
 
   // Filter the rooms based on the selected filters
   const filteredRooms = filterRooms(rooms, filters);
@@ -49,6 +63,7 @@ export function useRooms(filters) {
     rooms: rooms, // Return all rooms
     filteredRooms: filteredRooms, // Return filtered rooms
     isLoading: isLoading, // Return loading state
+    error: isApiError,
   };
 }
 
@@ -74,7 +89,7 @@ export function useReservation(reservationId) {
         .includeAdditionalFields(RESERVATION_FIELDS)
         .getResults();
 
-      setReservation(paresReservation(result.getReservation(reservationId)));
+      setReservation(parseReservations(result.getReservation(reservationId)));
       setIsLoading(false);
     };
 

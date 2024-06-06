@@ -8,7 +8,7 @@ export default function Chip(props) {
       {...rest} // Spread operator to pass down any additional props to the span element
       className={twMerge(
         // Applying Tailwind CSS classes to the span element, merging existing className with Tailwind classes
-        "bg-[#EAE3FF] rounded-full font-normal text-sm py-1 px-3", // Background color, rounded corners, font size, padding
+        "bg-palette-secondary-100 rounded-full font-normal text-sm py-1 px-3", // Background color, rounded corners, font size, padding
         className // Custom className passed as prop
       )}
     />

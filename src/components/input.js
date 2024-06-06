@@ -10,7 +10,7 @@ export default function Input(props) {
       {...rest}
       className={twMerge(
         // Default tailwind classes for input element
-        "bg-[#EAE3FF] px-3 py-2 rounded-lg font-normal text-[#9B9B9B]",
+        "bg-palette-secondary-100 px-3 py-2 rounded-lg font-normal text-palette-gray-300",
         // Additional classes provided via className prop
         className
       )}

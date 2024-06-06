@@ -5,15 +5,21 @@ import Input from "../../components/input"; // Importing Input component
 import Button from "../../components/button"; // Importing Button component
 import clsx from "clsx"; // Importing clsx library for conditional classes
 import { useRoomContext } from "../../context"; // Context hook for room data
+import { useApiContext } from "../../sdk/context";
 import useGoMeddo from "../../sdk/useGoMeddo"; // Custom hook for GoMeddo API
 import { Contact, Reservation } from "@gomeddo/sdk"; // SDK for GoMeddo service
 import { useState } from "react"; // Importing useState hook for managing form state
+import DatePicker from "../../components/datePicker";
+import Loading from "../../components/loading";
+import resources from "../constants";
+import { FIELD_BASE_PRICE, FIELD_RESERVATION_TYPE } from "../../sdk/constants";
 
 // Functional component for booking details
 function Booking(props) {
-  const { rooms, duration } = useRoomContext(); // Get room data and booking duration from context
+  const { rooms, duration, setDuration } = useRoomContext(); // Get room data and booking duration from context
   const [, setSearchParams] = useSearchParams(); // Getting and setting URL search parameters
   const gm = useGoMeddo(); // Initialize GoMeddo API
+  const { reservationType } = useApiContext();
 
   // State variables for form fields and errors
   const [firstName, setFirstName] = useState(""); // State for first name input
@@ -26,7 +32,7 @@ function Booking(props) {
 
   const room = rooms.find((room) => room.id === props.id); // Getting the specific room based on the provided ID
   if (!room) {
-    return <>Loading...</>; // Display while room data is loading
+    return <Loading className="m-20 rounded-lg w-full max-w-4xl p-0 h-16" />;
   }
 
   const areDatesSelected = !!duration?.from && !!duration?.to; // Determine if dates are selected
@@ -37,33 +43,31 @@ function Booking(props) {
 
     // Validation checks for each form field
     if (!firstName.trim()) {
-      formErrors.firstName = "First Name is required";
+      formErrors.firstName = resources.error_first_name_required;
     } else if (!/^[A-Za-z]+$/.test(firstName)) {
-      formErrors.firstName =
-        "First Name should only contain alphabetic characters";
+      formErrors.firstName = resources.error_invalid_first_name;
     }
 
     if (!lastName.trim()) {
-      formErrors.lastName = "Last Name is required";
+      formErrors.lastName = resources.error_last_name_required;
     } else if (!/^[A-Za-z]+$/.test(lastName)) {
-      formErrors.lastName =
-        "Last Name should only contain alphabetic characters";
+      formErrors.lastName = resources.error_invalid_last_name;
     }
 
     if (!email.trim()) {
-      formErrors.email = "Email is required";
+      formErrors.email = resources.error_email_required;
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      formErrors.email = "Email should be a valid email address";
+      formErrors.email = resources.error_invalid_email;
     }
 
     if (!phoneNumber.trim()) {
-      formErrors.phoneNumber = "Phone Number is required";
+      formErrors.phoneNumber = resources.error_phone_number_required;
     } else if (!/^\+?[1-9]\d{1,14}$/.test(phoneNumber)) {
-      formErrors.phoneNumber = "Phone Number should be a valid phone number";
+      formErrors.phoneNumber = resources.error_invalid_phone_number;
     }
 
     if (!dataPermission) {
-      formErrors.dataPermission = "Data permission is required"; // Error message for data permission checkbox
+      formErrors.dataPermission = resources.error_data_permission_required; // Error message for data permission checkbox
     }
 
     setErrors(formErrors); // Update the errors state with the validation errors
@@ -73,41 +77,44 @@ function Booking(props) {
   return (
     <Card className="m-20 rounded-lg w-auto max-w-4xl">
       {/* Styling for Card */}
-      <Card.Image
-        src={room.image}
-        className="rounded-none rounded-l-lg h-full w-2/5" // Styling for Card Image
-      />
+      <div className="w-2/5">
+        <Card.Image
+          src={room.image}
+          className="rounded-none rounded-l-lg h-full w-full" // Styling for Card Image
+        />
+      </div>
       {/* Styling for Card Body */}
       <Card.Body className="px-6 py-10 w-3/5">
         {/* Displaying room title */}
         <div className="font-bold text-2xl text-center">{room.title}</div>
         {/* Conditional rendering for booking duration messages */}
         <div
-          className={clsx("rounded-full font-bold text-center p-1", {
-            "bg-[#DBDBFE]": areDatesSelected, // Keep background if dates are selected
-            "text-red-500 font-bold": !areDatesSelected, // Make text red and bold if dates are not selected
-          })}
-        >
-          {areDatesSelected ? (
-            <>
-              {new Date(duration?.from).toLocaleDateString()} -{" "}
-              {new Date(duration?.to).toLocaleDateString()}
-            </>
-          ) : (
-            <> Please select your stay duration before making a booking ! </> // Display when no duration is selected
+          className={clsx(
+            "rounded-full font-bold text-center flex flex-col gap-2",
+            {
+              "bg-palette-secondary-200": areDatesSelected, // Keep background if dates are selected
+              "text-red-500 font-bold": !areDatesSelected, // Make text red and bold if dates are not selected
+            }
           )}
+        >
+          <DatePicker date={duration} setDate={setDuration} />
+          {
+            (!duration?.from || !duration?.to) && (
+              <>{resources.error_stay_duration}</>
+            ) // Display when no duration is selected
+          }
         </div>
         {isLoading ? (
           <div className="flex items-center justify-center h-96 w-full">
             <div className="text-center text-2xl font-bold animate-pulse">
-              {room.title} is being booked! Please wait...
+              {room.title} {resources.message_booking_loading}
             </div>
           </div>
         ) : (
           <>
             {/* Labels and Inputs for user information, disabled if dates not selected */}
             <Label className="flex flex-col">
-              First Name
+              {resources.label_first_name}
               <Input
                 disabled={!areDatesSelected}
                 value={firstName}
@@ -119,7 +126,7 @@ function Booking(props) {
               )}
             </Label>
             <Label className="flex flex-col">
-              Last Name
+              {resources.label_last_name}
               <Input
                 disabled={!areDatesSelected}
                 value={lastName}
@@ -131,7 +138,7 @@ function Booking(props) {
               )}
             </Label>
             <Label className="flex flex-col">
-              Email
+              {resources.label_email}
               <Input
                 disabled={!areDatesSelected}
                 value={email}
@@ -143,7 +150,7 @@ function Booking(props) {
               )}
             </Label>
             <Label className="flex flex-col">
-              Phone Number
+              {resources.label_phone_number}
               <Input
                 disabled={!areDatesSelected}
                 value={phoneNumber}
@@ -163,11 +170,7 @@ function Booking(props) {
                 onChange={(e) => setDataPermission(e.target.checked)}
                 required // Making the checkbox required
               />
-              <div>
-                I give permission to save the data I have entered here and use
-                this data to contact me. More information in our privacy
-                statement.
-              </div>
+              <div>{resources.message_data_permission}</div>
             </div>
             {errors.dataPermission && (
               <div className="text-red-500">{errors.dataPermission}</div> // Display error message for data permission checkbox
@@ -183,31 +186,30 @@ function Booking(props) {
                   })
                 }
               >
-                Cancel
+                {resources.label_cancel}
               </Button>
               <Button
-                disabled={!areDatesSelected}
+                disabled={!areDatesSelected || !dataPermission} // Disable Confirm button if dates or data permission are not selected
                 onClick={async () => {
                   if (validateForm()) {
                     setIsLoading(true); // Set loading state to true
+
+                    const contact = new Contact(firstName, lastName, email);
+                    contact.setCustomProperty("Phone", phoneNumber);
+
                     // Proceed with booking if form is valid
                     const reservation = new Reservation()
                       // Using user input to set contact information
-                      .setContact(
-                        new Contact(firstName, lastName, email, phoneNumber)
-                      )
+                      .setContact(contact)
                       .setResource(room)
                       .setStartDatetime(new Date(duration.from))
                       .setEndDatetime(new Date(duration.to));
 
+                    reservation.setCustomProperty(FIELD_BASE_PRICE, room.price);
                     reservation.setCustomProperty(
-                      "B25__Base_Price__c",
-                      room.price
-                    ); // Setting the base price for the room
-                    reservation.setCustomProperty(
-                      "B25__Reservation_Type__c",
-                      "a0Ubn000000xq7REAQ"
-                    ); // Setting reservation type to "Student Housing" using the property ID
+                      FIELD_RESERVATION_TYPE,
+                      reservationType
+                    );
 
                     try {
                       const response = await gm.saveReservation(reservation); // Save the reservation using GoMeddo API
@@ -226,7 +228,7 @@ function Booking(props) {
                   }
                 }}
               >
-                Confirm
+                {resources.label_confirm}
               </Button>
             </div>
           </>

@@ -4,6 +4,9 @@ import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import Chip from "../../components/chip";
 import { useRoomContext } from "../../context";
 import Button from "../../components/button";
+import Image from "../../components/image";
+import Loading from "../../components/loading";
+import resources from "../constants";
 
 // RoomPage component definition
 export default function RoomPage() {
@@ -27,14 +30,14 @@ export default function RoomPage() {
 
   const room = rooms.find((room) => room.id === roomId);
   if (isLoading || !room) {
-    return <>Loading...</>;
+    return <Loading className="w-screen h-screen" />;
   }
 
   const photos = [room.image2, room.image3, room.image4];
 
   // Function to close the page
   const handleClose = () => {
-    navigate("/");
+    navigate("/dashboard");
   };
 
   // Function to handle clicking on an image
@@ -48,6 +51,13 @@ export default function RoomPage() {
     setIsImageModalOpen(false);
   };
 
+  const handleNextPhoto = () => {
+    setSelectedPhoto((state) => (state === photos.length - 1 ? 0 : state + 1));
+  };
+  const handlePrevPhoto = () => {
+    setSelectedPhoto((state) => (state === 0 ? photos.length - 1 : state - 1));
+  };
+
   // JSX structure for the RoomPage component
   return (
     <div className="h-screen w-screen flex flex-row overflow-hidden">
@@ -56,8 +66,8 @@ export default function RoomPage() {
           {/* Displaying room title */}
           <div className="text-black text-5xl font-bold">{room.title}</div>
           {/* Displaying rating and reviewer */}
-          <div className="flex flex-row gap-2 items-center text-[#444] text-2xl">
-            <Star className="w-7 h-7 fill-current text-[#4200FF]" />
+          <div className="flex flex-row gap-2 items-center text-[#444444] text-2xl">
+            <Star className="w-7 h-7 fill-current text-palette-accent" />
             <span className="font-bold">{room.rating}</span>
             <span className="rounded">{room.location}</span>
           </div>
@@ -68,7 +78,7 @@ export default function RoomPage() {
             ))}
           </div>
           {/* Displaying room description */}
-          <div className="text-[#595959] whitespace-pre-line">
+          <div className="text-palette-gray-600 whitespace-pre-line">
             {room.description}
           </div>
           {/* Displaying room price */}
@@ -86,11 +96,11 @@ export default function RoomPage() {
               });
             }}
           >
-            Book Now
+            {resources.label_book_now}
           </Button>
         </div>
       </div>
-      <div className="w-2/3 my-auto relative">
+      <div className="w-2/3 my-auto relative select-none">
         {/* Button to close the page */}
         <div
           className="absolute top-0 right-0 p-2 cursor-pointer hover:bg-gray-200 hover:scale-110 rounded-full m-2 transition-all"
@@ -102,24 +112,16 @@ export default function RoomPage() {
           <div className="w-full pb-8 relative">
             {/* Button to navigate to previous image */}
             <ChevronLeft
-              onClick={() => {
-                setSelectedPhoto((state) =>
-                  state === 0 ? photos.length - 1 : state - 1
-                );
-              }}
+              onClick={handlePrevPhoto}
               className="absolute top-[calc(50%-16px)] left-4 p-2 w-8 h-8 bg-white rounded-full opacity-75 hover:opacity-100 hover:scale-105 transition-all cursor-pointer"
             />
             {/* Button to navigate to next image */}
             <ChevronRight
-              onClick={() =>
-                setSelectedPhoto((state) =>
-                  state === photos.length - 1 ? 0 : state + 1
-                )
-              }
+              onClick={handleNextPhoto}
               className="absolute top-[calc(50%-16px)] right-4 p-2 w-8 h-8 bg-white rounded-full opacity-75 hover:opacity-100 hover:scale-105 transition-all cursor-pointer"
             />
             {/* Displaying the selected image */}
-            <img
+            <Image
               src={photos[selectedPhoto]}
               alt={room.alt}
               className="rounded-lg object-cover w-full h-auto aspect-video select-none cursor-pointer"
@@ -134,7 +136,7 @@ export default function RoomPage() {
                 className="flex-1 cursor-pointer hover:scale-105 transition-all"
                 onClick={() => handleImageClick(index)}
               >
-                <img
+                <Image
                   src={photo}
                   alt={room.alt}
                   className="rounded-lg object-cover aspect-video"
@@ -146,7 +148,7 @@ export default function RoomPage() {
       </div>
       {/* Image Modal */}
       {isImageModalOpen && (
-        <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-80 flex justify-center items-center">
+        <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-80 flex justify-center items-center select-none">
           <div className="max-w-screen-lg w-full relative">
             {/* Displaying the enlarged image */}
             <img
@@ -158,22 +160,14 @@ export default function RoomPage() {
             {/* Button to navigate to previous image in modal */}
             <div
               className="absolute top-1/2 -translate-y-1/2 left-4 cursor-pointer bg-white rounded-full opacity-75 hover:opacity-100 hover:scale-105"
-              onClick={() => {
-                setSelectedPhoto((state) =>
-                  state === 0 ? photos.length - 1 : state - 1
-                );
-              }}
+              onClick={handlePrevPhoto}
             >
               <ChevronLeft className="w-8 h-8 text-grey " />
             </div>
             {/* Button to navigate to next image in modal */}
             <div
               className="absolute top-1/2 -translate-y-1/2 right-4 cursor-pointer bg-white rounded-full opacity-75 hover:opacity-100 hover:scale-105"
-              onClick={() =>
-                setSelectedPhoto((state) =>
-                  state === photos.length - 1 ? 0 : state + 1
-                )
-              }
+              onClick={handleNextPhoto}
             >
               <ChevronRight className="w-8 h-8 text-grey" />
             </div>

@@ -8,6 +8,7 @@ function Calendar({ className, classNames, showOutsideDays = true, ...props }) {
   return (
     <DayPicker
       fromDate={new Date()}
+      numberOfMonths={2} // Add numberOfMonths prop to display two months
       showOutsideDays={showOutsideDays} // Prop to control whether to show days outside of the current month
       className={twMerge("p-3", className)} // Applying Tailwind CSS classes to the DayPicker component, merging the existing className with "p-3"
       classNames={{
@@ -26,13 +27,13 @@ function Calendar({ className, classNames, showOutsideDays = true, ...props }) {
         row: "flex w-full mt-2",
         cell: "h-9 w-9 text-center text-sm p-0 relative [&:has([aria-selected].day-range-end)]:rounded-r-md [&:has([aria-selected].day-outside)]:bg-accent/50 [&:has([aria-selected])]:bg-accent first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20",
         day: "h-9 w-9 p-0 font-normal aria-selected:opacity-100",
-        day_range_end: "bg-[#3A0CA3] text-white",
-        day_selected: "bg-[#3A0CA3] text-white",
+        day_range_end: "bg-palette-primary text-white",
+        day_selected: "bg-palette-primary text-white",
         day_today: "",
         day_outside: "opacity-50 aria-selected:opacity-30",
         day_disabled: "opacity-50",
         day_range_middle:
-          "bg-[#3A0CA3] bg-opacity-30 text-gray-800 !rounded-none",
+          "bg-palette-primary bg-opacity-30 text-gray-800 !rounded-none",
         day_hidden: "invisible",
         ...classNames,
       }}

@@ -9,7 +9,7 @@ export default function DatePicker({ date, setDate }) {
       {/* Popover component used to display a popover */}
       <PopoverTrigger>
         {/* PopoverTrigger component defines the trigger for the popover */}
-        <div className="flex items-center justify-between w-full text-start bg-[#EEEEEE] px-2.5 py-2.5 rounded-lg text-[#444444] text-sm">
+        <div className="flex items-center justify-between w-full text-start bg-palette-gray-100 px-2.5 py-2.5 rounded-lg text-palette-gray-800 text-sm">
           {/* Container for displaying selected date range */}
           {!!date?.from ? date.from.toDateString() : "From"}{" "}
           {/* Displaying start date*/}
@@ -21,7 +21,6 @@ export default function DatePicker({ date, setDate }) {
         </div>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0 bg-white">
-        {" "}
         {/* Content of the popover */}
         <Calendar
           mode="range" // Mode of the calendar, set to "range" for selecting a date range
