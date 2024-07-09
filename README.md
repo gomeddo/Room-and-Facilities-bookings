@@ -42,7 +42,11 @@ The dashboard of the application lists various available rooms which can be filt
 
    - Define a reservation type (e.g., Student Housing).
 
-3. **Create Custom Fields Under the Resource Object**:
+3. **Create Resources**:
+   - Create resources for the rooms you want to display on the frontend.
+   - Ensure each resource is linked to the appropriate resource type, description, and other custom fields.
+
+4. **Create Custom Fields Under the Resource Object**:
 
    - Add the following custom fields to provide detailed information about each activity:
 
@@ -53,10 +57,6 @@ The dashboard of the application lists various available rooms which can be filt
      - `Image_Url_2__c` (Custom Image Field)
      - `Image_Url_3__c` (Custom Image Field)
      - `Image_Url_4__c` (Custom Image Field)
-
-4. **Create Resources**:
-   - Create resources for the rooms you want to display on the frontend.
-   - Ensure each resource is linked to the appropriate resource type, description, and other custom fields.
 
 Note:
 
