@@ -16,7 +16,7 @@ You can find a demo [here](https://gomeddo-room-and-facilities-bookings.vercel.a
 
 ## High-Level Use Case
 
-This example provides a starting point for integrating _GoMeddo's_ "**room booking**" capabilities into your website using the Javascript SDK.
+This example provides a starting point for integrating _GoMeddo's_ "**room booking**" capabilities into your website using the GoMeddo Javascript SDK.
 
 The example demonstrates this by allowing students to book a room for student housing at the Amsterdam Metropolitan University. While focused on student housing bookings, it demonstrates the process and structure needed for a range of room booking scenarios.
 
