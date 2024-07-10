@@ -44,7 +44,7 @@ The dashboard of the application lists various available rooms which can be filt
 
 3. **Create Resources**:
    - Create Resources for the rooms you want to display on the frontend.
-   - Ensure each Resource is linked to the appropriate Resource Type, description, and other custom fields.
+   - Ensure each Resource is linked to the appropriate Resource Type, Description, and other Custom Fields.
 
 4. **Create Custom Fields Under the Resource Object**:
 
