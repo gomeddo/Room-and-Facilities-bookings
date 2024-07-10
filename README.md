@@ -16,7 +16,7 @@ You can find a demo [here](https://gomeddo-room-and-facilities-bookings.vercel.a
 
 ## High-Level Use Case
 
-This example provides a starting point for integrating _GoMeddo's_ "**room booking**" capabilities into your website using the GoMeddo Javascript SDK.
+This example provides a starting point for integrating _GoMeddo's_ "**Room Booking**" capabilities into your website using the GoMeddo Javascript SDK.
 
 The example demonstrates this by allowing students to book a room for student housing at the Amsterdam Metropolitan University. While focused on student housing bookings, it demonstrates the process and structure needed for a range of room booking scenarios.
 
@@ -28,7 +28,7 @@ The dashboard of the application lists various available rooms which can be filt
 
 1. **Set Up Resources and Resource Types**:
 
-   - Define the hierarchical structure for your resources:
+   - Define the hierarchical structure for your Resources:
      - **Organization** > **Country** > **City** > **Student Housing** > **Rooms**.
    - Example:
      - **Organization**: Your Organization
@@ -36,15 +36,15 @@ The dashboard of the application lists various available rooms which can be filt
      - **City**: Amsterdam
      - **Student Housing**: Amsterdam Metropolitan University
      - **Rooms**: Executive Suite
-   - Note: There can be multiple resources of the type "Rooms", "City" and, "Student Housing".
+   - Note: There can be multiple Resources of the type "Rooms", "City" and, "Student Housing".
 
 2. **Create Reservation Types**:
 
-   - Define a reservation type (e.g., Student Housing).
+   - Define a Reservation Type (e.g., Student Housing).
 
 3. **Create Resources**:
-   - Create resources for the rooms you want to display on the frontend.
-   - Ensure each resource is linked to the appropriate resource type, description, and other custom fields.
+   - Create Resources for the rooms you want to display on the frontend.
+   - Ensure each Resource is linked to the appropriate Resource Type, description, and other custom fields.
 
 4. **Create Custom Fields Under the Resource Object**:
 
@@ -61,7 +61,7 @@ The dashboard of the application lists various available rooms which can be filt
 Note:
 
 - Ensure that each resource in GoMeddo is marked as '**_isActive_**' and '**_Api Visible_**' to be displayed and available through the API.
-- Ensure that **resources**, **resources types**, **custom fields** and **reservation types** are set up in _GoMeddo_. For the student housing system to accurately display available rooms, each room must be created as a resource within _GoMeddo_. This step is vital as the SDK relies on these **resources** to present customers with real-time availability and booking options.
+- Ensure that **Resources**, **Resource Types**, **Custom Fields** and **Reservation Types** are set up in _GoMeddo_. For the student housing system to accurately display available rooms, each room must be created as a resource within _GoMeddo_. This step is vital as the SDK relies on these **Resources** to present customers with real-time availability and booking options.
 
 ## API Key Requirement
 
